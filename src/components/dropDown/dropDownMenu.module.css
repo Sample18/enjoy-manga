@@ -1,0 +1,28 @@
+.dropdown {
+  box-sizing: border-box;
+  position: absolute;
+  list-style: none;
+  font-style: normal;
+  background-color: white;
+  border: rgba(245, 243, 194, 1) solid 2px;
+  padding: 0;
+  z-index: 1;
+}
+
+.dropdown > li {
+  border-bottom: rgba(245, 243, 194, 1) solid 1px;
+  width: 120px;
+  height: 30px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.dropdown > li > a,
+a:active {
+  text-decoration: none;
+  color: #000;
+}
+
+.show {
+  display: none;
+}
