@@ -1,49 +1,51 @@
 .chapter {
-  box-sizing: border-box;
-  display: flex;
-  width: 100%;
-  margin: auto;
-  margin-bottom: 15px;
-  height: 150px;
-  background-color: rgba(212, 197, 173, 0.4);
-  border: rgba(245, 243, 194, 0.5) solid 1px;
+    /* box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 15px;
+    height: 150px;
+    background-color: rgba(212, 197, 173, 0.4);
+    border: rgba(245, 243, 194, 0.5) solid 1px; */
+    height: 230px;
+    background-color: #0f0f0f;
 }
 
-.image_cover {
-  width: 150px;
+.imageCover {
+    width: 150px;
 }
 
-.ch_image {
-  width: 80px;
-  height: 120px;
-  margin-top: 15px;
-  margin-left: 15px;
-  background-color: white;
-}
+/* .chImage {
+    width: 120px;
+    height: 150px; */
+/* margin-top: 15px;
+    margin-left: 15px;
+    background-color: white;
+} */
 
-.image {
-  max-width: 100%;
-}
+/* .image {
+    max-width: 100%;
+} */
 
-.ch_description {
-  width: 100%;
+/* .ch_description {
+    width: 100%;
 }
 
 .ch_name {
-  margin: 0;
-  background-color: rgba(119, 0, 160, 0.37);
+    margin: 0;
+    background-color: rgba(119, 0, 160, 0.37);
 }
 
 .ch_auth {
-  margin: 0;
-  background-color: white;
+    margin: 0;
+    background-color: white;
 }
 .ch_series {
-  margin: 0;
+    margin: 0;
 }
 .ch_category {
-  margin: 0;
+    margin: 0;
 }
 .ch_tags {
-  margin: 0;
-}
+    margin: 0;
+} */
