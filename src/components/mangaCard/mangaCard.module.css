@@ -1,51 +1,51 @@
 .card {
-  max-width: 19%;
-  margin: 3px;
-  box-sizing: border-box;
-  position: relative;
+    max-width: 19%;
+    margin: 3px;
+    box-sizing: border-box;
+    position: relative;
 }
 .cover {
-  display: block;
-  text-decoration: none;
+    display: block;
+    text-decoration: none;
 }
 
 .coverImg {
-  display: block;
-  border-top-left-radius: 0.3em;
-  border-top-right-radius: 0.3em;
-  max-width: 100%;
+    display: block;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    max-width: 100%;
 }
 
 .caption {
-  box-sizing: border-box;
-  line-height: 15px;
-  width: 100%;
-  padding: 3px;
-  font-weight: 700;
-  text-align: center;
-  text-decoration: none;
-  border-bottom-left-radius: 0.3em;
-  border-bottom-right-radius: 0.3em;
-  background-color: gray;
+    box-sizing: border-box;
+    line-height: 15px;
+    width: 100%;
+    padding: 3px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    background-color: #0f0f0f;
 }
 
-.del_m {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: red;
+.delm {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
 }
 
 .fav {
-  color: blueviolet;
-  position: absolute;
-  top: 0;
-  left: 0;
+    color: blueviolet;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .nfav {
-  color: aqua;
-  position: absolute;
-  top: 0;
-  left: 0;
+    color: aqua;
+    position: absolute;
+    top: 0;
+    left: 0;
 }

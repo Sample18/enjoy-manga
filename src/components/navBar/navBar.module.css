@@ -1,4 +1,4 @@
-.navbar {
+/* .navbar {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -25,4 +25,7 @@
 .nav_menu > h3 {
   margin: 0;
   margin-top: 10px;
+} */
+.bg {
+    background-color: #0f0f0f;
 }

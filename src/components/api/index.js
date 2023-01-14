@@ -1,7 +1,7 @@
 import product from "./fakeApi/product.api";
 
 const API = {
-  product,
+    product
 };
 
 export default API;
