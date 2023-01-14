@@ -15,6 +15,14 @@
     width: 150px;
 }
 
+.bg {
+    background-color: #222222;
+}
+
+.bg:hover {
+    background-color: #606060;
+}
+
 /* .chImage {
     width: 120px;
     height: 150px; */

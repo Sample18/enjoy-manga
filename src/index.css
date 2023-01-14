@@ -6,6 +6,7 @@ body {
 
 #root {
     background-color: #0f0f0f;
+    min-height: 100vh;
 }
 /* .container {
   max-width: 1280px;
