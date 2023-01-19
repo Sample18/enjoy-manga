@@ -14,7 +14,7 @@ const DropDownMenu = ({ items }) => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
             >
-                <i className="bi bi-menu-button text-light"></i>
+                <i className="bi bi-list text-light fs-4"></i>
             </button>
             <ul
                 className="dropdown-menu dropdown-menu-dark"

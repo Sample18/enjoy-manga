@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import MangaCard from "../mangaCard/mangaCard";
+import Paginate from "../utils/paginate";
+import { Pagination } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import styles from "./catalog.module.css";
 
 const Catalog = () => {
-    const [mangas, setMangas] = useState();
+    const [mangas, setMangas] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const count = mangas.length;
+    const pageSize = 10;
+    const paginateManga = Paginate(mangas, currentPage, pageSize);
+
+    const theme = createTheme({
+        palette: {
+            neutral: {
+                main: "#fff",
+                contrastText: "#fff"
+            }
+        }
+    });
     useEffect(() => {
         API.product.fetchAll().then((data) => setMangas(data));
     }, []);
@@ -21,17 +37,44 @@ const Catalog = () => {
         setMangas(favManga);
     };
 
+    const handlePageChange = ({ target }) => {
+        setCurrentPage(Number(target.innerText));
+    };
+
+    const countPages = () => {
+        return Math.ceil(count / pageSize);
+    };
+
     return (
-        <main className={"container d-flex flex-wrap px-1 py-4 bg-dark"}>
-            {mangas &&
-                mangas.map((manga) => (
-                    <MangaCard
-                        manga={manga}
-                        key={manga.id}
-                        deleteManga={handleDelete}
-                        toFavourite={handleFavourite}
-                    />
-                ))}
+        <main className={"container px-1 py-4 bg-dark"}>
+            <div className="d-flex flex-wrap">
+                {mangas &&
+                    paginateManga.map((manga) => (
+                        <MangaCard
+                            manga={manga}
+                            key={manga.id}
+                            deleteManga={handleDelete}
+                            toFavourite={handleFavourite}
+                        />
+                    ))}
+            </div>
+            {countPages() !== 1 && (
+                <div className="d-flex justify-content-center">
+                    <ThemeProvider theme={theme}>
+                        <Pagination
+                            count={countPages()}
+                            onChange={handlePageChange}
+                            page={currentPage}
+                            shape="rounded"
+                            variant="outlined"
+                            hidePrevButton
+                            hideNextButton
+                            size="large"
+                            color="neutral"
+                        />
+                    </ThemeProvider>
+                </div>
+            )}
         </main>
     );
 };
