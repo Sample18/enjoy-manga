@@ -7,7 +7,10 @@ const MangaCard = ({ manga, deleteManga, toFavourite }) => {
     const { card, cover, coverImg, caption, delm, fav, nfav } = styles;
     return (
         <div className={card}>
-            <Link to={`/c`} className={cover}>
+            <Link
+                to={`/catalog/${manga.name.toLowerCase().replace(/ /g, "")}`}
+                className={cover}
+            >
                 <img
                     className={coverImg}
                     src={manga.cover}

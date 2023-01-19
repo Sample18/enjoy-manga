@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import API from "../api";
-import MangaCard from "../mangaCard/mangaCard";
-import Paginate from "../utils/paginate";
+import API from "../../api";
+import MangaCard from "../../ui/mangaCard/mangaCard";
+import Paginate from "../../utils/paginate";
 import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import ContentContainer from "../../common/contentContainer";
 // import styles from "./CatalogPage.module.css";
 
 const CatalogPage = () => {
@@ -46,7 +47,7 @@ const CatalogPage = () => {
     };
 
     return (
-        <main className={"container px-1 py-4 bg-dark"}>
+        <ContentContainer>
             <div className="d-flex flex-wrap">
                 {mangas &&
                     paginateManga.map((manga) => (
@@ -75,7 +76,7 @@ const CatalogPage = () => {
                     </ThemeProvider>
                 </div>
             )}
-        </main>
+        </ContentContainer>
     );
 };
 
