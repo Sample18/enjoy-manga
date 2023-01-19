@@ -4,9 +4,9 @@ import MangaCard from "../mangaCard/mangaCard";
 import Paginate from "../utils/paginate";
 import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import styles from "./catalog.module.css";
+// import styles from "./CatalogPage.module.css";
 
-const Catalog = () => {
+const CatalogPage = () => {
     const [mangas, setMangas] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const count = mangas.length;
@@ -79,4 +79,4 @@ const Catalog = () => {
     );
 };
 
-export default Catalog;
+export default CatalogPage;

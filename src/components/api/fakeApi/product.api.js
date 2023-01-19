@@ -411,4 +411,17 @@ const getChapters = () =>
         }, 500);
     });
 
-export default { fetchAll, getChapters };
+const getByName = (name) =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            resolve(
+                JSON.parse(localStorage.getItem("manga")).find(
+                    (m) =>
+                        m.name.toLowerCase().replace(/ /g, "") ===
+                        name.toLowerCase()
+                )
+            );
+        }, 500);
+    });
+
+export default { fetchAll, getChapters, getByName };
