@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import API from "../../api";
 import MangaCard from "../../ui/mangaCard/mangaCard";
 import Paginate from "../../utils/paginate";
-import { Pagination } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ContentContainer from "../../common/contentContainer";
+import PaginationHOC from "../../ui/pagination/pagination";
 // import styles from "./CatalogPage.module.css";
 
 const CatalogPage = () => {
@@ -12,16 +11,9 @@ const CatalogPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const count = mangas.length;
     const pageSize = 10;
+    const pagesCount = Math.ceil(count / pageSize);
     const paginateManga = Paginate(mangas, currentPage, pageSize);
 
-    const theme = createTheme({
-        palette: {
-            neutral: {
-                main: "#fff",
-                contrastText: "#fff"
-            }
-        }
-    });
     useEffect(() => {
         API.product.fetchAll().then((data) => setMangas(data));
     }, []);
@@ -42,10 +34,6 @@ const CatalogPage = () => {
         setCurrentPage(Number(target.innerText));
     };
 
-    const countPages = () => {
-        return Math.ceil(count / pageSize);
-    };
-
     return (
         <ContentContainer>
             <div className="d-flex flex-wrap">
@@ -59,21 +47,13 @@ const CatalogPage = () => {
                         />
                     ))}
             </div>
-            {countPages() !== 1 && (
+            {pagesCount !== 1 && (
                 <div className="d-flex justify-content-center">
-                    <ThemeProvider theme={theme}>
-                        <Pagination
-                            count={countPages()}
-                            onChange={handlePageChange}
-                            page={currentPage}
-                            shape="rounded"
-                            variant="outlined"
-                            hidePrevButton
-                            hideNextButton
-                            size="large"
-                            color="neutral"
-                        />
-                    </ThemeProvider>
+                    <PaginationHOC
+                        count={pagesCount}
+                        onChange={handlePageChange}
+                        page={currentPage}
+                    />
                 </div>
             )}
         </ContentContainer>

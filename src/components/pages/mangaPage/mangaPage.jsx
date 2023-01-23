@@ -3,9 +3,13 @@ import PropTypes from "prop-types";
 import API from "../../api";
 import { useHistory } from "react-router-dom";
 import ContentContainer from "../../common/contentContainer";
+import styles from "./mangaPage.module.css";
 
 const MangaPage = ({ mangaName }) => {
     const [manga, setManga] = useState({});
+    const [genres, setGenres] = useState([]);
+    const [collapsible, setCollapsible] = useState(false);
+    const { collapsButton, content, collapsContent } = styles;
     const history = useHistory();
 
     useEffect(() => {
@@ -13,10 +17,11 @@ const MangaPage = ({ mangaName }) => {
     }, []);
 
     useEffect(() => {
+        setGenres(manga.genres);
         if (typeof manga === "undefined") return history.push("/catalog");
     }, [manga]);
 
-    console.log(manga);
+    // console.log(manga);
 
     return manga ? (
         <ContentContainer>
@@ -27,12 +32,53 @@ const MangaPage = ({ mangaName }) => {
                     height="450"
                     className="mx-4"
                 />
-                <h1 className="text-white">
-                    {manga.name} / {manga.nameRu}
-                </h1>
+                <div>
+                    <h1 className="text-white">
+                        <span style={{ color: "#999" }}>{manga.name}</span> /{" "}
+                        <span>{manga.nameRu}</span>
+                    </h1>
+                    <h4 className="text-white">
+                        Автор:
+                        <span className="mx-2" style={{ color: "#999" }}>
+                            {manga.author}
+                        </span>
+                    </h4>
+                    <h4 className="text-white">
+                        Категория:
+                        <span className="mx-2" style={{ color: "#999" }}>
+                            {manga.category}
+                        </span>
+                    </h4>
+                    <h4 className="text-white">
+                        Жанры:
+                        {genres &&
+                            genres.map((tag, i) => (
+                                <span
+                                    key={tag.id}
+                                    className="mx-2"
+                                    style={{ color: "#999" }}
+                                >
+                                    {tag.name}
+                                    {i === genres.length - 1 ? "" : ","}
+                                </span>
+                            ))}
+                    </h4>
+                    <h4 className="text-white">Описание:</h4>
+                    <p style={{ color: "#999" }}>{manga.description}</p>
+                </div>
             </div>
             <div>
-                <p className="text-white">{manga.description}</p>
+                <div className={collapsible ? collapsContent : content}>
+                    <p>Lorem ipsum...</p>
+                    <p>Lorem ipsum...</p>
+                    <p>Lorem ipsum...</p>
+                </div>
+                <button
+                    className={collapsButton}
+                    onClick={() => setCollapsible((prevState) => !prevState)}
+                >
+                    {collapsible ? "Свернуть" : "Развернуть"}
+                </button>
             </div>
         </ContentContainer>
     ) : (
