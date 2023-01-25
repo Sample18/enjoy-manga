@@ -393,13 +393,18 @@ if (!localStorage.getItem("manga")) {
     localStorage.setItem("manga", JSON.stringify(product));
 }
 
-const chapter = () => {
+const chapters = () => {
     const arr = [];
     JSON.parse(localStorage.getItem("manga")).forEach((m) =>
         m.chapters.forEach((c) => arr.push(c))
     );
     return arr;
 };
+
+const findByName = (name) =>
+    JSON.parse(localStorage.getItem("manga")).find(
+        (m) => m.name.toLowerCase().replace(/ /g, "") === name.toLowerCase()
+    );
 
 const fetchAll = () =>
     new Promise((resolve) => {
@@ -411,21 +416,24 @@ const fetchAll = () =>
 const getChapters = () =>
     new Promise((resolve) => {
         window.setTimeout(function () {
-            resolve(chapter());
+            resolve(chapters());
         }, 500);
     });
 
 const getByName = (name) =>
     new Promise((resolve) => {
         window.setTimeout(function () {
-            resolve(
-                JSON.parse(localStorage.getItem("manga")).find(
-                    (m) =>
-                        m.name.toLowerCase().replace(/ /g, "") ===
-                        name.toLowerCase()
-                )
-            );
+            resolve(findByName(name));
         }, 500);
     });
 
-export default { fetchAll, getChapters, getByName };
+const getByPage = (mangaName, chapter, pageNumber) =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            const manga = findByName(mangaName);
+            const ch = manga.chapters.filter((c) => c.number === chapter);
+            resolve(ch[0].content[Number(pageNumber) - 1]);
+        }, 200);
+    });
+
+export default { fetchAll, getChapters, getByName, getByPage };

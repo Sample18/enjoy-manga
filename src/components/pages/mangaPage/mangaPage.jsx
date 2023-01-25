@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import API from "../../api";
 import { useHistory } from "react-router-dom";
 import ContentContainer from "../../common/contentContainer";
-import styles from "./mangaPage.module.css";
+import ChaptersList from "../../ui/chaptersList/chaptersList";
 
 const MangaPage = ({ mangaName }) => {
     const [manga, setManga] = useState({});
     const [genres, setGenres] = useState([]);
-    const [collapsible, setCollapsible] = useState(false);
-    const { collapsButton, content, collapsContent } = styles;
+    const [chapters, setChapters] = useState([]);
     const history = useHistory();
 
     useEffect(() => {
@@ -18,6 +17,7 @@ const MangaPage = ({ mangaName }) => {
 
     useEffect(() => {
         setGenres(manga.genres);
+        setChapters(manga.chapters);
         if (typeof manga === "undefined") return history.push("/catalog");
     }, [manga]);
 
@@ -25,7 +25,7 @@ const MangaPage = ({ mangaName }) => {
 
     return manga ? (
         <ContentContainer>
-            <div className="d-flex">
+            <div className="d-flex mb-4">
                 <img
                     src={"/" + manga.cover}
                     width="325"
@@ -67,19 +67,7 @@ const MangaPage = ({ mangaName }) => {
                     <p style={{ color: "#999" }}>{manga.description}</p>
                 </div>
             </div>
-            <div>
-                <div className={collapsible ? collapsContent : content}>
-                    <p>Lorem ipsum...</p>
-                    <p>Lorem ipsum...</p>
-                    <p>Lorem ipsum...</p>
-                </div>
-                <button
-                    className={collapsButton}
-                    onClick={() => setCollapsible((prevState) => !prevState)}
-                >
-                    {collapsible ? "Свернуть" : "Развернуть"}
-                </button>
-            </div>
+            <ChaptersList chapters={chapters} />
         </ContentContainer>
     ) : (
         <h1>load...</h1>

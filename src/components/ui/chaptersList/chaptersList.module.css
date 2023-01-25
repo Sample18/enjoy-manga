@@ -1,0 +1,14 @@
+.collapsWrapper {
+    background-color: #0f0f0f;
+}
+
+.content {
+    max-height: 83px;
+    display: block;
+    overflow: hidden;
+}
+
+.collapsContent {
+    display: block;
+    overflow: hidden;
+}

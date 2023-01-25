@@ -5,6 +5,7 @@ import ChapterCard from "../../ui/chapterCard/chapterCard";
 import Paginate from "../../utils/paginate";
 import ContentContainer from "../../common/contentContainer";
 import PaginationHOC from "../../ui/pagination/pagination";
+import NavBar from "../../ui/navBar/navBar";
 
 const Main = () => {
     const [chapters, setChapters] = useState([]);
@@ -25,21 +26,24 @@ const Main = () => {
     };
 
     return (
-        <ContentContainer>
-            <div className="d-flex flex-column">
-                {chapters &&
-                    paginateChapters.map((chapter) => (
-                        <ChapterCard key={chapter.id} {...chapter} />
-                    ))}
-                <div className="m-auto">
-                    <PaginationHOC
-                        count={pagesCount}
-                        onChange={handlePageChange}
-                        page={currentPage}
-                    />
+        <>
+            <NavBar />
+            <ContentContainer>
+                <div className="d-flex flex-column">
+                    {chapters &&
+                        paginateChapters.map((chapter) => (
+                            <ChapterCard key={chapter.id} {...chapter} />
+                        ))}
+                    <div className="m-auto">
+                        <PaginationHOC
+                            count={pagesCount}
+                            onChange={handlePageChange}
+                            page={currentPage}
+                        />
+                    </div>
                 </div>
-            </div>
-        </ContentContainer>
+            </ContentContainer>
+        </>
     );
 };
 
