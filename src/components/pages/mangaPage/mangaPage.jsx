@@ -16,12 +16,10 @@ const MangaPage = ({ mangaName }) => {
     }, []);
 
     useEffect(() => {
+        if (typeof manga === "undefined") return history.push("/404");
         setGenres(manga.genres);
         setChapters(manga.chapters);
-        if (typeof manga === "undefined") return history.push("/catalog");
     }, [manga]);
-
-    // console.log(manga);
 
     return manga ? (
         <ContentContainer>

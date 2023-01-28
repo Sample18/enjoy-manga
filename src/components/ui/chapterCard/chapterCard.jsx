@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./chapterCard.module.css";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const ChapterCard = ({
     name,
@@ -8,32 +9,30 @@ const ChapterCard = ({
     author,
     mangaName,
     category,
-    genres
+    genres,
+    number
 }) => {
-    const {
-        chapter,
-        imageCover,
-        bg
-        // chImage,
-        // ch_description,
-        // ch_name,
-        // ch_auth,
-        // ch_series,
-        // ch_category,
-        // ch_tags,
-        // image
-    } = styles;
+    const { chapter, imageCover, bg } = styles;
+    const toReader = `/reader/${mangaName
+        .toLowerCase()
+        .replace(/ /g, "")}/${number}/1`;
     return (
         <div
             className={
                 "w-100 d-flex mb-4 border border-dark rounded-3 px-3 " + chapter
             }
         >
-            <div className={"d-flex align-items-center me-3 " + imageCover}>
-                <img className="img-fluid" src={content[0]} alt="berserk" />
-            </div>
+            <Link to={toReader} className="page-link">
+                <div className={"d-flex align-items-center me-3 " + imageCover}>
+                    <img className="img-fluid" src={content[0]} alt="berserk" />
+                </div>
+            </Link>
             <div className="container p-0 text-white">
-                <h1 className="border-bottom border-dark m-2">{name}</h1>
+                <h1 className="border-bottom border-dark m-2">
+                    <Link to={toReader} className="page-link">
+                        {name}
+                    </Link>
+                </h1>
                 <h4 className="border-bottom border-dark m-2">
                     Автор: {author}
                 </h4>
@@ -62,7 +61,8 @@ ChapterCard.propTypes = {
     author: PropTypes.string,
     mangaName: PropTypes.string,
     category: PropTypes.string,
-    genres: PropTypes.array
+    genres: PropTypes.array,
+    number: PropTypes.string
 };
 
 export default ChapterCard;

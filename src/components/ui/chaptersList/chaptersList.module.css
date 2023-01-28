@@ -6,9 +6,12 @@
     max-height: 83px;
     display: block;
     overflow: hidden;
+    /* transition: max-height 2s; */
 }
 
 .collapsContent {
+    max-height: auto;
     display: block;
     overflow: hidden;
+    /* transition: max-height 2s; */
 }

@@ -432,7 +432,10 @@ const getByPage = (mangaName, chapter, pageNumber) =>
         window.setTimeout(function () {
             const manga = findByName(mangaName);
             const ch = manga.chapters.filter((c) => c.number === chapter);
-            resolve(ch[0].content[Number(pageNumber) - 1]);
+            resolve({
+                img: ch[0].content[Number(pageNumber) - 1],
+                length: ch[0].content
+            });
         }, 200);
     });
 
