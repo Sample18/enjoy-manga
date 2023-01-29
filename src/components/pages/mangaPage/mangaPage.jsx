@@ -65,7 +65,7 @@ const MangaPage = ({ mangaName }) => {
                     <p style={{ color: "#999" }}>{manga.description}</p>
                 </div>
             </div>
-            <ChaptersList chapters={chapters} />
+            {chapters && <ChaptersList chapters={chapters} />}
         </ContentContainer>
     ) : (
         <h1>load...</h1>
