@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import ContentContainer from "../../common/contentContainer";
 import ChaptersList from "../../ui/chaptersList/chaptersList";
 import _ from "lodash";
+import MangaPageDescription from "../../ui/mangaPageDescription/mangaPageDescription";
+import Loader from "../../ui/loader/loader";
 
 const MangaPage = ({ mangaName }) => {
     const [manga, setManga] = useState({});
@@ -24,7 +26,7 @@ const MangaPage = ({ mangaName }) => {
             .then((data) => setChapters(_.orderBy(data, ["number"], ["desc"])));
     }, [manga]);
 
-    return manga ? (
+    return (
         <ContentContainer>
             <div className="d-flex mb-4">
                 <img
@@ -33,49 +35,14 @@ const MangaPage = ({ mangaName }) => {
                     height="450"
                     className="mx-4"
                 />
-                <div>
-                    <h1 className="text-white">
-                        <span style={{ color: "#999" }}>{manga.name}</span> /{" "}
-                        <span>{manga.nameRu}</span>
-                    </h1>
-                    <h4 className="text-white">
-                        Автор:
-                        <span className="mx-2" style={{ color: "#999" }}>
-                            {manga.author}
-                        </span>
-                    </h4>
-                    <h4 className="text-white">
-                        Категория:
-                        <span className="mx-2" style={{ color: "#999" }}>
-                            {manga.category}
-                        </span>
-                    </h4>
-                    <h4 className="text-white">
-                        Жанры:
-                        {genres &&
-                            genres.map((tag, i) => (
-                                <span
-                                    key={tag.id}
-                                    className="mx-2"
-                                    style={{ color: "#999" }}
-                                >
-                                    {tag.name}
-                                    {i === genres.length - 1 ? "" : ","}
-                                </span>
-                            ))}
-                    </h4>
-                    <h4 className="text-white">Описание:</h4>
-                    <p style={{ color: "#999" }}>{manga.description}</p>
-                </div>
+                {manga ? (
+                    <MangaPageDescription manga={manga} genres={genres} />
+                ) : (
+                    <Loader />
+                )}
             </div>
-            {chapters ? (
-                <ChaptersList chapters={chapters} />
-            ) : (
-                <p>Loading...</p>
-            )}
+            {chapters ? <ChaptersList chapters={chapters} /> : <Loader />}
         </ContentContainer>
-    ) : (
-        <h1>load...</h1>
     );
 };
 

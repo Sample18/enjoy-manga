@@ -6,8 +6,9 @@ import Paginate from "../../utils/paginate";
 import ContentContainer from "../../common/contentContainer";
 import PaginationHOC from "../../ui/pagination/pagination";
 import NavBar from "../../ui/navBar/navBar";
+import Loader from "../../ui/loader/loader";
 
-const Main = () => {
+const MainPage = () => {
     const [chapters, setChapters] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const count = chapters.length;
@@ -30,10 +31,13 @@ const Main = () => {
             <NavBar />
             <ContentContainer>
                 <div className="d-flex flex-column">
-                    {chapters &&
+                    {chapters ? (
                         paginateChapters.map((chapter) => (
-                            <ChapterCard key={chapter.id} {...chapter} />
-                        ))}
+                            <ChapterCard key={chapter.id} chapter={chapter} />
+                        ))
+                    ) : (
+                        <Loader />
+                    )}
                     <div className="m-auto">
                         <PaginationHOC
                             count={pagesCount}
@@ -47,4 +51,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default MainPage;
