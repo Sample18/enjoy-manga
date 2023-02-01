@@ -4,11 +4,12 @@ import API from "../../api";
 import { useHistory } from "react-router-dom";
 import ContentContainer from "../../common/contentContainer";
 import ChaptersList from "../../ui/chaptersList/chaptersList";
+import _ from "lodash";
 
 const MangaPage = ({ mangaName }) => {
     const [manga, setManga] = useState({});
     const [genres, setGenres] = useState([]);
-    const [chapters, setChapters] = useState([]);
+    const [chapters, setChapters] = useState();
     const history = useHistory();
 
     useEffect(() => {
@@ -18,7 +19,9 @@ const MangaPage = ({ mangaName }) => {
     useEffect(() => {
         if (typeof manga === "undefined") return history.push("/404");
         setGenres(manga.genres);
-        setChapters(manga.chapters);
+        API.chapters
+            .getChaptersById(manga.id)
+            .then((data) => setChapters(_.orderBy(data, ["number"], ["desc"])));
     }, [manga]);
 
     return manga ? (
@@ -65,7 +68,11 @@ const MangaPage = ({ mangaName }) => {
                     <p style={{ color: "#999" }}>{manga.description}</p>
                 </div>
             </div>
-            {chapters && <ChaptersList chapters={chapters} />}
+            {chapters ? (
+                <ChaptersList chapters={chapters} />
+            ) : (
+                <p>Loading...</p>
+            )}
         </ContentContainer>
     ) : (
         <h1>load...</h1>

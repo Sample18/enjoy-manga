@@ -1,7 +1,9 @@
 import product from "./fakeApi/product.api";
+import chapters from "./fakeApi/chapters";
 
 const API = {
-    product
+    product,
+    chapters
 };
 
 export default API;

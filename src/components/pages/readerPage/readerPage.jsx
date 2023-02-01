@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import API from "../../api";
-// import PropTypes from "prop-types";
 
 const Reader = () => {
     const { mangaName, ch, page } = useParams();
@@ -9,9 +8,11 @@ const Reader = () => {
     const [pageImg, setPageImg] = useState("");
     const [options, setOptions] = useState([]);
     const history = useHistory();
+    const imageRef = useRef();
 
     useEffect(() => {
-        API.product.getByPage(mangaName, ch, value).then((data) => {
+        window.scrollTo(0, 0);
+        API.chapters.getByPage(mangaName, ch, value).then((data) => {
             setPageImg(data.img);
             setOptions(data.length);
         });
@@ -19,15 +20,18 @@ const Reader = () => {
     }, [value]);
 
     const handleChange = (e) => {
-        if (
-            e.target.name === "image" &&
-            (+value >= 1 || +value <= options.length)
-        ) {
+        if (imageRef.current === e.target) {
             const leftSideOfImage = e.target.naturalWidth / 2;
             const userClick = e.pageX;
-            return setValue((prevState) =>
-                leftSideOfImage < userClick ? +prevState + 1 : +prevState - 1
-            );
+            return setValue((prevState) => {
+                if (leftSideOfImage < userClick) {
+                    if (+value !== options.length) return +prevState + 1;
+                    return prevState;
+                } else {
+                    if (+value !== 1) return +prevState - 1;
+                    return prevState;
+                }
+            });
         }
         if (e.target.name === "left btn" || e.target.id === "left btn") {
             return setValue((prevState) => +prevState - 1);
@@ -94,7 +98,7 @@ const Reader = () => {
             <div>
                 {pageImg && (
                     <img
-                        name="image"
+                        ref={imageRef}
                         src={"/" + pageImg}
                         className="w-100"
                         onClick={handleChange}
@@ -104,7 +108,5 @@ const Reader = () => {
         </>
     );
 };
-
-// Reader.propTypes = {};
 
 export default Reader;

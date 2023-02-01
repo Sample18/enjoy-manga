@@ -16,7 +16,7 @@ const Main = () => {
     const paginateChapters = Paginate(chapters, currentPage, pageSize);
 
     useEffect(() => {
-        API.product
+        API.chapters
             .getChapters()
             .then((data) => setChapters(_.orderBy(data, ["date"], ["desc"])));
     }, []);

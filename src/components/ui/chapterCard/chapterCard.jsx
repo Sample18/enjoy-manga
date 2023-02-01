@@ -22,11 +22,11 @@ const ChapterCard = ({
                 "w-100 d-flex mb-4 border border-dark rounded-3 px-3 " + chapter
             }
         >
-            <Link to={toReader} className="page-link">
-                <div className={"d-flex align-items-center me-3 " + imageCover}>
+            <div className={"d-flex align-items-center me-3 " + imageCover}>
+                <Link to={toReader} className="page-link">
                     <img className="img-fluid" src={content[0]} alt="berserk" />
-                </div>
-            </Link>
+                </Link>
+            </div>
             <div className="container p-0 text-white">
                 <h1 className="border-bottom border-dark m-2">
                     <Link to={toReader} className="page-link">
