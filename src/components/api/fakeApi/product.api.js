@@ -40,6 +40,9 @@ const findByName = (name) =>
         (m) => m.name.toLowerCase().replace(/ /g, "") === name.toLowerCase()
     );
 
+const findById = (id) =>
+    JSON.parse(localStorage.getItem("manga")).find((m) => m.id === id);
+
 const fetchAll = () =>
     new Promise((resolve) => {
         window.setTimeout(function () {
@@ -54,4 +57,11 @@ const getByName = (name) =>
         }, 500);
     });
 
-export default { fetchAll, getByName };
+const getById = (id) =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            resolve(findById(id));
+        }, 500);
+    });
+
+export default { fetchAll, getByName, getById };
