@@ -10,17 +10,44 @@ import Loader from "../../ui/loader/loader";
 
 const MainPage = () => {
     const [chapters, setChapters] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [manga, setManga] = useState([]);
+    const [updatedChapters, setUpdatedChapters] = useState([]);
     const count = chapters.length;
     const pageSize = 5;
     const pagesCount = Math.ceil(count / pageSize);
     const paginateChapters = Paginate(chapters, currentPage, pageSize);
 
     useEffect(() => {
-        API.chapters
-            .getChapters()
-            .then((data) => setChapters(_.orderBy(data, ["date"], ["desc"])));
+        API.chapters.getChapters().then((data) => {
+            setChapters(_.orderBy(data, ["date"], ["desc"]));
+            setCurrentPage(1);
+        });
     }, []);
+
+    useEffect(() => {
+        if (paginateChapters.length !== 0) {
+            const ids = [...new Set(paginateChapters.map((c) => c.mangaId))];
+            API.product.getInfoByIds(ids).then((data) => setManga(data));
+        }
+    }, [currentPage]);
+
+    useEffect(() => {
+        if (manga.length !== 0) {
+            setUpdatedChapters(
+                paginateChapters.map((c) => {
+                    const currManga = manga.find((m) => m.id === c.mangaId);
+                    return {
+                        ...c,
+                        mangaName: currManga.name,
+                        author: currManga.author,
+                        category: currManga.category,
+                        genres: currManga.genres
+                    };
+                })
+            );
+        }
+    }, [manga]);
 
     const handlePageChange = ({ target }) => {
         setCurrentPage(Number(target.innerText));
@@ -31,8 +58,8 @@ const MainPage = () => {
             <NavBar />
             <ContentContainer>
                 <div className="d-flex flex-column">
-                    {chapters ? (
-                        paginateChapters.map((chapter) => (
+                    {updatedChapters ? (
+                        updatedChapters.map((chapter) => (
                             <ChapterCard key={chapter.id} chapter={chapter} />
                         ))
                     ) : (

@@ -13,9 +13,7 @@ const ChaptersList = ({ chapters }) => {
                 >
                     <Link
                         className="page-link"
-                        to={`/reader/${c.mangaName
-                            .toLowerCase()
-                            .replace(/ /g, "")}/${c.number}/1`}
+                        to={`/reader/${c.mangaId}/${c.number}/1`}
                     >
                         {c.name}
                     </Link>

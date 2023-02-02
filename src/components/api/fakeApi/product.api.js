@@ -11,7 +11,7 @@ const product = [
         description:
             "Гатс, известный как Чёрный Мечник, ищет убежища от демонов, охотящихся за ним, и отмщения человеку, сделавшему из него жертву на своём алтаре. С помощью только своей титанической силы, умения и меча, Гатс должен биться против жестокого рока, пока битва с ненавистью мало-помалу лишает его человечности. Берсерк — это тёмная и погружающая в раздумья история о неистовых сражениях и безжалостном роке.",
         date: "1675261327993",
-        genres: [genres.fantasy, genres.adventure, genres.seinen],
+        genres: [genres.fantasy, genres.adventure, genres.action],
         rate: 10,
         favourite: false
     },
@@ -25,7 +25,7 @@ const product = [
         description:
             "Талантливого Юдзи школьная жизнь мало привлекает. Но всё изменилось, когда он становится частью клуба оккультных исследований и находит один из пальцев великого Проклятого духа по имени «Сукуна».",
         date: "1675261349257",
-        genres: [genres.fantasy, genres.adventure, genres.seinen],
+        genres: [genres.supernatural, genres.seinen],
         rate: 10,
         favourite: false
     }
@@ -42,6 +42,12 @@ const findByName = (name) =>
 
 const findById = (id) =>
     JSON.parse(localStorage.getItem("manga")).find((m) => m.id === id);
+
+const findByIds = (ids) => {
+    return ids.map((id) =>
+        JSON.parse(localStorage.getItem("manga")).find((m) => m.id === id)
+    );
+};
 
 const fetchAll = () =>
     new Promise((resolve) => {
@@ -64,4 +70,11 @@ const getById = (id) =>
         }, 500);
     });
 
-export default { fetchAll, getByName, getById };
+const getInfoByIds = (ids) =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            resolve(findByIds(ids));
+        }, 500);
+    });
+
+export default { fetchAll, getByName, getById, getInfoByIds };

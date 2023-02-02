@@ -6,9 +6,7 @@ import ChapterCardDescription from "../chapterCardDescription/ChapterCardDescrip
 
 const ChapterCard = ({ chapter }) => {
     const { chapterCover, imageCover } = styles;
-    const toReader = `/reader/${chapter.mangaName
-        .toLowerCase()
-        .replace(/ /g, "")}/${chapter.number}/1`;
+
     return (
         <div
             className={
@@ -17,7 +15,10 @@ const ChapterCard = ({ chapter }) => {
             }
         >
             <div className={"d-flex align-items-center me-3 " + imageCover}>
-                <Link to={toReader} className="page-link">
+                <Link
+                    to={`/reader/${chapter.mangaId}/${chapter.number}/1`}
+                    className="page-link"
+                >
                     <img
                         className="img-fluid"
                         src={chapter.content[0]}

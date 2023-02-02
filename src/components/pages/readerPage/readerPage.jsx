@@ -46,7 +46,7 @@ const Reader = () => {
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to={`/catalog/${mangaName}`}>
+                    <Link className="navbar-brand" to={`/catalog`}>
                         Enjoy Manga
                     </Link>
                     <ul className="navbar-nav m-auto mb-2 mb-lg-0">

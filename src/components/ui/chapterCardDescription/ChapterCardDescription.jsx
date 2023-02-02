@@ -5,13 +5,13 @@ import SpanWrapper from "../../common/spanWrapper";
 import BadgeWrapper from "../../common/badgeWrapper/badgeWrapper";
 
 const ChapterCardDescription = ({ chapter }) => {
-    const toReader = `/reader/${chapter.mangaName
-        .toLowerCase()
-        .replace(/ /g, "")}/${chapter.number}/1`;
     return (
         <div className="container p-0 text-white">
             <h1 className="border-bottom border-dark m-2">
-                <Link to={toReader} className="page-link">
+                <Link
+                    to={`/reader/${chapter.mangaId}/${chapter.number}/1`}
+                    className="page-link"
+                >
                     {chapter.name}
                 </Link>
             </h1>

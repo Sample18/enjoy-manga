@@ -1,13 +1,7 @@
-import { genres } from "./genres.api";
-
 const chapters = [
     {
         id: "7bd4cccd-6a95-4e3e-a637-acda26d37013",
         mangaId: "41d26909-3b21-45ff-968b-d3009df3b6cb",
-        mangaName: "Berserk",
-        author: "Кентаро Миура",
-        category: "Манга",
-        genres: [genres.fantasy, genres.adventure, genres.seinen],
         number: "1",
         name: "Том 1. Глава 0",
         date: "1675261410647",
@@ -82,10 +76,6 @@ const chapters = [
     {
         id: "fc9ed7b8-39f2-4710-b9e5-c518c9b47b74",
         mangaId: "41d26909-3b21-45ff-968b-d3009df3b6cb",
-        mangaName: "Berserk",
-        author: "Кентаро Миура",
-        category: "Манга",
-        genres: [genres.fantasy, genres.adventure, genres.seinen],
         number: "2",
         name: "Том 1. Глава 1",
         date: "1675261478387",
@@ -149,10 +139,6 @@ const chapters = [
     {
         id: "0dd9745f-e15a-4a24-9309-100e538cafca",
         mangaId: "41d26909-3b21-45ff-968b-d3009df3b6cb",
-        mangaName: "Berserk",
-        author: "Кентаро Миура",
-        category: "Манга",
-        genres: [genres.fantasy, genres.adventure, genres.seinen],
         number: "3",
         name: "Том 1. Глава 2",
         date: "1675261558747",
@@ -222,10 +208,6 @@ const chapters = [
     {
         id: "e95d63a5-688a-44d9-8428-aa7de021acd1",
         mangaId: "572adfd1-7b23-4c18-9a36-b20f0a52b19a",
-        mangaName: "Jujutsu Kaisen",
-        author: "Акутами Гэгэ",
-        category: "Манга",
-        genres: [genres.fantasy, genres.adventure, genres.seinen],
         number: "1",
         name: "Том 1 Глава 1: Двуликий Призрак",
         date: "1675261448511",
@@ -288,10 +270,6 @@ const chapters = [
     {
         id: "a8196dff-b176-4099-8ab6-f57e84cdae30",
         mangaId: "572adfd1-7b23-4c18-9a36-b20f0a52b19a",
-        mangaName: "Jujutsu Kaisen",
-        author: "Акутами Гэгэ",
-        category: "Манга",
-        genres: [genres.fantasy, genres.adventure, genres.seinen],
         number: "2",
         name: "Том 1 Глава 2: Тайная казнь",
         date: "1675261504816",
@@ -328,10 +306,6 @@ const chapters = [
     {
         id: "43ec9524-2726-4f3c-ab41-142bb64ac020",
         mangaId: "572adfd1-7b23-4c18-9a36-b20f0a52b19a",
-        mangaName: "Jujutsu Kaisen",
-        author: "Акутами Гэгэ",
-        category: "Манга",
-        genres: [genres.fantasy, genres.adventure, genres.seinen],
         number: "3",
         name: "Том 1 Глава 3: Ради меня",
         date: "1675261530472",
@@ -386,14 +360,12 @@ const getChaptersById = (id) =>
         }, 500);
     });
 
-const getByPage = (mangaName, chapter, pageNumber) =>
+const getByPage = (mangaId, chapter, pageNumber) =>
     new Promise((resolve) => {
         window.setTimeout(function () {
             const manga = JSON.parse(
                 localStorage.getItem("mangaChapters")
-            ).filter(
-                (c) => c.mangaName.toLowerCase().replace(/ /g, "") === mangaName
-            );
+            ).filter((c) => c.mangaId === mangaId);
             const ch = manga.filter((c) => c.number === chapter);
             resolve({
                 img: ch[0].content[Number(pageNumber) - 1],
