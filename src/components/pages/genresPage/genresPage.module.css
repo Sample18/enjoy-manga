@@ -1,0 +1,15 @@
+.genresWrap {
+    max-height: 300px;
+    list-style: none;
+}
+
+.nameWrap {
+    height: 50px;
+    background-color: #0f0f0f;
+    cursor: pointer;
+}
+
+.nameWrap:hover {
+    opacity: 0.8;
+    transform: scale(1.01, 1.1);
+}

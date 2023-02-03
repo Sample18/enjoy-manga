@@ -12,7 +12,7 @@ const NavBar = () => {
             name: "Каталог"
         },
         {
-            link: "/catalog",
+            link: "/genres",
             name: "Жанры"
         },
         {

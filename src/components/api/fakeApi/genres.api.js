@@ -58,3 +58,16 @@ export const genres = {
             "Японский жанр портального фэнтези. Он включает в себя романы, легкие романы, фильмы, мангу, аниме и видеоигры, которые вращаются вокруг человека или людей, которые перенесены в другой мир и должны выжить в другом мире, таком как мир фантазий, виртуальный мир, другая планета или параллельная вселенная."
     }
 };
+
+if (!localStorage.getItem("genres")) {
+    localStorage.setItem("genres", JSON.stringify(genres));
+}
+
+const fetchAll = () =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            resolve(JSON.parse(localStorage.getItem("genres")));
+        }, 500);
+    });
+
+export default { fetchAll };
