@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import API from "../../api";
 import ContentContainer from "../../common/contentContainer";
 import _ from "lodash";
 import styles from "./genresPage.module.css";
 import Paginate from "../../utils/paginate";
 import PaginationHOC from "../../ui/pagination/pagination";
-import NavBar from "../../ui/navBar/navBar";
+import SortBar from "../../ui/sortBar/sortBar";
 
 const GenresPage = () => {
     const { genresWrap, nameWrap } = styles;
@@ -15,11 +16,10 @@ const GenresPage = () => {
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
     const paginateGenres = Paginate(genres, currentPage, pageSize);
+    const sortedGenres = _.orderBy(paginateGenres, ["nameRu"], ["asc"]);
 
     useEffect(() => {
-        API.genres
-            .fetchAll()
-            .then((data) => setGenres(_.orderBy(data, ["name"], ["asc"])));
+        API.genres.fetchAll().then((data) => setGenres(data));
     }, []);
 
     const handlePageChange = ({ target }) => {
@@ -28,19 +28,26 @@ const GenresPage = () => {
 
     return (
         <>
-            <NavBar />
             <ContentContainer>
                 <div>
+                    <div className="mx-1 my-3">
+                        <SortBar heading={"Жанры"} />
+                    </div>
                     <ul
                         className={`d-flex flex-column flex-wrap m-0 p-0 ${genresWrap}`}
                     >
-                        {paginateGenres &&
-                            paginateGenres.map((g) => (
+                        {sortedGenres &&
+                            sortedGenres.map((g) => (
                                 <li
                                     key={g.id}
-                                    className={`text-white m-1 p-0 rounded-3 ${nameWrap}`}
+                                    className={`text-white m-1 p-0 rounded-3 d-flex align-items-center justify-content-center ${nameWrap}`}
                                 >
-                                    {g.name}
+                                    <Link
+                                        to={`genres/${g.name}`}
+                                        className="page-link fs-3"
+                                    >
+                                        {g.nameRu}
+                                    </Link>
                                 </li>
                             ))}
                     </ul>

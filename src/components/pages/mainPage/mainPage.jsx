@@ -7,6 +7,7 @@ import ContentContainer from "../../common/contentContainer";
 import PaginationHOC from "../../ui/pagination/pagination";
 import NavBar from "../../ui/navBar/navBar";
 import Loader from "../../ui/loader/loader";
+import SortBar from "../../ui/sortBar/sortBar";
 
 const MainPage = () => {
     const [chapters, setChapters] = useState([]);
@@ -57,6 +58,12 @@ const MainPage = () => {
         <>
             <NavBar />
             <ContentContainer>
+                <div className="mx-1 my-3">
+                    <SortBar
+                        heading={"Последние добавленные"}
+                        formVisible={false}
+                    />
+                </div>
                 <div className="d-flex flex-column">
                     {updatedChapters ? (
                         updatedChapters.map((chapter) => (

@@ -1,0 +1,30 @@
+.sortBarWrapper {
+    height: 35px;
+    /* text-transform: capitalize; */
+    background-color: #79799a;
+    background-image: url(/public/h3bg.jpg);
+    border: 1px solid #333333;
+    position: relative;
+}
+
+.sortBarHeading {
+    position: absolute;
+    top: -20px;
+    left: 100px;
+    color: #ffffff;
+    /* font: bold 35px Arial,Helvetica,sans-serif; */
+    text-shadow: -1px -1px 0 #333333, 1px -1px 0 #333333, -1px 1px 0 #333333,
+        1px 1px 0 #333333, 0 -2px 0 #333333, 0 2px 0 #333333, -2px 0 0 #333333,
+        2px 0 0 #333333;
+    white-space: nowrap;
+}
+
+.sortSelectWrapper {
+    position: absolute;
+    right: 0px;
+    top: 2px;
+    padding-right: 10px;
+    display: flex;
+    font-weight: 600;
+    font-size: large;
+}

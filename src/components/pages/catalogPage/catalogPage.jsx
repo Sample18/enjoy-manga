@@ -4,6 +4,7 @@ import MangaCard from "../../ui/mangaCard/mangaCard";
 import Paginate from "../../utils/paginate";
 import ContentContainer from "../../common/contentContainer";
 import PaginationHOC from "../../ui/pagination/pagination";
+import SortBar from "../../ui/sortBar/sortBar";
 // import styles from "./CatalogPage.module.css";
 
 const CatalogPage = () => {
@@ -36,6 +37,9 @@ const CatalogPage = () => {
 
     return (
         <ContentContainer>
+            <div className="mx-1 my-3">
+                <SortBar heading={"Каталог"} />
+            </div>
             <div className="d-flex flex-wrap">
                 {mangas &&
                     paginateManga.map((manga) => (
