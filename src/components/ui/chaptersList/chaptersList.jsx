@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ListDropContainer from "../../common/listDropContainer/listDropContainer";
+import Loader from "../loader/loader";
 
 const ChaptersList = ({ chapters }) => {
-    return (
+    return chapters ? (
         <ListDropContainer>
             {chapters.map((c) => (
                 <p
@@ -20,6 +21,8 @@ const ChaptersList = ({ chapters }) => {
                 </p>
             ))}
         </ListDropContainer>
+    ) : (
+        <Loader />
     );
 };
 

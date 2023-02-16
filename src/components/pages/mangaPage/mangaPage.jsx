@@ -9,7 +9,7 @@ import MangaPageDescription from "../../ui/mangaPageDescription/mangaPageDescrip
 import Loader from "../../ui/loader/loader";
 
 const MangaPage = ({ mangaName }) => {
-    const [manga, setManga] = useState({});
+    const [manga, setManga] = useState([]);
     const [genres, setGenres] = useState([]);
     const [chapters, setChapters] = useState();
     const history = useHistory();
@@ -29,19 +29,19 @@ const MangaPage = ({ mangaName }) => {
     return (
         <ContentContainer>
             <div className="d-flex mb-4">
-                <img
-                    src={"/" + manga.cover}
-                    width="325"
-                    height="450"
-                    className="mx-4"
-                />
-                {manga ? (
-                    <MangaPageDescription manga={manga} genres={genres} />
+                {manga.length !== 0 ? (
+                    <img
+                        src={"/" + manga.cover}
+                        width="325"
+                        height="450"
+                        className="mx-4"
+                    />
                 ) : (
                     <Loader />
                 )}
+                <MangaPageDescription manga={manga} genres={genres} />
             </div>
-            {chapters ? <ChaptersList chapters={chapters} /> : <Loader />}
+            <ChaptersList chapters={chapters} />
         </ContentContainer>
     );
 };

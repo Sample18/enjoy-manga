@@ -27,7 +27,7 @@ const ChapterCardDescription = ({ chapter }) => {
             <h4 className="border-bottom border-dark m-2">
                 Теги:
                 {chapter.genres.map((tag) => (
-                    <BadgeWrapper key={tag.id}>{tag.name}</BadgeWrapper>
+                    <BadgeWrapper key={tag.id}>{tag.nameRu}</BadgeWrapper>
                 ))}
             </h4>
         </div>

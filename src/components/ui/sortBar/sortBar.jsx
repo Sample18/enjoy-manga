@@ -2,8 +2,9 @@ import React from "react";
 import styles from "./sortBar.module.css";
 import PropTypes from "prop-types";
 
-const SortBar = ({ heading, formVisible }) => {
+const SortBar = ({ heading, formVisible, onChange, sortOn }) => {
     const { sortBarWrapper, sortBarHeading, sortSelectWrapper } = styles;
+
     return (
         <div className={sortBarWrapper}>
             <h2 className={sortBarHeading}>{heading}</h2>
@@ -12,20 +13,12 @@ const SortBar = ({ heading, formVisible }) => {
                     <label htmlFor="sortSelect" className="text-white mx-2">
                         Сортировать по:
                     </label>
-                    <select
-                        id="sortSelect"
-                        className=""
-                        // value={value}
-                        // onChange={handleChange}
-                    >
-                        <option>алфавиту</option>
-                        <option>популярности</option>
-                        {/* {options &&
-            options.map((v, i) => (
-                <option value={i + 1} key={i}>
-                    страница {i + 1}
-                </option>
-            ))} */}
+                    <select id="sortSelect" onChange={onChange}>
+                        {sortOn.map((item, key) => (
+                            <option key={key} value={item}>
+                                {item}
+                            </option>
+                        ))}
                     </select>
                 </form>
             )}
@@ -39,7 +32,9 @@ SortBar.defaultProps = {
 
 SortBar.propTypes = {
     heading: PropTypes.string,
-    formVisible: PropTypes.bool
+    formVisible: PropTypes.bool,
+    onChange: PropTypes.func,
+    sortOn: PropTypes.array
 };
 
 export default SortBar;

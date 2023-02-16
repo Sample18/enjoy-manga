@@ -1,11 +1,7 @@
 import React from "react";
 
 const Loader = () => {
-    return (
-        <div className="d-flex justify-content-center">
-            <div className="spinner-grow" role="status"></div>
-        </div>
-    );
+    return <div className="spinner-grow text-light m-auto" role="status"></div>;
 };
 
 export default Loader;
