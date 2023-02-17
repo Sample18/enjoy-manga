@@ -6,7 +6,7 @@ const ListDropContainer = ({ children }) => {
     const [collapsible, setCollapsible] = useState(false);
     const { collapsWrapper, content } = styles;
     return (
-        <div className={collapsWrapper + " w-50 m-auto rounded-3"}>
+        <div className={collapsWrapper + " w-50 m-auto mb-4 rounded-3"}>
             <div
                 className={content + " px-3"}
                 style={{

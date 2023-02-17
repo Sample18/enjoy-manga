@@ -12,18 +12,30 @@ const GenresPage = () => {
     const { genresWrap, nameWrap } = styles;
     const [genres, setGenres] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
+    const sortOn = ["алфавиту", "популярности"];
+    const [value, setValue] = useState(sortOn[0]);
     const count = Object.keys(genres).length;
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
     const paginateGenres = Paginate(genres, currentPage, pageSize);
-    const sortedGenres = _.orderBy(paginateGenres, ["nameRu"], ["asc"]);
 
     useEffect(() => {
         API.genres.fetchAll().then((data) => setGenres(data));
     }, []);
 
+    const sortBy = () => {
+        if (value === "алфавиту") return "nameRu";
+        if (value === "популярности") return "rate";
+    };
+
+    const sortedGenres = _.orderBy(paginateGenres, [sortBy()], ["asc"]);
+
     const handlePageChange = ({ target }) => {
         setCurrentPage(Number(target.innerText));
+    };
+
+    const handleChange = ({ target }) => {
+        return setValue(target.value);
     };
 
     return (
@@ -31,7 +43,11 @@ const GenresPage = () => {
             <ContentContainer>
                 <div>
                     <div className="mx-1 my-3">
-                        <SortBar heading={"Жанры"} />
+                        <SortBar
+                            heading={"Жанры"}
+                            onChange={handleChange}
+                            sortOn={sortOn}
+                        />
                     </div>
                     <ul
                         className={`d-flex flex-column flex-wrap m-0 p-0 ${genresWrap}`}

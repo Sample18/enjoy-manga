@@ -7,11 +7,13 @@ import ChaptersList from "../../ui/chaptersList/chaptersList";
 import _ from "lodash";
 import MangaPageDescription from "../../ui/mangaPageDescription/mangaPageDescription";
 import Loader from "../../ui/loader/loader";
+import Comments from "../../ui/comments/comments";
 
 const MangaPage = ({ mangaName }) => {
     const [manga, setManga] = useState([]);
     const [genres, setGenres] = useState([]);
     const [chapters, setChapters] = useState();
+    const [comments, setComments] = useState();
     const history = useHistory();
 
     useEffect(() => {
@@ -24,6 +26,9 @@ const MangaPage = ({ mangaName }) => {
         API.chapters
             .getChaptersById(manga.id)
             .then((data) => setChapters(_.orderBy(data, ["number"], ["desc"])));
+        API.comments
+            .fetchCommentsForPage(manga.id)
+            .then((data) => setComments(data));
     }, [manga]);
 
     return (
@@ -42,6 +47,7 @@ const MangaPage = ({ mangaName }) => {
                 <MangaPageDescription manga={manga} genres={genres} />
             </div>
             <ChaptersList chapters={chapters} />
+            {comments && <Comments comments={comments} />}
         </ContentContainer>
     );
 };
