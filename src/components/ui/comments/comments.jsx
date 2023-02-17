@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import PaginationHOC from "../pagination/pagination";
-import Paginate from "../../utils/paginate";
+import Paginate from "../../../utils/paginate";
 import _ from "lodash";
 
 const Comments = ({ comments }) => {

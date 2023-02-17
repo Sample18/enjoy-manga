@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../../api";
 import _ from "lodash";
 import ChapterCard from "../../ui/chapterCard/chapterCard";
-import Paginate from "../../utils/paginate";
+import Paginate from "../../../utils/paginate";
 import ContentContainer from "../../common/contentContainer";
 import PaginationHOC from "../../ui/pagination/pagination";
 import NavBar from "../../ui/navBar/navBar";

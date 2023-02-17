@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../../api";
 import MangaCard from "../../ui/mangaCard/mangaCard";
-import Paginate from "../../utils/paginate";
+import Paginate from "../../../utils/paginate";
 import ContentContainer from "../../common/contentContainer";
 import PaginationHOC from "../../ui/pagination/pagination";
 import SortBar from "../../ui/sortBar/sortBar";
