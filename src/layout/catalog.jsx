@@ -3,13 +3,20 @@ import { useParams } from "react-router-dom";
 import CatalogPage from "../components/pages/catalogPage/catalogPage";
 import MangaPage from "../components/pages/mangaPage/mangaPage";
 import NavBar from "../components/ui/navBar/navBar";
+import CommentsProvider from "../hooks/useComments";
 
 const Catalog = () => {
     const { mangaName } = useParams();
     return (
         <>
             <NavBar />
-            {mangaName ? <MangaPage mangaName={mangaName} /> : <CatalogPage />}
+            <CommentsProvider>
+                {mangaName ? (
+                    <MangaPage mangaName={mangaName} />
+                ) : (
+                    <CatalogPage />
+                )}
+            </CommentsProvider>
         </>
     );
 };

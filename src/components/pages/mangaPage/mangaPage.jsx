@@ -1,42 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import API from "../../api";
-import { useHistory } from "react-router-dom";
 import ContentContainer from "../../common/contentContainer";
 import ChaptersList from "../../ui/chaptersList/chaptersList";
-import _ from "lodash";
 import MangaPageDescription from "../../ui/mangaPageDescription/mangaPageDescription";
 import Loader from "../../ui/loader/loader";
 import Comments from "../../ui/comments/comments";
+import { useProduct } from "../../../hooks/useProduct";
 
 const MangaPage = ({ mangaName }) => {
-    const [manga, setManga] = useState([]);
-    const [genres, setGenres] = useState([]);
-    const [chapters, setChapters] = useState();
-    const [comments, setComments] = useState();
-    const history = useHistory();
+    const { manga, isLoading } = useProduct();
 
-    useEffect(() => {
-        API.product.getByName(mangaName).then((data) => setManga(data));
-    }, []);
-
-    useEffect(() => {
-        if (typeof manga === "undefined") return history.push("/404");
-        setGenres(manga.genres);
-        API.chapters
-            .getChaptersById(manga.id)
-            .then((data) => setChapters(_.orderBy(data, ["number"], ["desc"])));
-        API.comments
-            .fetchCommentsForPage(manga.id)
-            .then((data) => setComments(data));
-    }, [manga]);
+    const getMangaByName = (name) => {
+        if (!isLoading) {
+            return manga.find(
+                (m) => m.name.toLowerCase().replace(/ /g, "") === name
+            );
+        }
+    };
+    const mangaCrop = getMangaByName(mangaName);
 
     return (
         <ContentContainer>
             <div className="d-flex mb-4">
-                {manga.length !== 0 ? (
+                {mangaCrop ? (
                     <img
-                        src={"/" + manga.cover}
+                        src={"/" + mangaCrop.cover}
                         width="325"
                         height="450"
                         className="mx-4"
@@ -44,10 +32,10 @@ const MangaPage = ({ mangaName }) => {
                 ) : (
                     <Loader />
                 )}
-                <MangaPageDescription manga={manga} genres={genres} />
+                <MangaPageDescription manga={mangaCrop} />
             </div>
-            <ChaptersList chapters={chapters} />
-            {comments && <Comments comments={comments} />}
+            {mangaCrop ? <ChaptersList id={mangaCrop.id} /> : <Loader />}
+            {mangaCrop ? <Comments id={mangaCrop.id} /> : <Loader />}
         </ContentContainer>
     );
 };

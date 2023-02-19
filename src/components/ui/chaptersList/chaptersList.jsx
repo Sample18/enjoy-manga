@@ -2,12 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ListDropContainer from "../../common/listDropContainer/listDropContainer";
-import Loader from "../loader/loader";
+import { useChapters } from "../../../hooks/useChapters";
 
-const ChaptersList = ({ chapters }) => {
-    return chapters ? (
+const ChaptersList = ({ id }) => {
+    const { chapters } = useChapters();
+    const getChaptersById = (id) => chapters.filter((c) => c.mangaId === id);
+    const chaptersCrop = getChaptersById(id);
+
+    return (
         <ListDropContainer>
-            {chapters.map((c) => (
+            {chaptersCrop.map((c) => (
                 <p
                     key={c.id}
                     className="border-bottom border-dark m-0 p-2 text-white pe-auto"
@@ -21,13 +25,11 @@ const ChaptersList = ({ chapters }) => {
                 </p>
             ))}
         </ListDropContainer>
-    ) : (
-        <Loader />
     );
 };
 
 ChaptersList.propTypes = {
-    chapters: PropTypes.array
+    id: PropTypes.string
 };
 
 export default ChaptersList;

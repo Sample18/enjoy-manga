@@ -3,13 +3,17 @@ import PropTypes from "prop-types";
 import PaginationHOC from "../pagination/pagination";
 import Paginate from "../../../utils/paginate";
 import _ from "lodash";
+import { useComments } from "../../../hooks/useComments";
 
-const Comments = ({ comments }) => {
+const Comments = ({ id }) => {
+    const { comments } = useComments();
     const [currentPage, setCurrentPage] = useState(1);
-    const count = comments.length;
+    const getCommentsById = (id) => comments.filter((c) => c.pageId === id);
+    const commentsCrop = getCommentsById(id);
+    const count = commentsCrop.length;
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
-    const paginateComments = Paginate(comments, currentPage, pageSize);
+    const paginateComments = Paginate(commentsCrop, currentPage, pageSize);
     const sortedComments = _.orderBy(
         paginateComments,
         ["created_at"],
@@ -28,7 +32,7 @@ const Comments = ({ comments }) => {
             <div className="card-body">
                 {sortedComments.length !== 0 ? (
                     sortedComments.map((c) => (
-                        <p className="card-text" key={c._id}>
+                        <p className="card-text" key={c.id}>
                             {c.content}
                         </p>
                     ))
@@ -50,7 +54,7 @@ const Comments = ({ comments }) => {
 };
 
 Comments.propTypes = {
-    comments: PropTypes.array
+    id: PropTypes.string
 };
 
 export default Comments;
