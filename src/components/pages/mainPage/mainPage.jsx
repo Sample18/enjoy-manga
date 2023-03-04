@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import API from "../../api";
+import React, { useState } from "react";
+// import API from "../../api";
 import _ from "lodash";
 import ChapterCard from "../../ui/chapterCard/chapterCard";
 import Paginate from "../../../utils/paginate";
@@ -8,47 +8,18 @@ import PaginationHOC from "../../ui/pagination/pagination";
 import NavBar from "../../ui/navBar/navBar";
 import Loader from "../../ui/loader/loader";
 import SortBar from "../../ui/sortBar/sortBar";
+import { useChapters } from "../../../hooks/useChapters";
+import { useProduct } from "../../../hooks/useProduct";
 
 const MainPage = () => {
-    const [chapters, setChapters] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [manga, setManga] = useState([]);
-    const [updatedChapters, setUpdatedChapters] = useState([]);
+    const { chapters, updateChapters } = useChapters();
+    const { manga } = useProduct();
+    const [currentPage, setCurrentPage] = useState(1);
     const count = chapters.length;
     const pageSize = 5;
     const pagesCount = Math.ceil(count / pageSize);
-    const paginateChapters = Paginate(chapters, currentPage, pageSize);
-
-    useEffect(() => {
-        API.chapters.getChapters().then((data) => {
-            setChapters(_.orderBy(data, ["date"], ["desc"]));
-            setCurrentPage(1);
-        });
-    }, []);
-
-    useEffect(() => {
-        if (paginateChapters.length !== 0) {
-            const ids = [...new Set(paginateChapters.map((c) => c.mangaId))];
-            API.product.getInfoByIds(ids).then((data) => setManga(data));
-        }
-    }, [currentPage]);
-
-    useEffect(() => {
-        if (manga.length !== 0) {
-            setUpdatedChapters(
-                paginateChapters.map((c) => {
-                    const currManga = manga.find((m) => m.id === c.mangaId);
-                    return {
-                        ...c,
-                        mangaName: currManga.name,
-                        author: currManga.author,
-                        category: currManga.category,
-                        genres: currManga.genres
-                    };
-                })
-            );
-        }
-    }, [manga]);
+    const sortedChapters = _.orderBy(updateChapters(manga), ["date"], ["desc"]);
+    const paginateChapters = Paginate(sortedChapters, currentPage, pageSize);
 
     const handlePageChange = ({ target }) => {
         setCurrentPage(Number(target.innerText));
@@ -65,8 +36,8 @@ const MainPage = () => {
                     />
                 </div>
                 <div className="d-flex flex-column">
-                    {updatedChapters ? (
-                        updatedChapters.map((chapter) => (
+                    {paginateChapters && paginateChapters.length !== 0 ? (
+                        paginateChapters.map((chapter) => (
                             <ChapterCard key={chapter.id} chapter={chapter} />
                         ))
                     ) : (

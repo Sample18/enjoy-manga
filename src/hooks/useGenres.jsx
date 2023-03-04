@@ -16,7 +16,6 @@ const GenresProvider = ({ children }) => {
 
     useEffect(() => {
         getGenres();
-        setLoading(false);
     }, []);
 
     useEffect(() => {
@@ -36,13 +35,23 @@ const GenresProvider = ({ children }) => {
         }
     }
 
+    function getGenreById(id) {
+        return genres.find((g) => g.id === id);
+    }
+
+    function getGenreByName(name) {
+        return genres.find((g) => g.name === name);
+    }
+
     function errorCatcher(error) {
         const { message } = error.response.data;
         setError(message);
     }
 
     return (
-        <GenresContext.Provider value={{ genres, isLoading }}>
+        <GenresContext.Provider
+            value={{ genres, isLoading, getGenreByName, getGenreById }}
+        >
             {children}
         </GenresContext.Provider>
     );

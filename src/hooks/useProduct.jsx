@@ -16,7 +16,6 @@ const ProductProvider = ({ children }) => {
 
     useEffect(() => {
         getManga();
-        setLoading(false);
     }, []);
 
     useEffect(() => {
@@ -36,13 +35,30 @@ const ProductProvider = ({ children }) => {
         }
     }
 
+    function getMangaByName(name) {
+        return manga.find(
+            (m) => m.name.toLowerCase().replace(/ /g, "") === name
+        );
+    }
+
+    function getMangaListById(ids) {
+        return ids.map((id) => manga.find((m) => m.id === id));
+    }
+
     function errorCatcher(error) {
         const { message } = error.response.data;
         setError(message);
     }
 
     return (
-        <ProductContext.Provider value={{ manga, isLoading }}>
+        <ProductContext.Provider
+            value={{
+                manga,
+                isLoading,
+                getMangaByName,
+                getMangaListById
+            }}
+        >
             {children}
         </ProductContext.Provider>
     );

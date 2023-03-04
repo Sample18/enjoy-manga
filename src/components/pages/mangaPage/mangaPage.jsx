@@ -8,34 +8,28 @@ import Comments from "../../ui/comments/comments";
 import { useProduct } from "../../../hooks/useProduct";
 
 const MangaPage = ({ mangaName }) => {
-    const { manga, isLoading } = useProduct();
-
-    const getMangaByName = (name) => {
-        if (!isLoading) {
-            return manga.find(
-                (m) => m.name.toLowerCase().replace(/ /g, "") === name
-            );
-        }
-    };
+    const { getMangaByName } = useProduct();
     const mangaCrop = getMangaByName(mangaName);
 
     return (
         <ContentContainer>
-            <div className="d-flex mb-4">
-                {mangaCrop ? (
-                    <img
-                        src={"/" + mangaCrop.cover}
-                        width="325"
-                        height="450"
-                        className="mx-4"
-                    />
-                ) : (
-                    <Loader />
-                )}
-                <MangaPageDescription manga={mangaCrop} />
-            </div>
-            {mangaCrop ? <ChaptersList id={mangaCrop.id} /> : <Loader />}
-            {mangaCrop ? <Comments id={mangaCrop.id} /> : <Loader />}
+            {mangaCrop ? (
+                <>
+                    <div className="d-flex mb-4">
+                        <img
+                            src={"/" + mangaCrop.cover}
+                            width="325"
+                            height="450"
+                            className="mx-4"
+                        />
+                        <MangaPageDescription manga={mangaCrop} />
+                    </div>
+                    <ChaptersList id={mangaCrop.id} />
+                    <Comments id={mangaCrop.id} />
+                </>
+            ) : (
+                <Loader />
+            )}
         </ContentContainer>
     );
 };

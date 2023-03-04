@@ -4,7 +4,7 @@ import Catalog from "./layout/catalog";
 import Genres from "./layout/genres";
 import MainPage from "./components/pages/mainPage/mainPage";
 import PageNotFound from "./components/pages/pageNotFound/pageNotFound";
-import Reader from "./components/pages/readerPage/readerPage";
+import Reader from "./layout/reader";
 import ProductProvider from "./hooks/useProduct";
 import { ToastContainer } from "react-toastify";
 import GenresProvider from "./hooks/useGenres";

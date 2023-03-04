@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../../api";
 import ContentContainer from "../../common/contentContainer";
 import _ from "lodash";
 import styles from "./genresPage.module.css";
 import Paginate from "../../../utils/paginate";
 import PaginationHOC from "../../ui/pagination/pagination";
 import SortBar from "../../ui/sortBar/sortBar";
+import { useGenres } from "../../../hooks/useGenres";
 
 const GenresPage = () => {
     const { genresWrap, nameWrap } = styles;
-    const [genres, setGenres] = useState({});
+    const { genres } = useGenres();
     const [currentPage, setCurrentPage] = useState(1);
     const sortOn = ["алфавиту", "популярности"];
     const [value, setValue] = useState(sortOn[0]);
@@ -18,10 +18,6 @@ const GenresPage = () => {
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
     const paginateGenres = Paginate(genres, currentPage, pageSize);
-
-    useEffect(() => {
-        API.genres.fetchAll().then((data) => setGenres(data));
-    }, []);
 
     const sortBy = () => {
         if (value === "алфавиту") return "nameRu";

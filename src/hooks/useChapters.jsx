@@ -36,13 +36,30 @@ const ChaptersProvider = ({ children }) => {
         }
     }
 
+    function updateChapters(manga) {
+        if (manga.length !== 0) {
+            return chapters.map((c) => {
+                const currManga = manga.find((m) => m.id === c.mangaId);
+                return {
+                    ...c,
+                    mangaName: currManga.name,
+                    author: currManga.author,
+                    category: currManga.category,
+                    genres: currManga.genres
+                };
+            });
+        }
+    }
+
     function errorCatcher(error) {
         const { message } = error.response.data;
         setError(message);
     }
 
     return (
-        <ChaptersContext.Provider value={{ chapters, isLoading }}>
+        <ChaptersContext.Provider
+            value={{ chapters, isLoading, updateChapters }}
+        >
             {children}
         </ChaptersContext.Provider>
     );
