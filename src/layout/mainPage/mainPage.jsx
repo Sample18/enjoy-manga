@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 // import API from "../../api";
 import _ from "lodash";
-import ChapterCard from "../../ui/chapterCard/chapterCard";
-import Paginate from "../../../utils/paginate";
-import ContentContainer from "../../common/contentContainer";
-import PaginationHOC from "../../ui/pagination/pagination";
-import NavBar from "../../ui/navBar/navBar";
-import Loader from "../../ui/loader/loader";
-import SortBar from "../../ui/sortBar/sortBar";
-import { useChapters } from "../../../hooks/useChapters";
-import { useProduct } from "../../../hooks/useProduct";
+import ChapterCard from "../../components/ui/chapterCard/chapterCard";
+import Paginate from "../../utils/paginate";
+import ContentContainer from "../../components/common/contentContainer";
+import PaginationHOC from "../../components/ui/pagination/pagination";
+import NavBar from "../../components/ui/navBar/navBar";
+import Loader from "../../components/ui/loader/loader";
+import SortBar from "../../components/ui/sortBar/sortBar";
+import { useChapters } from "../../hooks/useChapters";
+import { useProduct } from "../../hooks/useProduct";
 
 const MainPage = () => {
     const { chapters, updateChapters } = useChapters();

@@ -1,10 +1,11 @@
-import React from "react";
-// import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import DropDownMenu from "../dropDown/dropDownMenu";
 import styles from "./navBar.module.css";
+import { useProduct } from "../../../hooks/useProduct";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
-    const { bg } = styles;
+    const { bg, searchSuggestions, hide, searchWrapper } = styles;
 
     const dropDownPages = [
         {
@@ -25,6 +26,31 @@ const NavBar = () => {
         }
     ];
 
+    const { manga } = useProduct();
+    const [value, setValue] = useState("");
+    const [focus, setFocus] = useState(false);
+    const [content, setContent] = useState([]);
+
+    useEffect(() => {
+        if (manga.length !== 0) {
+            const findManga =
+                value.length > 2
+                    ? manga.filter(
+                          (m) =>
+                              m.nameRu
+                                  .toLowerCase()
+                                  .indexOf(value.toLowerCase()) !== -1
+                      )
+                    : [];
+            setContent(findManga);
+        }
+        setFocus(value.length > 2);
+    }, [value]);
+
+    const handleChange = ({ target }) => {
+        setValue(target.value);
+    };
+
     return (
         <header
             className={
@@ -36,9 +62,34 @@ const NavBar = () => {
                 <DropDownMenu items={dropDownPages} />
                 <h5 className="m-0 px-2">Enjoy Manga</h5>
             </div>
-            <div className="search">
-                <input type="search" />
-                <button />
+            <div className={searchWrapper}>
+                <input
+                    type="search"
+                    className="w-100 form-control"
+                    value={value}
+                    placeholder="Ищем мангу по названию..."
+                    onChange={handleChange}
+                />
+                <ul
+                    className={
+                        !focus
+                            ? "list-group " + searchSuggestions
+                            : "list-group " + searchSuggestions + " " + hide
+                    }
+                >
+                    {content &&
+                        content.map((c) => (
+                            <Link
+                                className="list-group-item list-group-item-action list-group-item-dark"
+                                key={c.id}
+                                to={`/catalog/${c.name
+                                    .toLowerCase()
+                                    .replace(/ /g, "")}`}
+                            >
+                                {c.nameRu}
+                            </Link>
+                        ))}
+                </ul>
             </div>
             <div className="user_menu"></div>
         </header>

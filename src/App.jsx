@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Catalog from "./layout/catalog";
 import Genres from "./layout/genres";
-import MainPage from "./components/pages/mainPage/mainPage";
+import MainPage from "./layout/mainPage/mainPage";
 import PageNotFound from "./components/pages/pageNotFound/pageNotFound";
 import Reader from "./layout/reader";
 import ProductProvider from "./hooks/useProduct";

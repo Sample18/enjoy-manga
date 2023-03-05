@@ -20,11 +20,15 @@ const CatalogPage = () => {
     const paginateManga = Paginate(manga, currentPage, pageSize);
 
     const sortBy = () => {
-        if (value === "алфавиту") return "name";
-        if (value === "популярности") return "rate";
+        if (value === "алфавиту") return { field: "name", order: "asc" };
+        if (value === "популярности") return { field: "rate", order: "desc" };
     };
 
-    const sortedManga = _.orderBy(paginateManga, [sortBy()], ["asc"]);
+    const sortedManga = _.orderBy(
+        paginateManga,
+        [sortBy().field],
+        [sortBy().order]
+    );
 
     // const handleDelete = (id) => {
     //     const filtred = mangas.filter((m) => m.id !== id);

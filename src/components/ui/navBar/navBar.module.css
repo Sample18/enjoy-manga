@@ -1,31 +1,32 @@
-/* .navbar {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 70px;
-  padding: 15px;
-  background-color: rgba(234, 186, 238, 0.68);
-  margin-bottom: 15px;
-}
-
-.nav_menu {
-  display: flex;
-  justify-content: center;
-}
-
-.nav_menu > i {
-  position: relative;
-  cursor: pointer;
-  box-sizing: border-box;
-  height: 40px;
-  width: 40px;
-}
-
-.nav_menu > h3 {
-  margin: 0;
-  margin-top: 10px;
-} */
 .bg {
     background-color: #0f0f0f;
 }
+
+.searchWrapper {
+    position: relative;
+    width: 250px;
+}
+
+.searchInp {
+    width: 100%;
+}
+
+.searchSuggestions {
+    display: none;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    margin: 0;
+    margin-top: 5px;
+    padding: 0;
+}
+
+.hide {
+    display: block;
+}
+
+/* .searchSuggestion {
+    list-style: none;
+    color: white;
+} */
