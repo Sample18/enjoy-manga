@@ -1,9 +1,15 @@
 .card {
     max-width: 19%;
-    margin: 3px;
+    margin: 10px;
     box-sizing: border-box;
     position: relative;
+    transition: all 0.3s ease-out;
 }
+
+.card:hover {
+    transform: translate(10px, -10px);
+}
+
 .cover {
     display: block;
     text-decoration: none;

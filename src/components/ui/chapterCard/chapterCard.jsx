@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ChapterCardDescription from "../chapterCardDescription/ChapterCardDescription";
 
 const ChapterCard = ({ chapter }) => {
-    const { chapterCover, imageCover } = styles;
+    const { chapterCover, imageCover, bottomImage, topImage } = styles;
 
     return (
         <div
@@ -14,18 +14,24 @@ const ChapterCard = ({ chapter }) => {
                 chapterCover
             }
         >
-            <div className={"d-flex align-items-center me-3 " + imageCover}>
-                <Link
-                    to={`/reader/${chapter.mangaId}/${chapter.number}/1`}
-                    className="page-link"
-                >
+            <Link
+                to={`/reader/${chapter.mangaId}/${chapter.number}/1`}
+                className="page-link"
+            >
+                <div className={"d-flex align-items-center me-3 " + imageCover}>
                     <img
-                        className="img-fluid"
+                        className={"m-2 " + topImage}
                         src={chapter.content[0]}
                         alt="berserk"
                     />
-                </Link>
-            </div>
+                    <img
+                        className={"m-2 " + bottomImage}
+                        src={chapter.content[1]}
+                        alt="berserk"
+                    />
+                </div>
+            </Link>
+
             <ChapterCardDescription chapter={chapter} />
         </div>
     );

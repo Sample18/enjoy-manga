@@ -1,0 +1,9 @@
+.coverImage {
+    width: 325px;
+    height: 450px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.coverImage:hover {
+    transform: translate(10px, 10px) scale(1.05);
+}

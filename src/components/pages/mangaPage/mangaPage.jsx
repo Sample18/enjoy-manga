@@ -6,10 +6,12 @@ import MangaPageDescription from "../../ui/mangaPageDescription/mangaPageDescrip
 import Loader from "../../ui/loader/loader";
 import Comments from "../../ui/comments/comments";
 import { useProduct } from "../../../hooks/useProduct";
+import styles from "./mangaPage.module.css";
 
 const MangaPage = ({ mangaName }) => {
     const { getMangaByName } = useProduct();
     const mangaCrop = getMangaByName(mangaName);
+    const { coverImage } = styles;
 
     return (
         <ContentContainer>
@@ -18,9 +20,7 @@ const MangaPage = ({ mangaName }) => {
                     <div className="d-flex mb-4">
                         <img
                             src={"/" + mangaCrop.cover}
-                            width="325"
-                            height="450"
-                            className="mx-4"
+                            className={"mx-4 " + coverImage}
                         />
                         <MangaPageDescription manga={mangaCrop} />
                     </div>
