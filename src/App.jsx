@@ -9,6 +9,7 @@ import ProductProvider from "./hooks/useProduct";
 import { ToastContainer } from "react-toastify";
 import GenresProvider from "./hooks/useGenres";
 import ChaptersProvider from "./hooks/useChapters";
+import Download from "./layout/download";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                                 path="/reader/:mangaName/:ch/:page"
                                 component={Reader}
                             />
+                            <Route path="/download" component={Download} />
                             <Route path="/404" component={PageNotFound} />
                             <Route path="/" exact component={MainPage} />
                             <Redirect to="/404" />

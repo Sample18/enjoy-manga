@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import DropDownMenu from "../dropDown/dropDownMenu";
 import styles from "./navBar.module.css";
 import { useProduct } from "../../../hooks/useProduct";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const NavBar = () => {
     const { bg, searchSuggestions, hide, searchWrapper } = styles;
+    const history = useHistory();
 
     const dropDownPages = [
         {
@@ -91,6 +92,13 @@ const NavBar = () => {
                         ))}
                 </ul>
             </div>
+            <button
+                className="btn btn-dark"
+                onClick={() => history.push("/download")}
+            >
+                <i className="bi bi-box-arrow-down text-light  fs-5"></i>
+            </button>
+
             <div className="user_menu"></div>
         </header>
     );

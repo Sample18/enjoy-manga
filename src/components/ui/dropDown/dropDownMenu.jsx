@@ -1,14 +1,14 @@
 import React from "react";
-import styles from "./dropDownMenu.module.css";
+// import styles from "./dropDownMenu.module.css";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const DropDownMenu = ({ items }) => {
-    const { bg } = styles;
+    // const { bg } = styles;
     return (
         <div className="dropdown">
             <button
-                className={"btn " + bg}
+                className={"btn btn-dark"}
                 type="button"
                 id="dropdownMenuButton1"
                 data-bs-toggle="dropdown"
