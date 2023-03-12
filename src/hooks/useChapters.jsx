@@ -36,6 +36,15 @@ const ChaptersProvider = ({ children }) => {
         }
     }
 
+    async function uploadChapter(chapter) {
+        try {
+            const { content } = await chaptersService.upload(chapter);
+            return content;
+        } catch (error) {
+            errorCatcher(error);
+        }
+    }
+
     function updateChapters(manga) {
         if (manga.length !== 0) {
             return chapters.map((c) => {
@@ -58,7 +67,7 @@ const ChaptersProvider = ({ children }) => {
 
     return (
         <ChaptersContext.Provider
-            value={{ chapters, isLoading, updateChapters }}
+            value={{ chapters, isLoading, updateChapters, uploadChapter }}
         >
             {children}
         </ChaptersContext.Provider>

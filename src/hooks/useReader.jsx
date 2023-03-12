@@ -32,7 +32,6 @@ const ReaderProvider = ({ children }) => {
         if (imageNode === e.target) {
             const leftSideOfPage = document.documentElement.clientWidth / 2;
             const userClick = e.clientX;
-            console.log(leftSideOfPage, userClick);
             return leftSideOfPage < userClick
                 ? imageChangeRight()
                 : imageChangeLeft();

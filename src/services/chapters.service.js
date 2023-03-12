@@ -6,6 +6,13 @@ const chaptersService = {
     get: async () => {
         const { data } = await httpService.get(chaptersEndpoint);
         return data;
+    },
+    upload: async (chapter) => {
+        const { data } = await httpService.put(
+            "chapters/" + chapter.id,
+            chapter
+        );
+        return data;
     }
 };
 

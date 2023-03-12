@@ -62,7 +62,7 @@ const ReaderPage = () => {
             <div>
                 <img
                     ref={imageRef}
-                    src={"/" + pageData.img}
+                    src={pageData.img}
                     className="w-100"
                     onClick={handleChange}
                 />
