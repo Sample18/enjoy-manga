@@ -14,7 +14,7 @@ const MangaCard = ({ manga }) => {
             >
                 <img
                     className={coverImg}
-                    src={manga.cover}
+                    src={"/" + manga.cover}
                     alt="test"
                     width="250"
                     height="353"
@@ -23,23 +23,12 @@ const MangaCard = ({ manga }) => {
                     {manga.name} / {manga.nameRu}
                 </div>
             </Link>
-            {/* <div className={delm} onClick={() => deleteManga(manga.id)}>
-                X
-            </div> */}
-            {/* <div
-                className={manga.favourite ? fav : nfav}
-                onClick={() => toFavourite(manga.id)}
-            >
-                F
-            </div> */}
         </div>
     );
 };
 
 MangaCard.propTypes = {
     manga: PropTypes.object.isRequired
-    // deleteManga: PropTypes.func,
-    // toFavourite: PropTypes.func
 };
 
 export default MangaCard;

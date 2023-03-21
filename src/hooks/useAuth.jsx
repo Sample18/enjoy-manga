@@ -84,6 +84,11 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    function logout() {
+        localStorageService.removeAuthData();
+        setUser(null);
+    }
+
     function errorCatcher(error) {
         const { message } = error.response.data;
         setError(message);
@@ -104,7 +109,7 @@ const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider
-            value={{ singUp, currentUser, signIn, isLoading }}
+            value={{ singUp, currentUser, signIn, isLoading, logout }}
         >
             {children}
         </AuthContext.Provider>

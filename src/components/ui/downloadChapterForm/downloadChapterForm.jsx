@@ -14,6 +14,7 @@ import {
     getDownloadURL
 } from "firebase/storage";
 import { validator } from "../../../utils/validator";
+import { LinearProgress } from "@mui/material";
 
 const firebaseConfig = {
     storageBucket: "gs://enjoy-manga.appspot.com"
@@ -177,46 +178,55 @@ const DownloadChapterForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="w-50 m-auto mb-4">
-            <SelectField
-                label="Выберите мангу"
-                defaultOption="Chooose..."
-                name="mangaName"
-                options={mangaList}
-                value={data.mangaName}
-                onChange={handleChange}
-                error={errors.mangaName}
-            />
-            <TextField
-                label="Задайте название главы"
-                name="name"
-                value={data.name}
-                onChange={handleChange}
-                error={errors.name}
-            />
-            <TextField
-                label="Задайте номер главы"
-                name="number"
-                type="number"
-                value={data.number}
-                onChange={handleChange}
-                error={errors.number}
-            />
-            <FileField
-                label="Загрузите изображения в формате jpeg или png"
-                name="images"
-                value={data.images}
-                onChange={handleChange}
-                error={errors.images}
-            />
-            <button
-                type="submit"
-                disabled={!isValid}
-                className="btn btn-primary w-100 mx-auto"
-            >
-                Загрузить главу
-            </button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit} className="w-50 m-auto mb-4">
+                <SelectField
+                    label="Выберите мангу"
+                    defaultOption="Chooose..."
+                    name="mangaName"
+                    options={mangaList}
+                    value={data.mangaName}
+                    onChange={handleChange}
+                    error={errors.mangaName}
+                />
+                <TextField
+                    label="Задайте название главы"
+                    name="name"
+                    value={data.name}
+                    onChange={handleChange}
+                    error={errors.name}
+                />
+                <TextField
+                    label="Задайте номер главы"
+                    name="number"
+                    type="number"
+                    value={data.number}
+                    onChange={handleChange}
+                    error={errors.number}
+                />
+                <FileField
+                    label="Загрузите изображения в формате jpeg или png"
+                    name="images"
+                    value={data.images}
+                    onChange={handleChange}
+                    error={errors.images}
+                />
+                <button
+                    type="submit"
+                    disabled={!isValid}
+                    className="btn btn-primary w-100 mx-auto mb-4"
+                >
+                    Загрузить главу
+                </button>
+                {progress && (
+                    <LinearProgress
+                        value={progress}
+                        color="success"
+                        variant="determinate"
+                    />
+                )}
+            </form>
+        </>
     );
 };
 

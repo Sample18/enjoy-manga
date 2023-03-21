@@ -4,6 +4,7 @@ import styles from "./navBar.module.css";
 import { useProduct } from "../../../hooks/useProduct";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
+import NavProfile from "../navProfile/navProfile";
 
 const NavBar = () => {
     const { bg, searchSuggestions, hide, searchWrapper } = styles;
@@ -106,14 +107,9 @@ const NavBar = () => {
 
                 <div className="d-flex align-items-center user_menu">
                     {currentUser ? (
-                        <img
-                            src={currentUser.avatar}
-                            width="50px"
-                            height="50px"
-                            className="rounded-circle"
-                        />
+                        <NavProfile />
                     ) : (
-                        <Link className="link" to="/login">
+                        <Link className="nav-link text-light" to="/login">
                             Вход/Регистрация
                         </Link>
                     )}

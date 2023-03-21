@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ListDropContainer from "../../common/listDropContainer/listDropContainer";
 import { useChapters } from "../../../hooks/useChapters";
+import _ from "lodash";
 
 const ChaptersList = ({ id }) => {
     const { chapters } = useChapters();
     const getChaptersById = (id) => chapters.filter((c) => c.mangaId === id);
-    const chaptersCrop = getChaptersById(id);
+    const chaptersCrop = _.orderBy(getChaptersById(id), "number", "desc");
 
     return (
         <ListDropContainer>
@@ -20,7 +21,7 @@ const ChaptersList = ({ id }) => {
                         className="page-link"
                         to={`/reader/${c.mangaId}/${c.number}/1`}
                     >
-                        {c.name}
+                        {c.number} - {c.name}
                     </Link>
                 </p>
             ))}

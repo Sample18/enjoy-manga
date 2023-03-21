@@ -12,6 +12,7 @@ import ChaptersProvider from "./hooks/useChapters";
 import Download from "./layout/download";
 import Login from "./layout/login";
 import AuthProvider from "./hooks/useAuth";
+import LogOut from "./layout/logout";
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                                 />
                                 <Route path="/download" component={Download} />
                                 <Route path="/login/:type?" component={Login} />
+                                <Route path="/logout" component={LogOut} />
                                 <Route path="/404" component={PageNotFound} />
                                 <Route path="/" exact component={MainPage} />
                                 <Redirect to="/404" />
