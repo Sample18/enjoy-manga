@@ -10,34 +10,39 @@ import { ToastContainer } from "react-toastify";
 import GenresProvider from "./hooks/useGenres";
 import ChaptersProvider from "./hooks/useChapters";
 import Download from "./layout/download";
+import Login from "./layout/login";
+import AuthProvider from "./hooks/useAuth";
 
 function App() {
     return (
         <div className="container">
-            <ProductProvider>
-                <GenresProvider>
-                    <ChaptersProvider>
-                        <Switch>
-                            <Route
-                                path="/genres/:genreName?"
-                                component={Genres}
-                            />
-                            <Route
-                                path="/catalog/:mangaName?"
-                                component={Catalog}
-                            />
-                            <Route
-                                path="/reader/:mangaName/:ch/:page"
-                                component={Reader}
-                            />
-                            <Route path="/download" component={Download} />
-                            <Route path="/404" component={PageNotFound} />
-                            <Route path="/" exact component={MainPage} />
-                            <Redirect to="/404" />
-                        </Switch>
-                    </ChaptersProvider>
-                </GenresProvider>
-            </ProductProvider>
+            <AuthProvider>
+                <ProductProvider>
+                    <GenresProvider>
+                        <ChaptersProvider>
+                            <Switch>
+                                <Route
+                                    path="/genres/:genreName?"
+                                    component={Genres}
+                                />
+                                <Route
+                                    path="/catalog/:mangaName?"
+                                    component={Catalog}
+                                />
+                                <Route
+                                    path="/reader/:mangaName/:ch/:page"
+                                    component={Reader}
+                                />
+                                <Route path="/download" component={Download} />
+                                <Route path="/login/:type?" component={Login} />
+                                <Route path="/404" component={PageNotFound} />
+                                <Route path="/" exact component={MainPage} />
+                                <Redirect to="/404" />
+                            </Switch>
+                        </ChaptersProvider>
+                    </GenresProvider>
+                </ProductProvider>
+            </AuthProvider>
             <ToastContainer />
         </div>
     );

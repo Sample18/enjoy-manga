@@ -3,10 +3,12 @@ import DropDownMenu from "../dropDown/dropDownMenu";
 import styles from "./navBar.module.css";
 import { useProduct } from "../../../hooks/useProduct";
 import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 
 const NavBar = () => {
     const { bg, searchSuggestions, hide, searchWrapper } = styles;
     const history = useHistory();
+    const { currentUser } = useAuth();
 
     const dropDownPages = [
         {
@@ -92,14 +94,31 @@ const NavBar = () => {
                         ))}
                 </ul>
             </div>
-            <button
-                className="btn btn-dark"
-                onClick={() => history.push("/download")}
-            >
-                <i className="bi bi-box-arrow-down text-light  fs-5"></i>
-            </button>
+            <div className="d-flex">
+                {currentUser && (
+                    <button
+                        className="btn btn-dark me-4"
+                        onClick={() => history.push("/download")}
+                    >
+                        <i className="bi bi-box-arrow-down text-light  fs-5"></i>
+                    </button>
+                )}
 
-            <div className="user_menu"></div>
+                <div className="d-flex align-items-center user_menu">
+                    {currentUser ? (
+                        <img
+                            src={currentUser.avatar}
+                            width="50px"
+                            height="50px"
+                            className="rounded-circle"
+                        />
+                    ) : (
+                        <Link className="link" to="/login">
+                            Вход/Регистрация
+                        </Link>
+                    )}
+                </div>
+            </div>
         </header>
     );
 };

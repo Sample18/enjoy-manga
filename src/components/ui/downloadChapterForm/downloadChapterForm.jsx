@@ -13,6 +13,7 @@ import {
     uploadBytesResumable,
     getDownloadURL
 } from "firebase/storage";
+import { validator } from "../../../utils/validator";
 
 const firebaseConfig = {
     storageBucket: "gs://enjoy-manga.appspot.com"
@@ -46,10 +47,37 @@ const DownloadChapterForm = () => {
     const { uploadChapter } = useChapters();
     const [progress, setProgress] = useState(0);
     const [count, setCount] = useState(0);
+    const [errors, setErrors] = useState({});
     const mangaList = manga.map((m) => ({
         label: m.nameRu,
         value: m.id
     }));
+    const validatorConfig = {
+        name: {
+            isRequired: {
+                message: "Название обязательно для заполнения"
+            },
+            min: {
+                message: "Название должно состоять минимум из 3 символов",
+                value: 3
+            }
+        },
+        number: {
+            isRequired: {
+                message: "Номер обязателен для заполнения"
+            }
+        },
+        images: {
+            isImages: {
+                message: "Файлы не являются изображениями или отсутствуют"
+            }
+        },
+        mangaName: {
+            isRequired: {
+                message: "Обязательно выберите мангу"
+            }
+        }
+    };
 
     const handleChange = (target) => {
         setData((prevState) => ({
@@ -79,13 +107,17 @@ const DownloadChapterForm = () => {
                 content
             };
             uploadChapter(newChapter);
-            console.log(newChapter);
         }
     };
 
     useEffect(() => {
         updateProgress();
     }, [count]);
+
+    useEffect(() => {
+        validate();
+        // console.log(data.images);
+    }, [data]);
 
     function uploadData(data, file, i) {
         const imagesRef = ref(
@@ -120,8 +152,18 @@ const DownloadChapterForm = () => {
         );
     }
 
+    const validate = () => {
+        const errors = validator(data, validatorConfig);
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
+    const isValid = Object.keys(errors).length === 0;
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        const isValid = validate();
+        if (!isValid) return;
         setChapter(initialChapter);
         setChapter((prevState) => ({
             ...prevState,
@@ -135,7 +177,7 @@ const DownloadChapterForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="w-25 m-auto">
+        <form onSubmit={handleSubmit} className="w-50 m-auto mb-4">
             <SelectField
                 label="Выберите мангу"
                 defaultOption="Chooose..."
@@ -143,14 +185,14 @@ const DownloadChapterForm = () => {
                 options={mangaList}
                 value={data.mangaName}
                 onChange={handleChange}
-                // error={}
+                error={errors.mangaName}
             />
             <TextField
                 label="Задайте название главы"
                 name="name"
                 value={data.name}
                 onChange={handleChange}
-                // error={}
+                error={errors.name}
             />
             <TextField
                 label="Задайте номер главы"
@@ -158,21 +200,21 @@ const DownloadChapterForm = () => {
                 type="number"
                 value={data.number}
                 onChange={handleChange}
-                // error={}
+                error={errors.number}
             />
             <FileField
-                label="Загрузите изображения"
+                label="Загрузите изображения в формате jpeg или png"
                 name="images"
                 value={data.images}
                 onChange={handleChange}
-                // error={}
+                error={errors.images}
             />
             <button
                 type="submit"
-                // disabled={!isValid}
+                disabled={!isValid}
                 className="btn btn-primary w-100 mx-auto"
             >
-                Submit
+                Загрузить главу
             </button>
         </form>
     );
