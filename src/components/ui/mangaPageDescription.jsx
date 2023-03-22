@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SpanWrapper from "../../common/spanWrapper";
-import Loader from "../loader/loader";
-import { useGenres } from "../../../hooks/useGenres";
+import SpanWrapper from "../common/spanWrapper";
+import Loader from "./loader";
+import { useGenres } from "../../hooks/useGenres";
 
 const MangaPageDescription = ({ manga }) => {
     const { genres } = useGenres();

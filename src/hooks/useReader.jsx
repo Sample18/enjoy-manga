@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useChapters } from "./useChapters";
 import { useHistory, useParams } from "react-router-dom";
-import Loader from "../components/ui/loader/loader";
+import Loader from "../components/ui/loader";
 
 const ReaderContext = React.createContext();
 

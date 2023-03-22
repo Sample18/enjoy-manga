@@ -1,13 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGenres } from "../../../hooks/useGenres";
-import { useProduct } from "../../../hooks/useProduct";
-import { firstSymbToUpperCase } from "../../../utils/textTransform";
-import ContentContainer from "../../common/contentContainer";
-import SpanWrapper from "../../common/spanWrapper";
-import Loader from "../../ui/loader/loader";
-import MangaCard from "../../ui/mangaCard/mangaCard";
-import SortBar from "../../ui/sortBar/sortBar";
+import { useGenres } from "../../hooks/useGenres";
+import { useProduct } from "../../hooks/useProduct";
+import { firstSymbToUpperCase } from "../../utils/textTransform";
+import ContentContainer from "../common/contentContainer";
+import SpanWrapper from "../common/spanWrapper";
+import Loader from "../ui/loader";
+import MangaCard from "../ui/mangaCard/mangaCard";
+import SortBar from "../ui/sortBar/sortBar";
 
 const GenrePage = () => {
     const { genreName } = useParams();

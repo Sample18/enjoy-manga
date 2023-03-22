@@ -1,6 +1,6 @@
 import React from "react";
-import ContentContainer from "../../common/contentContainer";
-import DownloadChapterForm from "../../ui/downloadChapterForm/downloadChapterForm";
+import ContentContainer from "../common/contentContainer";
+import DownloadChapterForm from "../ui/downloadChapterForm";
 
 const DownloadPage = () => {
     return (

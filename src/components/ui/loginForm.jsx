@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import TextField from "../../common/form/textField";
-import { validator } from "../../../utils/validator";
-import { useAuth } from "../../../hooks/useAuth";
+import TextField from "../common/form/textField";
+import { validator } from "../../utils/validator";
+import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import { logIn } from "../../store/users";

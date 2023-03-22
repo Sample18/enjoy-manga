@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { useReader } from "../../../hooks/useReader";
+import { useReader } from "../../hooks/useReader";
 
 const ReaderPage = () => {
     const { pageData, imageChangeLeft, imageChangeRight, changeImage, page } =

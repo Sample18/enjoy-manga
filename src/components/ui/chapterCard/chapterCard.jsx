@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./chapterCard.module.css";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import ChapterCardDescription from "../chapterCardDescription/ChapterCardDescription";
+import ChapterCardDescription from "../ChapterCardDescription";
 
 const ChapterCard = ({ chapter }) => {
     const { chapterCover, imageCover, bottomImage, topImage } = styles;

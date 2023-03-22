@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import MangaCard from "../../ui/mangaCard/mangaCard";
 import Paginate from "../../../utils/paginate";
 import ContentContainer from "../../common/contentContainer";
-import PaginationHOC from "../../ui/pagination/pagination";
+import PaginationHOC from "../../ui/pagination";
 import SortBar from "../../ui/sortBar/sortBar";
 import _ from "lodash";
-import Loader from "../../ui/loader/loader";
+import Loader from "../../ui/loader";
 import { useProduct } from "../../../hooks/useProduct";
 // import styles from "./CatalogPage.module.css";
 

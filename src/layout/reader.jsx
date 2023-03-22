@@ -1,5 +1,5 @@
 import React from "react";
-import ReaderPage from "../components/pages/readerPage/readerPage";
+import ReaderPage from "../components/pages/readerPage";
 import ReaderProvider from "../hooks/useReader";
 
 const Reader = () => {

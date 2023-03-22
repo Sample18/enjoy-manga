@@ -4,7 +4,7 @@ import styles from "./navBar.module.css";
 import { useProduct } from "../../../hooks/useProduct";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import NavProfile from "../navProfile/navProfile";
+import NavProfile from "../navProfile";
 
 const NavBar = () => {
     const { bg, searchSuggestions, hide, searchWrapper } = styles;

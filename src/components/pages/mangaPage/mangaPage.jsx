@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import ContentContainer from "../../common/contentContainer";
 import ChaptersList from "../../ui/chaptersList/chaptersList";
-import MangaPageDescription from "../../ui/mangaPageDescription/mangaPageDescription";
-import Loader from "../../ui/loader/loader";
-import Comments from "../../ui/comments/comments";
+import MangaPageDescription from "../../ui/mangaPageDescription";
+import Loader from "../../ui/loader";
+import Comments from "../../ui/comments";
 import { useProduct } from "../../../hooks/useProduct";
 import styles from "./mangaPage.module.css";
 

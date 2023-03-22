@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import SpanWrapper from "../../common/spanWrapper";
-import BadgeWrapper from "../../common/badgeWrapper/badgeWrapper";
-import { useGenres } from "../../../hooks/useGenres";
+import SpanWrapper from "../common/spanWrapper";
+import BadgeWrapper from "../common/badgeWrapper/badgeWrapper";
+import { useGenres } from "../../hooks/useGenres";
 
 const ChapterCardDescription = ({ chapter }) => {
     const { getGenreById } = useGenres();

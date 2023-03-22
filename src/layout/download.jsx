@@ -1,5 +1,5 @@
 import React from "react";
-import DownloadPage from "../components/pages/downloadPage/downloadPage";
+import DownloadPage from "../components/pages/downloadPage";
 import NavBar from "../components/ui/navBar/navBar";
 
 const Download = () => {

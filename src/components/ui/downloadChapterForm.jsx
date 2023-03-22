@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useProduct } from "../../../hooks/useProduct";
-import { useChapters } from "../../../hooks/useChapters";
+import { useProduct } from "../../hooks/useProduct";
+import { useChapters } from "../../hooks/useChapters";
 import { nanoid } from "nanoid";
-import FileField from "../../common/form/fileField";
-import SelectField from "../../common/form/selectField";
-import TextField from "../../common/form/textField";
+import FileField from "../common/form/fileField";
+import SelectField from "../common/form/selectField";
+import TextField from "../common/form/textField";
 import _ from "lodash";
 import { initializeApp } from "firebase/app";
 import {
@@ -13,7 +13,7 @@ import {
     uploadBytesResumable,
     getDownloadURL
 } from "firebase/storage";
-import { validator } from "../../../utils/validator";
+import { validator } from "../../utils/validator";
 import { LinearProgress } from "@mui/material";
 
 const firebaseConfig = {

@@ -4,7 +4,7 @@ import ContentContainer from "../../common/contentContainer";
 import _ from "lodash";
 import styles from "./genresPage.module.css";
 import Paginate from "../../../utils/paginate";
-import PaginationHOC from "../../ui/pagination/pagination";
+import PaginationHOC from "../../ui/pagination";
 import SortBar from "../../ui/sortBar/sortBar";
 import { useGenres } from "../../../hooks/useGenres";
 
