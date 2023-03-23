@@ -1,23 +1,23 @@
 import React, { useState } from "react";
-import MangaCard from "../../ui/mangaCard/mangaCard";
-import Paginate from "../../../utils/paginate";
-import ContentContainer from "../../common/contentContainer";
-import PaginationHOC from "../../ui/pagination";
-import SortBar from "../../ui/sortBar/sortBar";
+import MangaCard from "../ui/mangaCard/mangaCard";
+import Paginate from "../../utils/paginate";
+import ContentContainer from "../common/contentContainer";
+import PaginationHOC from "../ui/pagination";
+import SortBar from "../ui/sortBar/sortBar";
 import _ from "lodash";
-import Loader from "../../ui/loader";
-import { useProduct } from "../../../hooks/useProduct";
-// import styles from "./CatalogPage.module.css";
+import Loader from "../ui/loader";
+import { getMangaList } from "../../store/product";
+import { useSelector } from "react-redux";
 
 const CatalogPage = () => {
-    const { manga } = useProduct();
+    const manga = useSelector(getMangaList());
     const [currentPage, setCurrentPage] = useState(1);
     const sortOn = ["алфавиту", "популярности"];
     const [value, setValue] = useState(sortOn[0]);
-    const count = manga.length;
+    const count = manga ? manga.length : 1;
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
-    const paginateManga = Paginate(manga, currentPage, pageSize);
+    const paginateManga = manga ? Paginate(manga, currentPage, pageSize) : null;
 
     const sortBy = () => {
         if (value === "алфавиту") return { field: "name", order: "asc" };
@@ -29,18 +29,6 @@ const CatalogPage = () => {
         [sortBy().field],
         [sortBy().order]
     );
-
-    // const handleDelete = (id) => {
-    //     const filtred = mangas.filter((m) => m.id !== id);
-    //     setMangas(filtred);
-    // };
-
-    // const handleFavourite = (id) => {
-    //     const mIndex = mangas.findIndex((m) => m.id === id);
-    //     const favManga = JSON.parse(JSON.stringify(mangas));
-    //     favManga[mIndex].favourite = !favManga[mIndex].favourite;
-    //     setMangas(favManga);
-    // };
 
     const handlePageChange = ({ target }) => {
         setCurrentPage(Number(target.innerText));

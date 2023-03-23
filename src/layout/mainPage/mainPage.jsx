@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import API from "../../api";
 import _ from "lodash";
 import ChapterCard from "../../components/ui/chapterCard/chapterCard";
 import Paginate from "../../utils/paginate";
@@ -8,14 +7,15 @@ import PaginationHOC from "../../components/ui/pagination";
 import NavBar from "../../components/ui/navBar/navBar";
 import Loader from "../../components/ui/loader";
 import SortBar from "../../components/ui/sortBar/sortBar";
-import { useChapters } from "../../hooks/useChapters";
-import { useProduct } from "../../hooks/useProduct";
+import { useSelector } from "react-redux";
+import { getMangaList } from "../../store/product";
+import { getChaptersList } from "../../store/chapters";
 
 const MainPage = () => {
-    const { chapters, updateChapters } = useChapters();
-    const { manga } = useProduct();
+    const manga = useSelector(getMangaList());
+    const chapters = useSelector(getChaptersList());
     const [currentPage, setCurrentPage] = useState(1);
-    const count = chapters.length;
+    const count = chapters ? chapters.length : 1;
     const pageSize = 5;
     const pagesCount = Math.ceil(count / pageSize);
     const sortedChapters = _.orderBy(updateChapters(manga), ["date"], ["desc"]);
@@ -24,6 +24,21 @@ const MainPage = () => {
     const handlePageChange = ({ target }) => {
         setCurrentPage(Number(target.innerText));
     };
+
+    function updateChapters() {
+        if (manga && chapters) {
+            return chapters.map((c) => {
+                const currManga = manga.find((m) => m.id === c.mangaId);
+                return {
+                    ...c,
+                    mangaName: currManga.name,
+                    author: currManga.author,
+                    category: currManga.category,
+                    genres: currManga.genres
+                };
+            });
+        }
+    }
 
     return (
         <>

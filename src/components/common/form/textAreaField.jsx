@@ -1,21 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const FileField = ({ label, name, onChange, error, isMultiple = true }) => {
+const TextAreaField = ({
+    label,
+    name,
+    value,
+    onChange,
+    error,
+    placeholder
+}) => {
     const getInputClasses = () => {
         return "form-control" + (error ? " is-invalid" : "");
     };
 
     const handleChange = ({ target }) => {
-        const file = target.files;
-        const filesArr = [];
-        for (let i = 0; i < file.length; i++) {
-            filesArr.push(file[i]);
-        }
-        onChange({
-            name: [target.name],
-            value: filesArr
-        });
+        onChange({ name: [target.name], value: target.value });
     };
     return (
         <div className="mb-4">
@@ -23,13 +22,13 @@ const FileField = ({ label, name, onChange, error, isMultiple = true }) => {
                 {label}
             </label>
             <div className="input-group has-validation">
-                <input
-                    type="file"
+                <textarea
                     id={name}
                     name={name}
+                    value={value}
                     onChange={handleChange}
                     className={getInputClasses()}
-                    multiple={isMultiple}
+                    placeholder={placeholder}
                 />
                 {error && <div className="invalid-feedback">{error}</div>}
             </div>
@@ -37,12 +36,13 @@ const FileField = ({ label, name, onChange, error, isMultiple = true }) => {
     );
 };
 
-FileField.propTypes = {
+TextAreaField.propTypes = {
     label: PropTypes.string,
     name: PropTypes.string,
+    value: PropTypes.string,
     onChange: PropTypes.func,
     error: PropTypes.string,
-    isMultiple: PropTypes.bool
+    placeholder: PropTypes.string
 };
 
-export default FileField;
+export default TextAreaField;

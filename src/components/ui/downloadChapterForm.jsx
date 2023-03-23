@@ -115,11 +115,6 @@ const DownloadChapterForm = () => {
         updateProgress();
     }, [count]);
 
-    useEffect(() => {
-        validate();
-        // console.log(data.images);
-    }, [data]);
-
     function uploadData(data, file, i) {
         const imagesRef = ref(
             storage,

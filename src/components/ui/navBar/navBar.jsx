@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DropDownMenu from "../dropDown/dropDownMenu";
+import DropDownMenu from "../dropDownMenu";
 import styles from "./navBar.module.css";
 import { useProduct } from "../../../hooks/useProduct";
 import { Link, useHistory } from "react-router-dom";
@@ -23,10 +23,6 @@ const NavBar = () => {
         {
             link: "/catalog",
             name: "Авторы"
-        },
-        {
-            link: "/",
-            name: "На главную"
         }
     ];
 
@@ -64,7 +60,9 @@ const NavBar = () => {
         >
             <div className="d-flex align-items-center text-light">
                 <DropDownMenu items={dropDownPages} />
-                <h5 className="m-0 px-2">Enjoy Manga</h5>
+                <Link className="nav-link" to="/">
+                    <h5 className="m-0 px-2">Enjoy Manga</h5>
+                </Link>
             </div>
             <div className={searchWrapper}>
                 <input

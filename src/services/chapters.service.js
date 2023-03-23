@@ -9,7 +9,7 @@ const chaptersService = {
     },
     upload: async (chapter) => {
         const { data } = await httpService.put(
-            "chapters/" + chapter.id,
+            chaptersEndpoint + chapter.id,
             chapter
         );
         return data;
