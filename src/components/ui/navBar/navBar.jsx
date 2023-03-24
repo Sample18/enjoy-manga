@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import DropDownMenu from "../dropDownMenu";
 import styles from "./navBar.module.css";
-import { useProduct } from "../../../hooks/useProduct";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
 import NavProfile from "../navProfile";
+import { useSelector } from "react-redux";
+import { getMangaList } from "../../../store/product";
+import { getIsLoggedIn } from "../../../store/users";
 
 const NavBar = () => {
     const { bg, searchSuggestions, hide, searchWrapper } = styles;
     const history = useHistory();
-    const { currentUser } = useAuth();
+    const isLogin = useSelector(getIsLoggedIn());
 
     const dropDownPages = [
         {
@@ -26,13 +27,13 @@ const NavBar = () => {
         }
     ];
 
-    const { manga } = useProduct();
+    const manga = useSelector(getMangaList());
     const [value, setValue] = useState("");
     const [focus, setFocus] = useState(false);
     const [content, setContent] = useState([]);
 
     useEffect(() => {
-        if (manga.length !== 0) {
+        if (manga) {
             const findManga =
                 value.length > 2
                     ? manga.filter(
@@ -93,18 +94,17 @@ const NavBar = () => {
                         ))}
                 </ul>
             </div>
-            <div className="d-flex">
-                {currentUser && (
-                    <button
-                        className="btn btn-dark me-4"
+            <div className="d-flex align-items-center">
+                {isLogin && (
+                    <i
+                        className="bi bi-box-arrow-down text-light fs-5 me-4"
+                        style={{ cursor: "pointer" }}
                         onClick={() => history.push("/download")}
-                    >
-                        <i className="bi bi-box-arrow-down text-light  fs-5"></i>
-                    </button>
+                    ></i>
                 )}
 
                 <div className="d-flex align-items-center user_menu">
-                    {currentUser ? (
+                    {isLogin ? (
                         <NavProfile />
                     ) : (
                         <Link className="nav-link text-light" to="/login">

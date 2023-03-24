@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 import RadioField from "../common/form/radioField";
-import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-// import { useQuality } from "../../hooks/useQualities";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getProfessions } from "../../store/professions";
-// import { singUp } from "../../store/users";
+import { useDispatch } from "react-redux";
+import { singUp } from "../../store/users";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
@@ -17,7 +14,7 @@ const RegisterForm = () => {
         name: "",
         sex: "male"
     });
-    const { singUp } = useAuth();
+    const dispatch = useDispatch();
     const [errors, setErrors] = useState({});
     const history = useHistory();
     const validatorConfig = {
@@ -71,10 +68,12 @@ const RegisterForm = () => {
         if (!isValid) return;
         try {
             const avatar = await axios.get(`https://api.waifu.pics/sfw/waifu`);
-            await singUp({
-                ...data,
-                avatar: avatar.data.url
-            });
+            dispatch(
+                singUp({
+                    ...data,
+                    avatar: avatar.data.url
+                })
+            );
             history.push("/");
         } catch (error) {
             setErrors(error);

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useProduct } from "../../hooks/useProduct";
-import { useChapters } from "../../hooks/useChapters";
 import { nanoid } from "nanoid";
 import FileField from "../common/form/fileField";
 import SelectField from "../common/form/selectField";
@@ -15,6 +13,9 @@ import {
 } from "firebase/storage";
 import { validator } from "../../utils/validator";
 import { LinearProgress } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getMangaList } from "../../store/product";
+import { uploadChapter } from "../../store/chapters";
 
 const firebaseConfig = {
     storageBucket: "gs://enjoy-manga.appspot.com"
@@ -29,6 +30,7 @@ const metadata = {
 };
 
 const DownloadChapterForm = () => {
+    const dispatch = useDispatch();
     const [data, setData] = useState({
         name: "",
         number: "",
@@ -44,15 +46,16 @@ const DownloadChapterForm = () => {
         content: []
     };
     const [chapter, setChapter] = useState(initialChapter);
-    const { manga } = useProduct();
-    const { uploadChapter } = useChapters();
+    const manga = useSelector(getMangaList());
     const [progress, setProgress] = useState(0);
     const [count, setCount] = useState(0);
     const [errors, setErrors] = useState({});
-    const mangaList = manga.map((m) => ({
-        label: m.nameRu,
-        value: m.id
-    }));
+    const mangaList = manga
+        ? manga.map((m) => ({
+              label: m.nameRu,
+              value: m.id
+          }))
+        : [];
     const validatorConfig = {
         name: {
             isRequired: {
@@ -107,7 +110,7 @@ const DownloadChapterForm = () => {
                 ...chapter,
                 content
             };
-            uploadChapter(newChapter);
+            dispatch(uploadChapter(newChapter));
         }
     };
 

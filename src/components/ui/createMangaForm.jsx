@@ -11,13 +11,13 @@ import {
 } from "firebase/storage";
 import { validator } from "../../utils/validator";
 import MultySelectField from "../common/form/multiSelectField";
-import { useGenres } from "../../hooks/useGenres";
 import RadioField from "../common/form/radioField";
 import TextAreaField from "../common/form/textAreaField";
 import { generateRandomNumber } from "../../utils/random";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { uploadManga } from "../../store/product";
 import { toast } from "react-toastify";
+import { getGenresList } from "../../store/genres";
 
 const firebaseConfig = {
     storageBucket: "gs://enjoy-manga.appspot.com"
@@ -39,15 +39,14 @@ const CreateMangaForm = () => {
         cover: ""
     };
     const [data, setData] = useState(initialState);
-    const { genres } = useGenres();
+    const genres = useSelector(getGenresList());
     const [errors, setErrors] = useState({});
-    const genresList =
-        genres.length !== 0
-            ? genres.map((g) => ({
-                  label: g.nameRu,
-                  value: g.id
-              }))
-            : [];
+    const genresList = genres
+        ? genres.map((g) => ({
+              label: g.nameRu,
+              value: g.id
+          }))
+        : [];
     const validatorConfig = {
         name: {
             isRequired: {

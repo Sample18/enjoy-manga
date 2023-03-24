@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import PaginationHOC from "./pagination";
 import Paginate from "../../utils/paginate";
 import _ from "lodash";
-import { useComments } from "../../hooks/useComments";
+import { useSelector } from "react-redux";
+import { getCommentsList } from "../../store/comments";
 
 const Comments = ({ id }) => {
-    const { comments } = useComments();
+    const comments = useSelector(getCommentsList());
     const [currentPage, setCurrentPage] = useState(1);
-    const getCommentsById = (id) => comments.filter((c) => c.pageId === id);
+    const getCommentsById = (id) =>
+        comments ? comments.filter((c) => c.pageId === id) : [];
     const commentsCrop = getCommentsById(id);
     const count = commentsCrop.length;
     const pageSize = 10;

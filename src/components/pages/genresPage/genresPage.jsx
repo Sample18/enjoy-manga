@@ -6,18 +6,21 @@ import styles from "./genresPage.module.css";
 import Paginate from "../../../utils/paginate";
 import PaginationHOC from "../../ui/pagination";
 import SortBar from "../../ui/sortBar/sortBar";
-import { useGenres } from "../../../hooks/useGenres";
+import { useSelector } from "react-redux";
+import { getGenresList } from "../../../store/genres";
 
 const GenresPage = () => {
     const { genresWrap, nameWrap } = styles;
-    const { genres } = useGenres();
+    const genres = useSelector(getGenresList());
     const [currentPage, setCurrentPage] = useState(1);
     const sortOn = ["алфавиту", "популярности"];
     const [value, setValue] = useState(sortOn[0]);
-    const count = Object.keys(genres).length;
+    const count = genres ? genres.length : 1;
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
-    const paginateGenres = Paginate(genres, currentPage, pageSize);
+    const paginateGenres = genres
+        ? Paginate(genres, currentPage, pageSize)
+        : [];
 
     const sortBy = () => {
         if (value === "алфавиту") return "nameRu";

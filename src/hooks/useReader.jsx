@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useChapters } from "./useChapters";
 import { useHistory, useParams } from "react-router-dom";
 import Loader from "../components/ui/loader";
+import { useSelector } from "react-redux";
+import { getChaptersList } from "../store/chapters";
 
 const ReaderContext = React.createContext();
 
@@ -11,13 +12,13 @@ export const useReader = () => {
 };
 
 const ReaderProvider = ({ children }) => {
-    const { chapters } = useChapters();
+    const chapters = useSelector(getChaptersList());
     const { mangaName, ch, page } = useParams();
     const history = useHistory();
     const pageData = getChapterImage(mangaName, ch, page);
 
     function getChapterImage(mangaId, chapter, page) {
-        if (chapters.length !== 0) {
+        if (chapters) {
             const mangaChapter = chapters
                 .filter((c) => c.mangaId === mangaId)
                 .find((c) => c.number === chapter);

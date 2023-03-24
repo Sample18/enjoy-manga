@@ -2,15 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ListDropContainer from "../../common/listDropContainer/listDropContainer";
-import { useChapters } from "../../../hooks/useChapters";
 import _ from "lodash";
+import { useSelector } from "react-redux";
+import { getChaptersById } from "../../../store/chapters";
 
 const ChaptersList = ({ id }) => {
-    const { chapters } = useChapters();
-    const getChaptersById = (id) => chapters.filter((c) => c.mangaId === id);
-    const chaptersCrop = _.orderBy(getChaptersById(id), "number", "desc");
+    const chaptersCrop = _.orderBy(
+        useSelector(getChaptersById(id)),
+        "number",
+        "desc"
+    );
 
-    return (
+    return chaptersCrop.length !== 0 ? (
         <ListDropContainer>
             {chaptersCrop.map((c) => (
                 <p
@@ -26,6 +29,10 @@ const ChaptersList = ({ id }) => {
                 </p>
             ))}
         </ListDropContainer>
+    ) : (
+        <div className={"w-50 m-auto mb-4 text-light text-center"}>
+            Увы... Загруженных глав пока нет.
+        </div>
     );
 };
 

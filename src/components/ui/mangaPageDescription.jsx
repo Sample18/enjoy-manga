@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import SpanWrapper from "../common/spanWrapper";
 import Loader from "./loader";
-import { useGenres } from "../../hooks/useGenres";
+import { useSelector } from "react-redux";
+import { getGenresList } from "../../store/genres";
 
 const MangaPageDescription = ({ manga }) => {
-    const { genres } = useGenres();
-
+    const genres = useSelector(getGenresList());
     const getGenreById = (id) => genres.find((g) => g.id === id);
 
     return (
@@ -25,7 +25,7 @@ const MangaPageDescription = ({ manga }) => {
                     </h4>
                     <h4 className="text-white">
                         Жанры:{" "}
-                        {genres.length !== 0
+                        {genres
                             ? manga.genres.map((id, i) => (
                                   <SpanWrapper key={id}>
                                       {getGenreById(id).nameRu}

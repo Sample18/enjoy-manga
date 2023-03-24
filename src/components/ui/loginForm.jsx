@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
-import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { logIn } from "../../store/users";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthError, logIn } from "../../store/users";
 
 const LoginForm = () => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const history = useHistory();
     const [data, setData] = useState({
         email: "",
         password: ""
     });
     const [errors, setErrors] = useState({});
-    const [enterError, setEnterError] = useState(null);
-    const { signIn } = useAuth();
+    const loginError = useSelector(getAuthError());
     const validatorConfig = {
         email: {
             isRequired: {
@@ -37,18 +35,13 @@ const LoginForm = () => {
             ...prevState,
             [target.name]: target.value
         }));
-        setEnterError(null);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        try {
-            await signIn(data);
-            history.push("/");
-        } catch (error) {
-            setEnterError(error.message);
-        }
+        dispatch(logIn(data));
+        history.push("/");
         // const redirect = history.location.state
         //     ? history.location.state.from.pathname
         //     : "/";
@@ -78,10 +71,10 @@ const LoginForm = () => {
                 onChange={handleChange}
                 error={errors.password}
             />
-            {enterError && <p className="text-danger">{enterError}</p>}
+            {loginError && <p className="text-danger">{loginError}</p>}
             <button
                 type="submit"
-                disabled={!isValid || enterError}
+                disabled={!isValid}
                 className="btn btn-primary w-100 mx-auto"
             >
                 Войти

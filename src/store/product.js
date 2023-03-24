@@ -54,5 +54,11 @@ export const uploadManga = (payload) => async (dispatch) => {
 
 export const getMangaList = () => (state) => state.manga.entities;
 export const getMangaListLoadingStatus = () => (state) => state.manga.isLoading;
+export const getMangaByName = (name) => (state) =>
+    state.manga.entities
+        ? state.manga.entities.find(
+              (m) => m.name.toLowerCase().replace(/ /g, "") === name
+          )
+        : null;
 
 export default mangaReducer;

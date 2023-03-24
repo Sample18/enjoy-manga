@@ -5,16 +5,18 @@ import ChaptersList from "../../ui/chaptersList/chaptersList";
 import MangaPageDescription from "../../ui/mangaPageDescription";
 import Loader from "../../ui/loader";
 import Comments from "../../ui/comments";
-import { useProduct } from "../../../hooks/useProduct";
 import styles from "./mangaPage.module.css";
+import { useSelector } from "react-redux";
+import { getMangaByName } from "../../../store/product";
+import BackButton from "../../common/backButton";
 
 const MangaPage = ({ mangaName }) => {
-    const { getMangaByName } = useProduct();
-    const mangaCrop = getMangaByName(mangaName);
+    const mangaCrop = useSelector(getMangaByName(mangaName));
     const { coverImage } = styles;
 
     return (
         <ContentContainer>
+            <BackButton />
             {mangaCrop ? (
                 <>
                     <div className="d-flex mb-4">

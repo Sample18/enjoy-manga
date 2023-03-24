@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useGenres } from "../../hooks/useGenres";
-import { useProduct } from "../../hooks/useProduct";
+import { getGenreByName } from "../../store/genres";
+import { getMangaList } from "../../store/product";
 import { firstSymbToUpperCase } from "../../utils/textTransform";
+import BackButton from "../common/backButton";
 import ContentContainer from "../common/contentContainer";
 import SpanWrapper from "../common/spanWrapper";
 import Loader from "../ui/loader";
@@ -11,14 +13,13 @@ import SortBar from "../ui/sortBar/sortBar";
 
 const GenrePage = () => {
     const { genreName } = useParams();
-    const { getGenreByName } = useGenres();
-    const { manga } = useProduct();
-    const genre = getGenreByName(genreName);
+    const genre = useSelector(getGenreByName(genreName));
+    const manga = useSelector(getMangaList());
     const mangaCrop = filterManga();
 
     function filterManga() {
         const mangaArray = [];
-        if (genre && manga.length !== 0) {
+        if (genre && manga) {
             for (const m of manga) {
                 const finded = m.genres.find((g) => g === genre.id);
                 if (finded) {
@@ -31,6 +32,7 @@ const GenrePage = () => {
 
     return (
         <ContentContainer>
+            <BackButton />
             {genre ? (
                 <>
                     <div className="border border-light w-75 m-auto mb-5">
