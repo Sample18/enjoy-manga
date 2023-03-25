@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import TextField from "../common/form/textField";
-import { validator } from "../../utils/validator";
+import TextField from "../../common/form/textField";
+import { validator } from "../../../utils/validator";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthError, logIn } from "../../store/users";
+import { getAuthError, logIn } from "../../../store/users";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -75,7 +75,7 @@ const LoginForm = () => {
             <button
                 type="submit"
                 disabled={!isValid}
-                className="btn btn-primary w-100 mx-auto"
+                className="btn btn-secondary w-100 mx-auto"
             >
                 Войти
             </button>

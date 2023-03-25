@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ContentContainer from "../common/contentContainer";
-import CreateMangaForm from "../ui/createMangaForm";
+import CreateMangaForm from "../ui/forms/createMangaForm";
 
 const CreateMangaPage = () => {
     return (

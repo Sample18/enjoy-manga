@@ -1,26 +1,16 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import PaginationHOC from "./pagination";
 import Paginate from "../../utils/paginate";
 import _ from "lodash";
-import { useSelector } from "react-redux";
-import { getCommentsList } from "../../store/comments";
+import PropTypes from "prop-types";
 
-const Comments = ({ id }) => {
-    const comments = useSelector(getCommentsList());
+const Comments = ({ comments }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const getCommentsById = (id) =>
-        comments ? comments.filter((c) => c.pageId === id) : [];
-    const commentsCrop = getCommentsById(id);
-    const count = commentsCrop.length;
+    const count = comments ? comments.length : 1;
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
-    const paginateComments = Paginate(commentsCrop, currentPage, pageSize);
-    const sortedComments = _.orderBy(
-        paginateComments,
-        ["created_at"],
-        ["desc"]
-    );
+    const sortedComments = _.orderBy(comments, ["created_at"], ["desc"]);
+    const paginateComments = Paginate(sortedComments, currentPage, pageSize);
 
     const handlePageChange = ({ target }) => {
         setCurrentPage(Number(target.innerText));
@@ -32,8 +22,8 @@ const Comments = ({ id }) => {
                 <h5 className="card-title text-center">Комментарии к манге</h5>
             </div>
             <div className="card-body">
-                {sortedComments.length !== 0 ? (
-                    sortedComments.map((c) => (
+                {paginateComments.length !== 0 ? (
+                    paginateComments.map((c) => (
                         <p className="card-text" key={c.id}>
                             {c.content}
                         </p>
@@ -56,7 +46,7 @@ const Comments = ({ id }) => {
 };
 
 Comments.propTypes = {
-    id: PropTypes.string
+    comments: PropTypes.array
 };
 
 export default Comments;

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 import commentsService from "../services/comments.service";
 
 const commentsSlice = createSlice({
@@ -19,20 +19,40 @@ const commentsSlice = createSlice({
         commentsRequestFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
+        },
+        commentsCreated: (state, action) => {
+            state.entities.push(action.payload);
         }
     }
 });
 
 const { reducer: commentsReducer, actions } = commentsSlice;
-const { commentsRequested, commentsReceved, commentsRequestFailed } = actions;
+const {
+    commentsRequested,
+    commentsReceved,
+    commentsRequestFailed,
+    commentsCreated
+} = actions;
 
-export const loadCommentsList = () => async (dispatch) => {
+const commentCreateRequested = createAction("comments/commentCreateRequested");
+const commentCreateFailed = createAction("comments/commentCreateFailed");
+
+export const loadCommentsList = (pageId) => async (dispatch) => {
     dispatch(commentsRequested());
     try {
-        const { content } = await commentsService.get();
+        const { content } = await commentsService.getComments(pageId);
         dispatch(commentsReceved(content));
     } catch (error) {
         dispatch(commentsRequestFailed(error));
+    }
+};
+export const createComment = (payload) => async (dispatch) => {
+    dispatch(commentCreateRequested());
+    try {
+        const { content } = await commentsService.create(payload);
+        dispatch(commentsCreated(content));
+    } catch (error) {
+        dispatch(commentCreateFailed(error));
     }
 };
 

@@ -18,9 +18,7 @@ const GenresPage = () => {
     const count = genres ? genres.length : 1;
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
-    const paginateGenres = genres
-        ? Paginate(genres, currentPage, pageSize)
-        : [];
+    const paginateGenres = Paginate(genres, currentPage, pageSize);
 
     const sortBy = () => {
         if (value === "алфавиту") return "nameRu";

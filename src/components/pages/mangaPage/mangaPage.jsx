@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import ContentContainer from "../../common/contentContainer";
 import ChaptersList from "../../ui/chaptersList/chaptersList";
@@ -6,13 +6,25 @@ import MangaPageDescription from "../../ui/mangaPageDescription";
 import Loader from "../../ui/loader";
 import Comments from "../../ui/comments";
 import styles from "./mangaPage.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getMangaByName } from "../../../store/product";
 import BackButton from "../../common/backButton";
+import CommentsForm from "../../ui/forms/commentsForm";
+import { getCurrentUserData } from "../../../store/users";
+import { getCommentsList, loadCommentsList } from "../../../store/comments";
 
 const MangaPage = ({ mangaName }) => {
     const mangaCrop = useSelector(getMangaByName(mangaName));
+    const currentUser = useSelector(getCurrentUserData());
+    const comments = useSelector(getCommentsList());
+    const dispatch = useDispatch();
     const { coverImage } = styles;
+
+    useEffect(() => {
+        if (mangaCrop) {
+            dispatch(loadCommentsList(mangaCrop.id));
+        }
+    }, [mangaCrop]);
 
     return (
         <ContentContainer>
@@ -27,7 +39,13 @@ const MangaPage = ({ mangaName }) => {
                         <MangaPageDescription manga={mangaCrop} />
                     </div>
                     <ChaptersList id={mangaCrop.id} />
-                    <Comments id={mangaCrop.id} />
+                    <Comments comments={comments} />
+                    {currentUser && (
+                        <CommentsForm
+                            id={mangaCrop.id}
+                            userId={currentUser.id}
+                        />
+                    )}
                 </>
             ) : (
                 <Loader />

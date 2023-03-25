@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ContentContainer from "../common/contentContainer";
-import DownloadChapterForm from "../ui/downloadChapterForm";
+import DownloadChapterForm from "../ui/forms/downloadChapterForm";
 
 const DownloadPage = () => {
     return (

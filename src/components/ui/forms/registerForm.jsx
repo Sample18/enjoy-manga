@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import TextField from "../common/form/textField";
-import { validator } from "../../utils/validator";
-import RadioField from "../common/form/radioField";
+import TextField from "../../common/form/textField";
+import { validator } from "../../../utils/validator";
+import RadioField from "../../common/form/radioField";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { singUp } from "../../store/users";
+import { singUp } from "../../../store/users";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
@@ -126,7 +126,7 @@ const RegisterForm = () => {
             <button
                 type="submit"
                 disabled={!isValid}
-                className="btn btn-primary w-100 mx-auto"
+                className="btn btn-secondary w-100 mx-auto"
             >
                 Зарегестрироваться
             </button>

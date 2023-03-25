@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { nanoid } from "nanoid";
-import FileField from "../common/form/fileField";
-import TextField from "../common/form/textField";
+import FileField from "../../common/form/fileField";
+import TextField from "../../common/form/textField";
 import { initializeApp } from "firebase/app";
 import {
     getStorage,
@@ -9,15 +9,15 @@ import {
     uploadBytesResumable,
     getDownloadURL
 } from "firebase/storage";
-import { validator } from "../../utils/validator";
-import MultySelectField from "../common/form/multiSelectField";
-import RadioField from "../common/form/radioField";
-import TextAreaField from "../common/form/textAreaField";
-import { generateRandomNumber } from "../../utils/random";
+import { validator } from "../../../utils/validator";
+import MultySelectField from "../../common/form/multiSelectField";
+import RadioField from "../../common/form/radioField";
+import TextAreaField from "../../common/form/textAreaField";
+import { generateRandomNumber } from "../../../utils/random";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadManga } from "../../store/product";
+import { uploadManga } from "../../../store/product";
 import { toast } from "react-toastify";
-import { getGenresList } from "../../store/genres";
+import { getGenresList } from "../../../store/genres";
 
 const firebaseConfig = {
     storageBucket: "gs://enjoy-manga.appspot.com"
@@ -201,7 +201,7 @@ const CreateMangaForm = () => {
                 <button
                     type="submit"
                     disabled={!isValid}
-                    className="btn btn-primary w-100 mx-auto mb-4"
+                    className="btn btn-secondary w-100 mx-auto mb-4"
                 >
                     Создать мангу
                 </button>

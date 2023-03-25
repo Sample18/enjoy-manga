@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
-import FileField from "../common/form/fileField";
-import SelectField from "../common/form/selectField";
-import TextField from "../common/form/textField";
+import FileField from "../../common/form/fileField";
+import SelectField from "../../common/form/selectField";
+import TextField from "../../common/form/textField";
 import _ from "lodash";
 import { initializeApp } from "firebase/app";
 import {
@@ -11,11 +11,11 @@ import {
     uploadBytesResumable,
     getDownloadURL
 } from "firebase/storage";
-import { validator } from "../../utils/validator";
+import { validator } from "../../../utils/validator";
 import { LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getMangaList } from "../../store/product";
-import { uploadChapter } from "../../store/chapters";
+import { getMangaList } from "../../../store/product";
+import { uploadChapter } from "../../../store/chapters";
 
 const firebaseConfig = {
     storageBucket: "gs://enjoy-manga.appspot.com"
@@ -212,7 +212,7 @@ const DownloadChapterForm = () => {
                 <button
                     type="submit"
                     disabled={!isValid}
-                    className="btn btn-primary w-100 mx-auto mb-4"
+                    className="btn btn-secondary w-100 mx-auto mb-4"
                 >
                     Загрузить главу
                 </button>
