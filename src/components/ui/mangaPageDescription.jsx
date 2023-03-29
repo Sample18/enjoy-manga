@@ -12,7 +12,7 @@ const MangaPageDescription = ({ manga }) => {
     return (
         <div>
             {manga ? (
-                <>
+                <div className="mb-4">
                     <h1 className="text-white">
                         <SpanWrapper>{manga.name}</SpanWrapper> /{" "}
                         <span>{manga.nameRu}</span>
@@ -38,7 +38,7 @@ const MangaPageDescription = ({ manga }) => {
                     </h4>
                     <h4 className="text-white">Описание: </h4>
                     <SpanWrapper>{manga.description}</SpanWrapper>
-                </>
+                </div>
             ) : (
                 <Loader />
             )}

@@ -13,7 +13,7 @@
     z-index: 1;
     width: 140px;
     height: 200px;
-    transition: transform 0.5s ease;
+    transition: transform 1s ease;
 }
 
 .topImage {
@@ -28,12 +28,4 @@
     height: 200px;
     width: auto;
     transform: translateX(140px);
-}
-
-.bg {
-    background-color: #222222;
-}
-
-.bg:hover {
-    background-color: #606060;
 }

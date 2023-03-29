@@ -6,6 +6,7 @@ import NavProfile from "../navProfile";
 import { useSelector } from "react-redux";
 import { getMangaList } from "../../../store/product";
 import { getIsLoggedIn } from "../../../store/users";
+import { Tooltip } from "@mui/material";
 
 const NavBar = () => {
     const { bg, searchSuggestions, hide, searchWrapper } = styles;
@@ -96,11 +97,13 @@ const NavBar = () => {
             </div>
             <div className="d-flex align-items-center">
                 {isLogin && (
-                    <i
-                        className="bi bi-box-arrow-down text-light fs-5 me-4"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => history.push("/download")}
-                    ></i>
+                    <Tooltip title="Добавить главу">
+                        <i
+                            className="bi bi-box-arrow-down text-light fs-5 me-4"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => history.push("/download")}
+                        ></i>
+                    </Tooltip>
                 )}
 
                 <div className="d-flex align-items-center user_menu">

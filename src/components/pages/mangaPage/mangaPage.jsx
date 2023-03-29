@@ -10,8 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMangaByName } from "../../../store/product";
 import BackButton from "../../common/backButton";
 import CommentsForm from "../../ui/forms/commentsForm";
-import { getCurrentUserData } from "../../../store/users";
+import { getCurrentUserData, updateUser } from "../../../store/users";
 import { getCommentsList, loadCommentsList } from "../../../store/comments";
+import Favorites from "../../ui/favorites";
 
 const MangaPage = ({ mangaName }) => {
     const mangaCrop = useSelector(getMangaByName(mangaName));
@@ -26,6 +27,40 @@ const MangaPage = ({ mangaName }) => {
         }
     }, [mangaCrop]);
 
+    const handleClick = () => {
+        let favorites;
+        if (currentUser.favorites) {
+            const favIndex = currentUser.favorites.findIndex(
+                (f) => f === mangaCrop.id
+            );
+            if (favIndex === -1) {
+                favorites = [...currentUser.favorites, mangaCrop.id];
+            } else {
+                favorites = currentUser.favorites.filter(
+                    (f, i) => i !== favIndex
+                );
+            }
+        } else {
+            favorites = [mangaCrop.id];
+        }
+
+        dispatch(updateUser({ ...currentUser, favorites }));
+    };
+
+    const favoriteCheck = () => {
+        if (currentUser.favorites) {
+            const favIndex = currentUser.favorites.findIndex(
+                (f) => f === mangaCrop.id
+            );
+            if (favIndex === -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    };
+
     return (
         <ContentContainer>
             <BackButton />
@@ -36,7 +71,15 @@ const MangaPage = ({ mangaName }) => {
                             src={"/" + mangaCrop.cover}
                             className={"mx-4 " + coverImage}
                         />
-                        <MangaPageDescription manga={mangaCrop} />
+                        <div>
+                            <MangaPageDescription manga={mangaCrop} />
+                            {currentUser && (
+                                <Favorites
+                                    onClick={handleClick}
+                                    isFav={favoriteCheck()}
+                                />
+                            )}
+                        </div>
                     </div>
                     <ChaptersList id={mangaCrop.id} />
                     <Comments comments={comments} />

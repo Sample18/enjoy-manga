@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,12 +14,7 @@ const NavProfile = () => {
         <div className="dropdown text-light" onClick={toggleMenu}>
             <div className="btn dropdown-toggle d-flex align-items-center">
                 <div className="me-2 text-light">{currentUser.name}</div>
-                <img
-                    src={currentUser.avatar}
-                    alt="avatar"
-                    height="40"
-                    className="img-responsive rounded-circle"
-                />
+                <Avatar src={currentUser.avatar} alt="avatar" />
             </div>
             <div
                 className={
