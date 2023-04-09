@@ -16,6 +16,7 @@ import { LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getMangaList } from "../../../store/product";
 import { uploadChapter } from "../../../store/chapters";
+import { getCurrentUserData } from "../../../store/users";
 
 const firebaseConfig = {
     storageBucket: "gs://enjoy-manga.appspot.com"
@@ -31,6 +32,7 @@ const metadata = {
 
 const DownloadChapterForm = () => {
     const dispatch = useDispatch();
+    const currentUser = useSelector(getCurrentUserData());
     const [data, setData] = useState({
         name: "",
         number: "",
@@ -43,7 +45,8 @@ const DownloadChapterForm = () => {
         number: "",
         name: "",
         date: "",
-        content: []
+        content: [],
+        moderateStatus: "onCheck"
     };
     const [chapter, setChapter] = useState(initialChapter);
     const manga = useSelector(getMangaList());
@@ -121,7 +124,9 @@ const DownloadChapterForm = () => {
     function uploadData(data, file, i) {
         const imagesRef = ref(
             storage,
-            `${data.mangaName}/ch${data.number}/${`pageNumber` + (i + 1)}`
+            `${data.mangaName}/ch${data.number}/UID${currentUser.id}/${
+                `pageNumber` + (i + 1)
+            }`
         );
         const uploadData = uploadBytesResumable(imagesRef, file, metadata);
         uploadData.on(
@@ -170,7 +175,8 @@ const DownloadChapterForm = () => {
             mangaId: data.mangaName,
             number: data.number,
             name: data.name,
-            date: Date.now()
+            date: Date.now(),
+            uploadBy: currentUser.id
         }));
         data.images.forEach((file, i) => uploadData(data, file, i));
     };
@@ -211,7 +217,7 @@ const DownloadChapterForm = () => {
                 />
                 <button
                     type="submit"
-                    disabled={!isValid}
+                    disabled={!isValid && currentUser}
                     className="btn btn-secondary w-100 mx-auto mb-4"
                 >
                     Загрузить главу

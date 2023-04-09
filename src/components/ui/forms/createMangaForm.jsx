@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { uploadManga } from "../../../store/product";
 import { toast } from "react-toastify";
 import { getGenresList } from "../../../store/genres";
+import { getCurrentUserData } from "../../../store/users";
 
 const firebaseConfig = {
     storageBucket: "gs://enjoy-manga.appspot.com"
@@ -29,6 +30,7 @@ const storage = getStorage(app);
 
 const CreateMangaForm = () => {
     const dispatch = useDispatch();
+    const currentUser = useSelector(getCurrentUserData());
     const initialState = {
         name: "",
         nameRu: "",
@@ -36,7 +38,8 @@ const CreateMangaForm = () => {
         category: "манга",
         description: "",
         genres: [],
-        cover: ""
+        cover: "",
+        moderateStatus: "onCheck"
     };
     const [data, setData] = useState(initialState);
     const genres = useSelector(getGenresList());
@@ -118,7 +121,8 @@ const CreateMangaForm = () => {
                         rate: generateRandomNumber(1, 10),
                         ...data,
                         genres: data.genres.map((g) => g.value),
-                        cover: url
+                        cover: url,
+                        uploadBy: currentUser.id
                     };
                     dispatch(uploadManga(product));
                     toast.success("Манга загружена!");

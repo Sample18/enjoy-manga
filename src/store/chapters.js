@@ -65,5 +65,9 @@ export const getChaptersById = (id) => (state) =>
     state.chapters.entities
         ? state.chapters.entities.filter((c) => c.mangaId === id)
         : [];
+export const getUploadByUser = (id) => (state) =>
+    state.chapters.entities
+        ? state.chapters.entities.filter((c) => c.uploadBy === id)
+        : [];
 
 export default chaptersReducer;

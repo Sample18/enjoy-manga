@@ -22,8 +22,11 @@ const NavProfile = () => {
                     (isOpen ? " show" : "")
                 }
             >
-                <Link to={`/users/${currentUser.id}`} className="dropdown-item">
-                    Избранное
+                <Link
+                    to={`/profile/${currentUser.id}`}
+                    className="dropdown-item"
+                >
+                    Профиль
                 </Link>
                 <Link to={`/logout`} className="dropdown-item">
                     Выйти

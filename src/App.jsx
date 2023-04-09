@@ -11,12 +11,14 @@ import Login from "./layout/login";
 import LogOut from "./layout/logout";
 import AppLoader from "./components/ui/hoc/appLoader";
 import "react-toastify/dist/ReactToastify.css";
+import ProfilePage from "./components/pages/profilePage";
 
 function App() {
     return (
         <>
             <AppLoader>
                 <Switch>
+                    <Route path="/profile/:userId" component={ProfilePage} />
                     <Route path="/genres/:genreName?" component={Genres} />
                     <Route path="/catalog/:mangaName?" component={Catalog} />
                     <Route

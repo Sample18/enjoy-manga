@@ -163,6 +163,6 @@ export const getCurrentUserData = () => (state) => {
 export const getAuthError = () => (state) => state.users.error;
 export const getDataStatus = () => (state) => state.users.dataLoaded;
 export const getUserById = (id) => (state) =>
-    state.users.entities.find((u) => u.id === id);
+    state.users.entities ? state.users.entities.find((u) => u.id === id) : null;
 
 export default usersReducer;
