@@ -8,6 +8,7 @@ const schema = new Schema(
     avatar: String,
     favorites: [{ type: Schema.Types.ObjectId, ref: "Product" }],
     sex: { type: String, enum: ["male", "female", "other"] },
+    role: { type: String, enum: ["admin", "moderator", "user"] },
   },
   {
     timestamps: true,
