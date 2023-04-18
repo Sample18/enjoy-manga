@@ -12,6 +12,7 @@ import LogOut from "./layout/logout";
 import AppLoader from "./components/ui/hoc/appLoader";
 import "react-toastify/dist/ReactToastify.css";
 import ProfilePage from "./components/pages/profilePage";
+import Authors from "./layout/authors";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/profile/:userId" component={ProfilePage} />
                     <Route path="/genres/:genreName?" component={Genres} />
                     <Route path="/catalog/:mangaName?" component={Catalog} />
+                    <Route path="/authors" component={Authors} />
                     <Route
                         path="/reader/:mangaName/:ch/:page"
                         component={Reader}

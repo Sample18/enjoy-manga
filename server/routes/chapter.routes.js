@@ -14,12 +14,15 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
-    const newChapter = await Chapter.create({ ...req.body });
+    const newChapter = await Chapter.create({
+      ...req.body,
+      moderateStatus: "onCheck",
+    });
     res.send(newChapter);
   } catch (e) {
-    sendDefaultError(res);
+    return sendDefaultError(res);
   }
 });
 

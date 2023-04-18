@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { nanoid } from "nanoid";
 import FileField from "../../common/form/fileField";
 import TextField from "../../common/form/textField";
 import { initializeApp } from "firebase/app";
@@ -35,11 +34,10 @@ const CreateMangaForm = () => {
         name: "",
         nameRu: "",
         author: "",
-        category: "манга",
+        category: "Манга",
         description: "",
         genres: [],
-        cover: "",
-        moderateStatus: "onCheck"
+        cover: ""
     };
     const [data, setData] = useState(initialState);
     const genres = useSelector(getGenresList());
@@ -47,7 +45,7 @@ const CreateMangaForm = () => {
     const genresList = genres
         ? genres.map((g) => ({
               label: g.nameRu,
-              value: g.id
+              value: g._id
           }))
         : [];
     const validatorConfig = {
@@ -116,13 +114,11 @@ const CreateMangaForm = () => {
             () => {
                 getDownloadURL(uploadData.snapshot.ref).then((url) => {
                     const product = {
-                        id: nanoid(),
-                        date: Date.now(),
                         rate: generateRandomNumber(1, 10),
                         ...data,
                         genres: data.genres.map((g) => g.value),
                         cover: url,
-                        uploadBy: currentUser.id
+                        uploadBy: currentUser._id
                     };
                     dispatch(uploadManga(product));
                     toast.success("Манга загружена!");
@@ -146,6 +142,8 @@ const CreateMangaForm = () => {
         uploadData(data, data.cover[0]);
         setData(initialState);
     };
+
+    console.log(genresList);
 
     return (
         <>
@@ -183,8 +181,8 @@ const CreateMangaForm = () => {
                     onChange={handleChange}
                     value={data.category}
                     options={[
-                        { name: "Манга", value: "манга" },
-                        { name: "Манхва", value: "манхва" }
+                        { name: "Манга", value: "Манга" },
+                        { name: "Манхва", value: "Манхва" }
                     ]}
                 />
                 <TextAreaField

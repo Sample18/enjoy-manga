@@ -6,11 +6,12 @@ import { getUploadByUser } from "../../store/chapters";
 import DownloadMangaItem from "../common/downloadMangaItem";
 
 const UserDownloadList = ({ userId }) => {
+    console.log(userId);
     const downloadManga = useSelector(getUploadByUser(userId));
 
     return (
         <div className="w-50 mx-1">
-            <h2 className="text-center">Избранное</h2>
+            <h2 className="text-center">Загруженное</h2>
 
             {downloadManga.length ? (
                 <List

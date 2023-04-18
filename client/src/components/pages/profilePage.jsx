@@ -35,7 +35,7 @@ const ProfilePage = () => {
                                             : []
                                     }
                                 />
-                                <UserDownloadList userId={user.id} />
+                                <UserDownloadList userId={user._id} />
                             </div>
                         </div>
                     </div>

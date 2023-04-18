@@ -26,11 +26,8 @@ router.post("/signUp", [
   check(
     "password",
     "Пароль должен содержать хотя бы 1 заглавную и строчную букву, 1 цифру и иметь длину минимум 8 символов"
-  ).isStrongPassword({
-    minLength: 8,
-    minLowercase: 1,
-    minUppercase: 1,
-    minNumbers: 1,
+  ).isLength({
+    min: 8,
   }),
   async (req, res) => {
     try {

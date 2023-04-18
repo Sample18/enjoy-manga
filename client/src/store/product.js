@@ -62,6 +62,8 @@ export const getMangaByName = (name) => (state) =>
         : null;
 
 export const getMangaById = (id) => (state) =>
-    state.manga.entities ? state.manga.entities.find((m) => m.id === id) : null;
+    state.manga.entities
+        ? state.manga.entities.find((m) => m._id === id)
+        : null;
 
 export default mangaReducer;

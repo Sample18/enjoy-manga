@@ -49,7 +49,7 @@ const CatalogPage = () => {
             </div>
             <div className="d-flex flex-wrap">
                 {sortedManga ? (
-                    sortedManga.map((m) => <MangaCard manga={m} key={m.id} />)
+                    sortedManga.map((m) => <MangaCard manga={m} key={m._id} />)
                 ) : (
                     <Loader />
                 )}

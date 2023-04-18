@@ -18,17 +18,21 @@ const MainPage = () => {
     const count = chapters ? chapters.length : 1;
     const pageSize = 5;
     const pagesCount = Math.ceil(count / pageSize);
-    const sortedChapters = _.orderBy(updateChapters(manga), ["date"], ["desc"]);
+    const sortedChapters = _.orderBy(
+        updateChapters(manga, chapters),
+        ["date"],
+        ["desc"]
+    );
     const paginateChapters = Paginate(sortedChapters, currentPage, pageSize);
 
     const handlePageChange = ({ target }) => {
         setCurrentPage(Number(target.innerText));
     };
 
-    function updateChapters() {
+    function updateChapters(manga, chapters) {
         if (manga && chapters) {
             return chapters.map((c) => {
-                const currManga = manga.find((m) => m.id === c.mangaId);
+                const currManga = manga.find((m) => m._id === c.mangaId);
                 return {
                     ...c,
                     mangaName: currManga.name,

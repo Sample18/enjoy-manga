@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { nanoid } from "nanoid";
 import FileField from "../../common/form/fileField";
 import SelectField from "../../common/form/selectField";
 import TextField from "../../common/form/textField";
@@ -40,13 +39,10 @@ const DownloadChapterForm = () => {
         images: ""
     });
     const initialChapter = {
-        id: "",
         mangaId: "",
         number: "",
         name: "",
-        date: "",
-        content: [],
-        moderateStatus: "onCheck"
+        content: []
     };
     const [chapter, setChapter] = useState(initialChapter);
     const manga = useSelector(getMangaList());
@@ -56,7 +52,7 @@ const DownloadChapterForm = () => {
     const mangaList = manga
         ? manga.map((m) => ({
               label: m.nameRu,
-              value: m.id
+              value: m._id
           }))
         : [];
     const validatorConfig = {
@@ -124,7 +120,7 @@ const DownloadChapterForm = () => {
     function uploadData(data, file, i) {
         const imagesRef = ref(
             storage,
-            `${data.mangaName}/ch${data.number}/UID${currentUser.id}/${
+            `${data.mangaName}/ch${data.number}/UID${currentUser._id}/${
                 `pageNumber` + (i + 1)
             }`
         );
@@ -171,12 +167,10 @@ const DownloadChapterForm = () => {
         setChapter(initialChapter);
         setChapter((prevState) => ({
             ...prevState,
-            id: nanoid(),
             mangaId: data.mangaName,
             number: data.number,
             name: data.name,
-            date: Date.now(),
-            uploadBy: currentUser.id
+            uploadBy: currentUser._id
         }));
         data.images.forEach((file, i) => uploadData(data, file, i));
     };

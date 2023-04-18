@@ -14,8 +14,8 @@ const MangaCard = ({ manga }) => {
             >
                 <img
                     className={coverImg}
-                    src={"/" + manga.cover}
-                    alt="test"
+                    src={manga.cover}
+                    alt={manga.name + " cover"}
                     width="250"
                     height="353"
                 />

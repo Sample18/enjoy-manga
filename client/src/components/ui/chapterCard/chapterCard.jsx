@@ -22,12 +22,12 @@ const ChapterCard = ({ chapter }) => {
                     <img
                         className={"m-2 " + topImage}
                         src={chapter.content[0]}
-                        alt="berserk"
+                        alt={chapter.name + " cover"}
                     />
                     <img
                         className={"m-2 " + bottomImage}
                         src={chapter.content[1]}
-                        alt="berserk"
+                        alt={chapter.name + " cover2"}
                     />
                 </div>
             </Link>

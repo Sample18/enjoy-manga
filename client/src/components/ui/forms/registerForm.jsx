@@ -12,7 +12,8 @@ const RegisterForm = () => {
         email: "",
         password: "",
         name: "",
-        sex: "male"
+        sex: "male",
+        role: "user"
     });
     const dispatch = useDispatch();
     const [errors, setErrors] = useState({});

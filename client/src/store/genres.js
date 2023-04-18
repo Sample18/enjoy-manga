@@ -45,7 +45,7 @@ export const getGenreByName = (name) => (state) =>
         : null;
 export const getGenreById = (id) => (state) =>
     state.genres.entities
-        ? state.genres.entities.find((g) => g.id === id)
+        ? state.genres.entities.find((g) => g._id === id)
         : null;
 
 export default genresReducer;

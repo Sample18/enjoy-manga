@@ -7,7 +7,7 @@ import { getGenresList } from "../../store/genres";
 
 const MangaPageDescription = ({ manga }) => {
     const genres = useSelector(getGenresList());
-    const getGenreById = (id) => genres.find((g) => g.id === id);
+    const getGenreById = (id) => genres.find((g) => g._id === id);
 
     return (
         <div>

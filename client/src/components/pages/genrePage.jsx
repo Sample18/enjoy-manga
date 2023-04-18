@@ -21,7 +21,7 @@ const GenrePage = () => {
         const mangaArray = [];
         if (genre && manga) {
             for (const m of manga) {
-                const finded = m.genres.find((g) => g === genre.id);
+                const finded = m.genres.find((g) => g === genre._id);
                 if (finded) {
                     mangaArray.push(m);
                 }
@@ -48,7 +48,7 @@ const GenrePage = () => {
                     <div className="d-flex flex-wrap">
                         {mangaCrop.length !== 0 ? (
                             mangaCrop.map((m) => (
-                                <MangaCard manga={m} key={m.id} />
+                                <MangaCard manga={m} key={m._id} />
                             ))
                         ) : (
                             <h1 className="text-light">

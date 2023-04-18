@@ -3,7 +3,6 @@ import { validator } from "../../../utils/validator";
 import { useDispatch } from "react-redux";
 import TextAreaField from "../../common/form/textAreaField";
 import PropTypes from "prop-types";
-import { nanoid } from "nanoid";
 import { createComment } from "../../../store/comments";
 
 const CommentsForm = ({ id: pageId, userId }) => {
@@ -37,8 +36,6 @@ const CommentsForm = ({ id: pageId, userId }) => {
         const commentData = {
             content: data.comment,
             pageId,
-            created_at: Date.now(),
-            id: nanoid(),
             userId
         };
         dispatch(createComment(commentData));

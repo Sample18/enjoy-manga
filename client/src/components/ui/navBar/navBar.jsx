@@ -23,7 +23,7 @@ const NavBar = () => {
             name: "Жанры"
         },
         {
-            link: "/catalog",
+            link: "/authors",
             name: "Авторы"
         }
     ];

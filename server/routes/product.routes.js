@@ -14,9 +14,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
-    const newProduct = await Product.create({ ...req.body });
+    const newProduct = await Product.create({
+      ...req.body,
+      moderateStatus: "onCheck",
+    });
     res.send(newProduct);
   } catch (e) {
     sendDefaultError(res);

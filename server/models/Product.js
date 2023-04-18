@@ -10,6 +10,11 @@ const schema = new Schema(
     name: String,
     nameRu: String,
     rate: Number,
+    moderateStatus: {
+      type: String,
+      enum: ["onCheck", "accepted", "notAccepted"],
+    },
+    uploadBy: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: { createdAt: "date" },

@@ -1,17 +1,14 @@
 import httpService from "./http.service";
 
-const chaptersEndpoint = "chapters/";
+const chaptersEndpoint = "chapter";
 
 const chaptersService = {
     get: async () => {
         const { data } = await httpService.get(chaptersEndpoint);
         return data;
     },
-    upload: async (chapter) => {
-        const { data } = await httpService.put(
-            chaptersEndpoint + chapter.id,
-            chapter
-        );
+    upload: async (payload) => {
+        const { data } = await httpService.post(chaptersEndpoint, payload);
         return data;
     }
 };

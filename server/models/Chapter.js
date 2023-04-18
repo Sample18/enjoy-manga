@@ -6,6 +6,11 @@ const schema = new Schema(
     mangaId: { type: Schema.Types.ObjectId, ref: "Product" },
     name: String,
     number: String,
+    moderateStatus: {
+      type: String,
+      enum: ["onCheck", "accepted", "notAccepted"],
+    },
+    uploadBy: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: { createdAt: "date" },
