@@ -10,6 +10,13 @@ const productService = {
     upload: async (payload) => {
         const { data } = await httpService.post(productEndpoint, payload);
         return data;
+    },
+    update: async (payload) => {
+        const { data } = await httpService.patch(
+            productEndpoint + "/update",
+            payload
+        );
+        return data;
     }
 };
 

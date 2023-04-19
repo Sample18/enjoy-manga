@@ -143,6 +143,15 @@ export const getCurrentUserData = () => (state) => {
         ? state.users.entities.find((u) => u._id === state.users.auth.userId)
         : null;
 };
+export const getAdminRole = () => (state) => {
+    const user = state.users.entities
+        ? state.users.entities.find((u) => u._id === state.users.auth.userId)
+        : null;
+    if (user) {
+        return user.role === "admin";
+    }
+    return false;
+};
 export const getAuthError = () => (state) => state.users.error;
 export const getDataStatus = () => (state) => state.users.dataLoaded;
 export const getUserById = (id) => (state) =>

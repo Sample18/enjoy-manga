@@ -5,7 +5,7 @@ const BackButton = () => {
     const history = useHistory();
     const handleClick = () => history.goBack();
     return (
-        <button className="btn btn-dark" onClick={handleClick}>
+        <button className="btn btn-secondary mx-4 mb-4" onClick={handleClick}>
             Назад
         </button>
     );

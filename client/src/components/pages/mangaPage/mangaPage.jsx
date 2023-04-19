@@ -39,7 +39,7 @@ const MangaPage = ({ mangaName }) => {
                             className={"mx-4 " + coverImage}
                             alt={mangaCrop.cover + " cover"}
                         />
-                        <div>
+                        <div className="mx-4">
                             <MangaPageDescription manga={mangaCrop} />
                             {currentUser && (
                                 <Favorites

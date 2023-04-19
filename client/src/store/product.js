@@ -22,16 +22,28 @@ const productSlice = createSlice({
         },
         mangaUploaded: (state, action) => {
             state.entities.push(action.payload);
+        },
+        mangaUpdated: (state, action) => {
+            state.entities[
+                state.entities.findIndex((m) => m._id === action.payload._id)
+            ] = action.payload;
         }
     }
 });
 
 const { reducer: mangaReducer, actions } = productSlice;
-const { mangaRequested, mangaReceved, mangaRequestFailed, mangaUploaded } =
-    actions;
+const {
+    mangaRequested,
+    mangaReceved,
+    mangaRequestFailed,
+    mangaUploaded,
+    mangaUpdated
+} = actions;
 
 const mangaUploadRequested = createAction("manga/mangaUploadRequested");
 const mangaUploadRequestFailed = createAction("manga/mangaUploadRequestFailed");
+const mangaUpdateRequestFailed = createAction("manga/mangaUpdateRequestFailed");
+const mangaUpdateRequested = createAction("manga/mangaUpdateRequested");
 
 export const loadMangaList = () => async (dispatch) => {
     dispatch(mangaRequested());
@@ -49,6 +61,15 @@ export const uploadManga = (payload) => async (dispatch) => {
         dispatch(mangaUploaded(content));
     } catch (error) {
         dispatch(mangaUploadRequestFailed(error));
+    }
+};
+export const updateManga = (payload) => async (dispatch) => {
+    dispatch(mangaUpdateRequested());
+    try {
+        const { content } = await productService.update(payload);
+        dispatch(mangaUpdated(content));
+    } catch (error) {
+        dispatch(mangaUpdateRequestFailed(error));
     }
 };
 
