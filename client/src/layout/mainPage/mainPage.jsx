@@ -57,7 +57,7 @@ const MainPage = () => {
                 <div className="d-flex flex-column">
                     {paginateChapters && paginateChapters.length !== 0 ? (
                         paginateChapters.map((chapter) => (
-                            <ChapterCard key={chapter.id} chapter={chapter} />
+                            <ChapterCard key={chapter._id} chapter={chapter} />
                         ))
                     ) : (
                         <Loader />

@@ -6,7 +6,6 @@ import { getUploadByUser } from "../../store/chapters";
 import DownloadMangaItem from "../common/downloadMangaItem";
 
 const UserDownloadList = ({ userId }) => {
-    console.log(userId);
     const downloadManga = useSelector(getUploadByUser(userId));
 
     return (

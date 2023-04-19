@@ -85,7 +85,7 @@ const NavBar = () => {
                         content.map((c) => (
                             <Link
                                 className="list-group-item list-group-item-action list-group-item-dark"
-                                key={c.id}
+                                key={c._id}
                                 to={`/catalog/${c.name
                                     .toLowerCase()
                                     .replace(/ /g, "")}`}

@@ -13,13 +13,13 @@ import AppLoader from "./components/ui/hoc/appLoader";
 import "react-toastify/dist/ReactToastify.css";
 import ProfilePage from "./components/pages/profilePage";
 import Authors from "./layout/authors";
+import ProtectedRoute from "./components/common/protectedRoute";
 
 function App() {
     return (
         <>
             <AppLoader>
                 <Switch>
-                    <Route path="/profile/:userId" component={ProfilePage} />
                     <Route path="/genres/:genreName?" component={Genres} />
                     <Route path="/catalog/:mangaName?" component={Catalog} />
                     <Route path="/authors" component={Authors} />
@@ -27,14 +27,18 @@ function App() {
                         path="/reader/:mangaName/:ch/:page"
                         component={Reader}
                     />
-                    <Route
-                        path="/download/:createManga?"
-                        component={Download}
-                    />
                     <Route path="/login/:type?" component={Login} />
                     <Route path="/logout" component={LogOut} />
                     <Route path="/404" component={PageNotFound} />
                     <Route path="/" exact component={MainPage} />
+                    <ProtectedRoute
+                        path="/profile/:userId"
+                        component={ProfilePage}
+                    />
+                    <ProtectedRoute
+                        path="/download/:createManga?"
+                        component={Download}
+                    />
                     <Redirect to="/404" />
                 </Switch>
             </AppLoader>

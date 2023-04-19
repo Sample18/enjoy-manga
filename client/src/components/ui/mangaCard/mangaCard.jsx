@@ -9,7 +9,6 @@ const MangaCard = ({ manga }) => {
         <div className={card}>
             <Link
                 to={`/catalog/${manga.name.toLowerCase().replace(/ /g, "")}`}
-                // to={`/catalog/${manga.id}`}
                 className={cover}
             >
                 <img

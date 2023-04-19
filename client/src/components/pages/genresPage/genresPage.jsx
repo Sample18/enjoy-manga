@@ -52,7 +52,7 @@ const GenresPage = () => {
                         {sortedGenres &&
                             sortedGenres.map((g) => (
                                 <li
-                                    key={g.id}
+                                    key={g._id}
                                     className={`text-white m-1 p-0 rounded-3 d-flex align-items-center justify-content-center ${nameWrap}`}
                                 >
                                     <Link

@@ -28,7 +28,7 @@ const Comments = ({ comments }) => {
             <div className="card-body">
                 {paginateComments.length !== 0 && !isLoadingUsers ? (
                     paginateComments.map((c) => (
-                        <Comment key={c.id} comment={c} />
+                        <Comment key={c._id} comment={c} />
                     ))
                 ) : (
                     <p className="card-text">Здесь пока нет комментариев</p>

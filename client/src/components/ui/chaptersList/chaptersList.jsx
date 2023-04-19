@@ -17,7 +17,7 @@ const ChaptersList = ({ id }) => {
         <ListDropContainer>
             {chaptersCrop.map((c) => (
                 <p
-                    key={c.id}
+                    key={c._id}
                     className="border-bottom border-dark m-0 p-2 text-white pe-auto"
                 >
                     <Link
