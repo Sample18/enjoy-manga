@@ -22,7 +22,19 @@ router.post("/", auth, async (req, res) => {
     });
     res.send(newProduct);
   } catch (e) {
-    sendDefaultError(res);
+    return sendDefaultError(res);
+  }
+});
+
+router.patch("/update", auth, async (req, res) => {
+  const productId = req.body._id;
+  try {
+    const updateProduct = await Product.findByIdAndUpdate(productId, req.body, {
+      new: true,
+    });
+    res.send(updateProduct);
+  } catch (e) {
+    return sendDefaultError(res);
   }
 });
 
