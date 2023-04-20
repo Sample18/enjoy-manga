@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Catalog from "./layout/catalog";
 import Genres from "./layout/genres";
-import MainPage from "./layout/mainPage/mainPage";
+import Main from "./layout/main";
 import PageNotFound from "./components/pages/pageNotFound";
 import Reader from "./layout/reader";
 import { ToastContainer } from "react-toastify";
@@ -30,7 +30,7 @@ function App() {
                     <Route path="/login/:type?" component={Login} />
                     <Route path="/logout" component={LogOut} />
                     <Route path="/404" component={PageNotFound} />
-                    <Route path="/" exact component={MainPage} />
+                    <Route path="/" exact component={Main} />
                     <ProtectedRoute
                         path="/profile/:userId"
                         component={ProfilePage}

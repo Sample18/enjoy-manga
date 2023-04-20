@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import MangaCard from "../ui/mangaCard/mangaCard";
+import MangaCard from "../ui/mangaCard";
 import Paginate from "../../utils/paginate";
 import ContentContainer from "../common/contentContainer";
 import PaginationHOC from "../ui/pagination";
-import SortBar from "../ui/sortBar/sortBar";
+import SortBar from "../ui/sortBar";
 import _ from "lodash";
 import Loader from "../ui/loader";
 import { getMangaList } from "../../store/product";

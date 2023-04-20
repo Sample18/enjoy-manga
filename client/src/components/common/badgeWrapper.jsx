@@ -1,10 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./badgeWrapper.module.css";
 
 const BadgeWrapper = ({ children, color }) => {
     let style;
-    const { bg } = styles;
     switch (color) {
         case "success":
             style = "badge bg-success";
@@ -17,7 +15,7 @@ const BadgeWrapper = ({ children, color }) => {
             break;
 
         default:
-            style = `badge mx-1 mb-1 ${bg}`;
+            style = "badge mx-1 mb-1 badgeBacground";
             break;
     }
 

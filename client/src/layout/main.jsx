@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import _ from "lodash";
-import ChapterCard from "../../components/ui/chapterCard/chapterCard";
-import Paginate from "../../utils/paginate";
-import ContentContainer from "../../components/common/contentContainer";
-import PaginationHOC from "../../components/ui/pagination";
-import NavBar from "../../components/ui/navBar/navBar";
-import Loader from "../../components/ui/loader";
-import SortBar from "../../components/ui/sortBar/sortBar";
+import ChapterCard from "../components/ui/chapterCard";
+import Paginate from "../utils/paginate";
+import ContentContainer from "../components/common/contentContainer";
+import PaginationHOC from "../components/ui/pagination";
+import NavBar from "../components/ui/navBar";
+import Loader from "../components/ui/loader";
+import SortBar from "../components/ui/sortBar";
 import { useSelector } from "react-redux";
-import { getMangaList } from "../../store/product";
-import { getChaptersList } from "../../store/chapters";
+import { getMangaList } from "../store/product";
+import { getChaptersList } from "../store/chapters";
 
-const MainPage = () => {
+const Main = () => {
     const manga = useSelector(getMangaList());
     const chapters = useSelector(getChaptersList());
     const [currentPage, setCurrentPage] = useState(1);
@@ -75,4 +75,4 @@ const MainPage = () => {
     );
 };
 
-export default MainPage;
+export default Main;

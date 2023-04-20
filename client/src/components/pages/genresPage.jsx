@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ContentContainer from "../../common/contentContainer";
+import ContentContainer from "../common/contentContainer";
 import _ from "lodash";
-import styles from "./genresPage.module.css";
-import Paginate from "../../../utils/paginate";
-import PaginationHOC from "../../ui/pagination";
-import SortBar from "../../ui/sortBar/sortBar";
+import Paginate from "../../utils/paginate";
+import PaginationHOC from "../ui/pagination";
+import SortBar from "../ui/sortBar";
 import { useSelector } from "react-redux";
-import { getGenresList } from "../../../store/genres";
+import { getGenresList } from "../../store/genres";
 
 const GenresPage = () => {
-    const { genresWrap, nameWrap } = styles;
     const genres = useSelector(getGenresList());
     const [currentPage, setCurrentPage] = useState(1);
     const sortOn = ["алфавиту", "популярности"];
@@ -46,14 +44,12 @@ const GenresPage = () => {
                             sortOn={sortOn}
                         />
                     </div>
-                    <ul
-                        className={`d-flex flex-column flex-wrap m-0 p-0 ${genresWrap}`}
-                    >
+                    <ul className="d-flex flex-column flex-wrap m-0 p-0 genresWrap">
                         {sortedGenres &&
                             sortedGenres.map((g) => (
                                 <li
                                     key={g._id}
-                                    className={`text-white m-1 p-0 rounded-3 d-flex align-items-center justify-content-center ${nameWrap}`}
+                                    className="text-white m-1 p-0 rounded-3 d-flex align-items-center justify-content-center genres-nameWrap"
                                 >
                                     <Link
                                         to={`genres/${g.name}`}

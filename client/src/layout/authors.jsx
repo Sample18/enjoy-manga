@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../components/ui/navBar/navBar";
+import NavBar from "../components/ui/navBar";
 import ContentContainer from "../components/common/contentContainer";
 
 const Authors = () => {

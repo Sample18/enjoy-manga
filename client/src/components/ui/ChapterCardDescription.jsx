@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import SpanWrapper from "../common/spanWrapper";
-import BadgeWrapper from "../common/badgeWrapper/badgeWrapper";
+import BadgeWrapper from "../common/badgeWrapper";
 import { useSelector } from "react-redux";
 import { getGenreById } from "../../store/genres";
 

@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import ListDropContainer from "../../common/listDropContainer/listDropContainer";
+import ListDropContainer from "../common/listDropContainer";
 import _ from "lodash";
 import { useSelector } from "react-redux";
-import { getChaptersById } from "../../../store/chapters";
+import { getChaptersById } from "../../store/chapters";
 
 const ChaptersList = ({ id }) => {
     const chaptersCrop = _.orderBy(
@@ -30,7 +30,7 @@ const ChaptersList = ({ id }) => {
             ))}
         </ListDropContainer>
     ) : (
-        <div className={"w-50 m-auto mb-4 text-light text-center"}>
+        <div className="w-50 m-auto mb-4 text-light text-center">
             Увы... Загруженных глав пока нет.
         </div>
     );

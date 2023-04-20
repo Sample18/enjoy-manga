@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const SpanWrapper = ({ children }) => {
-    return <span style={{ color: "#999" }}>{children}</span>;
+    return <span className="gray-color">{children}</span>;
 };
 
 SpanWrapper.propTypes = {

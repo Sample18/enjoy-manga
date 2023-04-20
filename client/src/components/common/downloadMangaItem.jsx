@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ListItem, ListItemText } from "@mui/material";
-import BadgeWrapper from "./badgeWrapper/badgeWrapper";
+import BadgeWrapper from "./badgeWrapper";
 
 const DownloadMangaItem = ({ manga }) => {
     const moderateConfig = {};
@@ -14,7 +14,7 @@ const DownloadMangaItem = ({ manga }) => {
             moderateConfig.color = "success";
             moderateConfig.title = "Проверено";
             break;
-        case "remove":
+        case "notAccepted":
             moderateConfig.color = "danger";
             moderateConfig.title = "Не одобрено";
             break;

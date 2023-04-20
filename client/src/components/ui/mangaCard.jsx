@@ -1,24 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./mangaCard.module.css";
 import PropTypes from "prop-types";
 
 const MangaCard = ({ manga }) => {
-    const { card, cover, coverImg, caption } = styles;
     return (
-        <div className={card}>
+        <div className="manga-card">
             <Link
                 to={`/catalog/${manga.name.toLowerCase().replace(/ /g, "")}`}
-                className={cover}
+                className="card-cover"
             >
                 <img
-                    className={coverImg}
+                    className="coverImg"
                     src={manga.cover}
                     alt={manga.name + " cover"}
                     width="250"
                     height="353"
                 />
-                <div className={"text-white " + caption}>
+                <div className="caption">
                     {manga.name} / {manga.nameRu}
                 </div>
             </Link>

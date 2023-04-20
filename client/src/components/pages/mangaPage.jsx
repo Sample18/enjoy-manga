@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import ContentContainer from "../../common/contentContainer";
-import ChaptersList from "../../ui/chaptersList/chaptersList";
-import MangaPageDescription from "../../ui/mangaPageDescription";
-import Loader from "../../ui/loader";
-import Comments from "../../ui/comments";
-import styles from "./mangaPage.module.css";
+import ContentContainer from "../common/contentContainer";
+import ChaptersList from "../ui/chaptersList";
+import MangaPageDescription from "../ui/mangaPageDescription";
+import Loader from "../ui/loader";
+import Comments from "../ui/comments";
 import { useDispatch, useSelector } from "react-redux";
-import { getMangaByName } from "../../../store/product";
-import BackButton from "../../common/backButton";
-import CommentsForm from "../../ui/forms/commentsForm";
-import { getCurrentUserData, getIsLoggedIn } from "../../../store/users";
-import { getCommentsList, loadCommentsList } from "../../../store/comments";
-import Favorites from "../../ui/favorites";
+import { getMangaByName } from "../../store/product";
+import BackButton from "../common/backButton";
+import CommentsForm from "../ui/forms/commentsForm";
+import { getCurrentUserData, getIsLoggedIn } from "../../store/users";
+import { getCommentsList, loadCommentsList } from "../../store/comments";
+import Favorites from "../ui/favorites";
 
 const MangaPage = ({ mangaName }) => {
     const mangaCrop = useSelector(getMangaByName(mangaName));
@@ -20,7 +19,6 @@ const MangaPage = ({ mangaName }) => {
     const currentUser = isLogin ? useSelector(getCurrentUserData()) : null;
     const comments = useSelector(getCommentsList());
     const dispatch = useDispatch();
-    const { coverImage } = styles;
 
     useEffect(() => {
         if (mangaCrop) {
@@ -36,7 +34,7 @@ const MangaPage = ({ mangaName }) => {
                     <div className="d-flex mb-4">
                         <img
                             src={mangaCrop.cover}
-                            className={"mx-4 " + coverImage}
+                            className="mx-4 coverImage"
                             alt={mangaCrop.cover + " cover"}
                         />
                         <div className="mx-4">

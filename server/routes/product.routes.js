@@ -3,6 +3,11 @@ const Product = require("../models/Product");
 const router = express.Router({ mergeParams: true });
 const auth = require("../middleware/auth.middleware");
 
+const sendDefaultError = (res) =>
+  res
+    .status(500)
+    .json({ message: "На сервере произошла ошибка. Попробуйте позже." });
+
 router.get("/", async (req, res) => {
   try {
     const list = await Product.find();

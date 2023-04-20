@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import SpanWrapper from "../common/spanWrapper";
 import Loader from "./loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenresList } from "../../store/genres";
-import styles from "../../styles/mangaPageDescription.module.css";
-import ParWrapper from "../common/pWrapper";
 import { getAdminRole } from "../../store/users";
 import UpdateTextInput from "./hoc/updateTextInput";
 import { updateManga } from "../../store/product";
 
 const MangaPageDescription = ({ manga }) => {
-    const { textDescription } = styles;
     const [data, setData] = useState(manga);
+    const areaRef = useRef(null);
 
     const dispatch = useDispatch();
     const genres = useSelector(getGenresList());
@@ -32,7 +30,6 @@ const MangaPageDescription = ({ manga }) => {
             ...prevState,
             [target.name]: target.value
         }));
-        console.log(data);
     };
 
     const handleRadioChange = (target) => {
@@ -56,11 +53,23 @@ const MangaPageDescription = ({ manga }) => {
         return dispatch(updateManga(data));
     };
 
+    const getStylesForTextArea = (ref) => {
+        const width = window.getComputedStyle(ref).width;
+        const height = window.getComputedStyle(ref).height;
+        return { width, height, backgroundColor: "transparent" };
+    };
+
     return (
         <div>
             {manga ? (
                 <div className="mb-4">
-                    <h1 className={isAdmin ? textDescription : "text-light"}>
+                    <h1
+                        className={
+                            isAdmin
+                                ? "headers-pageDescriptionAdmin"
+                                : "headers-pageDescription"
+                        }
+                    >
                         <UpdateTextInput
                             type="text"
                             isAdmin={isAdmin}
@@ -71,7 +80,7 @@ const MangaPageDescription = ({ manga }) => {
                         >
                             <SpanWrapper>{manga.name}</SpanWrapper>
                         </UpdateTextInput>
-                        /{" "}
+                        &nbsp;/&nbsp;
                         <UpdateTextInput
                             type="text"
                             isAdmin={isAdmin}
@@ -83,8 +92,14 @@ const MangaPageDescription = ({ manga }) => {
                             <span>{manga.nameRu}</span>
                         </UpdateTextInput>
                     </h1>
-                    <h4 className={isAdmin ? textDescription : "text-light"}>
-                        Автор:{" "}
+                    <h4
+                        className={
+                            isAdmin
+                                ? "headers-pageDescriptionAdmin"
+                                : "headers-pageDescription"
+                        }
+                    >
+                        Автор:&nbsp;
                         <UpdateTextInput
                             type="text"
                             isAdmin={isAdmin}
@@ -96,8 +111,14 @@ const MangaPageDescription = ({ manga }) => {
                             <SpanWrapper>{manga.author}</SpanWrapper>
                         </UpdateTextInput>
                     </h4>
-                    <h4 className={isAdmin ? textDescription : "text-light"}>
-                        Категория:{" "}
+                    <h4
+                        className={
+                            isAdmin
+                                ? "headers-pageDescriptionAdmin"
+                                : "headers-pageDescription"
+                        }
+                    >
+                        Категория:&nbsp;
                         <UpdateTextInput
                             type="radio"
                             isAdmin={isAdmin}
@@ -113,8 +134,14 @@ const MangaPageDescription = ({ manga }) => {
                             <SpanWrapper>{manga.category}</SpanWrapper>
                         </UpdateTextInput>
                     </h4>
-                    <h4 className={isAdmin ? textDescription : "text-light"}>
-                        Жанры:{" "}
+                    <h4
+                        className={
+                            isAdmin
+                                ? "headers-pageDescriptionAdmin"
+                                : "headers-pageDescription"
+                        }
+                    >
+                        Жанры:&nbsp;
                         {genres ? (
                             <UpdateTextInput
                                 type="multySelect"
@@ -133,7 +160,8 @@ const MangaPageDescription = ({ manga }) => {
                                         {getGenreById(id).nameRu}
                                         {i === manga.genres.length - 1
                                             ? ""
-                                            : ","}{" "}
+                                            : ","}
+                                        &nbsp;
                                     </SpanWrapper>
                                 ))}
                             </UpdateTextInput>
@@ -141,7 +169,13 @@ const MangaPageDescription = ({ manga }) => {
                             ""
                         )}
                     </h4>
-                    <h4 className={isAdmin ? textDescription : "text-light"}>
+                    <h4
+                        className={
+                            isAdmin
+                                ? "headers-pageDescriptionAdmin flex-column"
+                                : "headers-pageDescription flex-column"
+                        }
+                    >
                         Описание:
                         <UpdateTextInput
                             type="textArea"
@@ -150,8 +184,14 @@ const MangaPageDescription = ({ manga }) => {
                             onSubmit={handleSubmit}
                             value={data.description}
                             name={"description"}
+                            style={
+                                areaRef.current &&
+                                getStylesForTextArea(areaRef.current)
+                            }
                         >
-                            <ParWrapper>{manga.description}</ParWrapper>
+                            <p className="gray-color" ref={areaRef}>
+                                {manga.description}
+                            </p>
                         </UpdateTextInput>
                     </h4>
                 </div>

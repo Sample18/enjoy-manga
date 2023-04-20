@@ -8,8 +8,8 @@ import BackButton from "../common/backButton";
 import ContentContainer from "../common/contentContainer";
 import SpanWrapper from "../common/spanWrapper";
 import Loader from "../ui/loader";
-import MangaCard from "../ui/mangaCard/mangaCard";
-import SortBar from "../ui/sortBar/sortBar";
+import MangaCard from "../ui/mangaCard";
+import SortBar from "../ui/sortBar";
 
 const GenrePage = () => {
     const { genreName } = useParams();

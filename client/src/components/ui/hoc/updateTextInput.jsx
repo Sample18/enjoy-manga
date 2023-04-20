@@ -11,6 +11,7 @@ const UpdateTextInput = ({
     value,
     options,
     defaultValue,
+    style,
     children
 }) => {
     const [flag, setFlag] = useState(false);
@@ -38,6 +39,7 @@ const UpdateTextInput = ({
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             onSubmit(e);
+            setFlag(false);
         }
     };
 
@@ -62,6 +64,7 @@ const UpdateTextInput = ({
                                 onChange={handleChange}
                                 ref={inputRef}
                                 onBlur={changeFlag}
+                                className="input-style"
                             />
                         </form>
                     );
@@ -80,16 +83,18 @@ const UpdateTextInput = ({
                                 onChange={handleChange}
                                 ref={inputRef}
                                 onBlur={changeFlag}
+                                style={style}
+                                className="textarea-style"
                             />
                         </form>
                     );
                 case "radio":
                     return (
-                        <form>
+                        <form className="d-flex">
                             {options.map((option) => (
                                 <div key={option.name + "_" + option.value}>
                                     <label
-                                        className="form-check-label text-light"
+                                        className="radio-label-style"
                                         htmlFor={
                                             option.name + "_" + option.value
                                         }
@@ -100,9 +105,9 @@ const UpdateTextInput = ({
                                         type="radio"
                                         name={name}
                                         id={option.name + "_" + option.value}
-                                        checked={option.value === value}
                                         value={option.value}
                                         onChange={handleChange}
+                                        className="radio-style"
                                     />
                                 </div>
                             ))}
@@ -119,7 +124,7 @@ const UpdateTextInput = ({
                                 isMulti
                                 defaultValue={defaultValue}
                                 options={options}
-                                className="basic-multi-select text-dark"
+                                className="text-dark"
                                 classNamePrefix="select"
                                 onChange={handleMultyChange}
                                 name={name}
@@ -144,6 +149,7 @@ UpdateTextInput.propTypes = {
     value: PropTypes.string,
     options: PropTypes.array,
     defaultValue: PropTypes.array,
+    style: PropTypes.object,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node

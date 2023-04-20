@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import DropDownMenu from "../dropDownMenu";
-import styles from "./navBar.module.css";
+import DropDownMenu from "./dropDownMenu";
 import { Link, useHistory } from "react-router-dom";
-import NavProfile from "../navProfile";
+import NavProfile from "./navProfile";
 import { useSelector } from "react-redux";
-import { getMangaList } from "../../../store/product";
-import { getIsLoggedIn } from "../../../store/users";
+import { getMangaList } from "../../store/product";
+import { getIsLoggedIn } from "../../store/users";
 import { Tooltip } from "@mui/material";
 
 const NavBar = () => {
-    const { bg, searchSuggestions, hide, searchWrapper } = styles;
     const history = useHistory();
     const isLogin = useSelector(getIsLoggedIn());
 
@@ -54,19 +52,14 @@ const NavBar = () => {
     };
 
     return (
-        <header
-            className={
-                "d-flex justify-content-between align-items-center p-3 border border-dark " +
-                bg
-            }
-        >
+        <header className="d-flex justify-content-between align-items-center p-3 border border-dark">
             <div className="d-flex align-items-center text-light">
                 <DropDownMenu items={dropDownPages} />
                 <Link className="nav-link" to="/">
                     <h5 className="m-0 px-2">Enjoy Manga</h5>
                 </Link>
             </div>
-            <div className={searchWrapper}>
+            <div className="searchWrapper">
                 <input
                     type="search"
                     className="w-100 form-control"
@@ -77,8 +70,8 @@ const NavBar = () => {
                 <ul
                     className={
                         !focus
-                            ? "list-group " + searchSuggestions
-                            : "list-group " + searchSuggestions + " " + hide
+                            ? "list-group searchSuggestions"
+                            : "list-group searchSuggestions hide"
                     }
                 >
                     {content &&
@@ -99,8 +92,7 @@ const NavBar = () => {
                 {isLogin && (
                     <Tooltip title="Добавить главу">
                         <i
-                            className="bi bi-box-arrow-down text-light fs-5 me-4"
-                            style={{ cursor: "pointer" }}
+                            className="bi bi-box-arrow-down text-light fs-5 me-4 c-pointer"
                             onClick={() => history.push("/download")}
                         ></i>
                     </Tooltip>

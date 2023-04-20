@@ -1,15 +1,12 @@
 import React from "react";
-import styles from "./sortBar.module.css";
 import PropTypes from "prop-types";
 
 const SortBar = ({ heading, formVisible, onChange, sortOn }) => {
-    const { sortBarWrapper, sortBarHeading, sortSelectWrapper } = styles;
-
     return (
-        <div className={sortBarWrapper}>
-            <h2 className={sortBarHeading}>{heading}</h2>
+        <div className="sortBarWrapper">
+            <h2 className="sortBarHeading">{heading}</h2>
             {formVisible && (
-                <form className={sortSelectWrapper}>
+                <form className="sortSelectWrapper">
                     <label htmlFor="sortSelect" className="text-white mx-2">
                         Сортировать по:
                     </label>

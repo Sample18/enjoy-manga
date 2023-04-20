@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../../store/users";
 import ContentContainer from "../common/contentContainer";
-import NavBar from "../ui/navBar/navBar";
+import NavBar from "../ui/navBar";
 import UserFavoritesList from "../ui/userFavoritesList";
 import UserDownloadList from "../ui/userDownloadList";
 
