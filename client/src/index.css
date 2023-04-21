@@ -52,7 +52,6 @@ body {
 
 .headers-pageDescription {
     color: white;
-    cursor: pointer;
 }
 
 .headers-pageDescriptionAdmin {
@@ -243,4 +242,12 @@ body {
 
 .badgeBacground:hover {
     background-color: #606060;
+}
+
+.delete-comment {
+    cursor: pointer;
+}
+
+.delete-comment:hover {
+    color: red;
 }
