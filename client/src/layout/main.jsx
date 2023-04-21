@@ -9,11 +9,11 @@ import Loader from "../components/ui/loader";
 import SortBar from "../components/ui/sortBar";
 import { useSelector } from "react-redux";
 import { getMangaList } from "../store/product";
-import { getChaptersList } from "../store/chapters";
+import { getAcceptedChaptersList } from "../store/chapters";
 
 const Main = () => {
     const manga = useSelector(getMangaList());
-    const chapters = useSelector(getChaptersList());
+    const chapters = useSelector(getAcceptedChaptersList());
     const [currentPage, setCurrentPage] = useState(1);
     const count = chapters ? chapters.length : 1;
     const pageSize = 5;

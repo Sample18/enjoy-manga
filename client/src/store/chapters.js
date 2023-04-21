@@ -22,6 +22,11 @@ const chaptersSlice = createSlice({
         },
         chapterUpload: (state, action) => {
             state.entities.push(action.payload);
+        },
+        chapterUpdated: (state, action) => {
+            state.entities[
+                state.entities.findIndex((c) => c._id === action.payload._id)
+            ] = action.payload;
         }
     }
 });
@@ -31,12 +36,17 @@ const {
     chaptersRequested,
     chaptersReceved,
     chaptersRequestFailed,
-    chapterUpload
+    chapterUpload,
+    chapterUpdated
 } = actions;
 
 const uploadChapterRequested = createAction("chapters/uploadChapterRequested");
 const uploadChapterRequestFailed = createAction(
     "chapters/uploadChapterRequestFailed"
+);
+const updateChapterRequested = createAction("chapters/updateChapterRequested");
+const updateChapterRequestFailed = createAction(
+    "chapters/updateChapterRequestFailed"
 );
 
 export const loadChaptersList = () => async (dispatch) => {
@@ -57,8 +67,25 @@ export const uploadChapter = (payload) => async (dispatch) => {
         dispatch(uploadChapterRequestFailed(error));
     }
 };
+export const updateChapter = (payload) => async (dispatch) => {
+    dispatch(updateChapterRequested());
+    try {
+        const { content } = await chaptersService.update(payload);
+        dispatch(chapterUpdated(content));
+    } catch (error) {
+        dispatch(updateChapterRequestFailed(error));
+    }
+};
 
 export const getChaptersList = () => (state) => state.chapters.entities;
+export const getAcceptedChaptersList = () => (state) =>
+    state.chapters.entities
+        ? state.chapters.entities.filter((c) => c.moderateStatus === "accepted")
+        : null;
+export const getModerateChaptersList = () => (state) =>
+    state.chapters.entities
+        ? state.chapters.entities.filter((c) => c.moderateStatus === "onCheck")
+        : [];
 export const getChaptersListLoadingStatus = () => (state) =>
     state.chapters.isLoading;
 export const getChaptersById = (id) => (state) =>

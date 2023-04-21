@@ -9,13 +9,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMangaByName } from "../../store/product";
 import BackButton from "../common/backButton";
 import CommentsForm from "../ui/forms/commentsForm";
-import { getCurrentUserData, getIsLoggedIn } from "../../store/users";
+import {
+    getAdminRole,
+    getCurrentUserData,
+    getIsLoggedIn
+} from "../../store/users";
 import { getCommentsList, loadCommentsList } from "../../store/comments";
 import Favorites from "../ui/favorites";
 
 const MangaPage = ({ mangaName }) => {
     const mangaCrop = useSelector(getMangaByName(mangaName));
     const isLogin = useSelector(getIsLoggedIn());
+    const isAdmin = useSelector(getAdminRole());
     const currentUser = isLogin ? useSelector(getCurrentUserData()) : null;
     const comments = useSelector(getCommentsList());
     const dispatch = useDispatch();
@@ -38,7 +43,10 @@ const MangaPage = ({ mangaName }) => {
                             alt={mangaCrop.cover + " cover"}
                         />
                         <div className="mx-4">
-                            <MangaPageDescription manga={mangaCrop} />
+                            <MangaPageDescription
+                                manga={mangaCrop}
+                                isAdmin={isAdmin}
+                            />
                             {currentUser && (
                                 <Favorites
                                     currentUser={currentUser}
@@ -47,7 +55,7 @@ const MangaPage = ({ mangaName }) => {
                             )}
                         </div>
                     </div>
-                    <ChaptersList id={mangaCrop._id} />
+                    <ChaptersList id={mangaCrop._id} isAdmin={isAdmin} />
                     <Comments comments={comments} />
                     {currentUser && (
                         <CommentsForm

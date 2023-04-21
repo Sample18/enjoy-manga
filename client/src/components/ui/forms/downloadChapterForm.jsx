@@ -172,6 +172,7 @@ const DownloadChapterForm = () => {
             name: data.name,
             uploadBy: currentUser._id
         }));
+        setProgress(1);
         data.images.forEach((file, i) => uploadData(data, file, i));
     };
 

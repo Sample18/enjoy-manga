@@ -10,6 +10,13 @@ const chaptersService = {
     upload: async (payload) => {
         const { data } = await httpService.post(chaptersEndpoint, payload);
         return data;
+    },
+    update: async (payload) => {
+        const { data } = await httpService.patch(
+            `${chaptersEndpoint}/${payload._id}`,
+            payload
+        );
+        return data;
     }
 };
 

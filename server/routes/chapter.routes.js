@@ -3,6 +3,11 @@ const Chapter = require("../models/Chapter");
 const router = express.Router({ mergeParams: true });
 const auth = require("../middleware/auth.middleware");
 
+const sendDefaultError = (res) =>
+  res
+    .status(500)
+    .json({ message: "На сервере произошла ошибка. Попробуйте позже." });
+
 router.get("/", async (req, res) => {
   try {
     const list = await Chapter.find();
@@ -23,6 +28,19 @@ router.post("/", auth, async (req, res) => {
     res.send(newChapter);
   } catch (e) {
     return sendDefaultError(res);
+  }
+});
+
+router.patch("/:chapterId", auth, async (req, res) => {
+  try {
+    const { chapterId } = req.params;
+
+    const updateChapter = await Chapter.findByIdAndUpdate(chapterId, req.body, {
+      new: true,
+    });
+    res.send(updateChapter);
+  } catch (e) {
+    sendDefaultError(res);
   }
 });
 

@@ -4,17 +4,15 @@ import SpanWrapper from "../common/spanWrapper";
 import Loader from "./loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenresList } from "../../store/genres";
-import { getAdminRole } from "../../store/users";
 import UpdateTextInput from "./hoc/updateTextInput";
 import { updateManga } from "../../store/product";
 
-const MangaPageDescription = ({ manga }) => {
+const MangaPageDescription = ({ manga, isAdmin }) => {
     const [data, setData] = useState(manga);
     const areaRef = useRef(null);
 
     const dispatch = useDispatch();
     const genres = useSelector(getGenresList());
-    const isAdmin = useSelector(getAdminRole());
 
     const genresList = genres
         ? genres.map((g) => ({
@@ -203,7 +201,8 @@ const MangaPageDescription = ({ manga }) => {
 };
 
 MangaPageDescription.propTypes = {
-    manga: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+    manga: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    isAdmin: PropTypes.bool
 };
 
 export default MangaPageDescription;

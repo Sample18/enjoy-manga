@@ -6,28 +6,50 @@ import _ from "lodash";
 import { useSelector } from "react-redux";
 import { getChaptersById } from "../../store/chapters";
 
-const ChaptersList = ({ id }) => {
+const ChaptersList = ({ id, isAdmin }) => {
     const chaptersCrop = _.orderBy(
         useSelector(getChaptersById(id)),
         "number",
         "desc"
     );
+    const acceptedChapters = () =>
+        chaptersCrop.filter((c) => c.moderateStatus === "accepted");
 
     return chaptersCrop.length !== 0 ? (
         <ListDropContainer>
-            {chaptersCrop.map((c) => (
-                <p
-                    key={c._id}
-                    className="border-bottom border-dark m-0 p-2 text-white pe-auto"
-                >
-                    <Link
-                        className="page-link"
-                        to={`/reader/${c.mangaId}/${c.number}/1`}
+            {isAdmin ? (
+                chaptersCrop.map((c) => (
+                    <p
+                        key={c._id}
+                        className="border-bottom border-dark m-0 p-2 text-white pe-auto"
                     >
-                        {c.number} - {c.name}
-                    </Link>
+                        <Link
+                            className="page-link"
+                            to={`/reader/${c.mangaId}/${c.number}/1`}
+                        >
+                            {c.number} - {c.name}
+                        </Link>
+                    </p>
+                ))
+            ) : acceptedChapters().length !== 0 ? (
+                acceptedChapters().map((c) => (
+                    <p
+                        key={c._id}
+                        className="border-bottom border-dark m-0 p-2 text-white pe-auto"
+                    >
+                        <Link
+                            className="page-link"
+                            to={`/reader/${c.mangaId}/${c.number}/1`}
+                        >
+                            {c.number} - {c.name}
+                        </Link>
+                    </p>
+                ))
+            ) : (
+                <p className="border-bottom border-dark m-0 p-2 text-white pe-auto">
+                    Увы... Загруженных глав пока нет.
                 </p>
-            ))}
+            )}
         </ListDropContainer>
     ) : (
         <div className="w-50 m-auto mb-4 text-light text-center">
@@ -37,7 +59,8 @@ const ChaptersList = ({ id }) => {
 };
 
 ChaptersList.propTypes = {
-    id: PropTypes.string
+    id: PropTypes.string,
+    isAdmin: PropTypes.bool
 };
 
 export default ChaptersList;
