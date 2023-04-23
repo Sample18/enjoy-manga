@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import PaginationHOC from "./pagination";
 import Paginate from "../../utils/paginate";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import Comment from "../common/comment";
 import { useSelector } from "react-redux";
 import { getUsersListLoadingStatus } from "../../store/users";
+import PaginationHOC from "../hoc/pagination";
 
 const Comments = ({ comments }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,8 +16,8 @@ const Comments = ({ comments }) => {
     const paginateComments = Paginate(sortedComments, currentPage, pageSize);
     const isLoadingUsers = useSelector(getUsersListLoadingStatus());
 
-    const handlePageChange = ({ target }) => {
-        setCurrentPage(Number(target.innerText));
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
     };
 
     return (

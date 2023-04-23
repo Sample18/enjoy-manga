@@ -3,7 +3,7 @@ import DropDownMenu from "./dropDownMenu";
 import { Link, useHistory } from "react-router-dom";
 import NavProfile from "./navProfile";
 import { useSelector } from "react-redux";
-import { getMangaList } from "../../store/product";
+import { getAcceptedMangaList } from "../../store/product";
 import { getIsLoggedIn } from "../../store/users";
 import { Tooltip } from "@mui/material";
 
@@ -26,7 +26,7 @@ const NavBar = () => {
         }
     ];
 
-    const manga = useSelector(getMangaList());
+    const manga = useSelector(getAcceptedMangaList());
     const [value, setValue] = useState("");
     const [focus, setFocus] = useState(false);
     const [content, setContent] = useState([]);
@@ -52,7 +52,7 @@ const NavBar = () => {
     };
 
     return (
-        <header className="d-flex justify-content-between align-items-center p-3 border border-dark">
+        <header className="header p-3 mb-4">
             <div className="d-flex align-items-center text-light">
                 <DropDownMenu items={dropDownPages} />
                 <Link className="nav-link" to="/">

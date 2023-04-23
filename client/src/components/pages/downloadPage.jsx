@@ -2,17 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ContentContainer from "../common/contentContainer";
 import DownloadChapterForm from "../ui/forms/downloadChapterForm";
+import HeadingWrapper from "../common/headingWrapper";
 
 const DownloadPage = () => {
     return (
         <ContentContainer>
-            <h1 className="text-light text-center">Загрузка главы</h1>
+            <HeadingWrapper size={1} center={true}>
+                Загрузка главы
+            </HeadingWrapper>
             <DownloadChapterForm />
-            <h4 className="text-light text-center">
+            <HeadingWrapper size={4} center={true}>
                 Вы можете загрузить главу или{" "}
                 <Link to="/download/createManga">создать новую мангу</Link> если
                 такой нет на сайте!
-            </h4>
+            </HeadingWrapper>
         </ContentContainer>
     );
 };

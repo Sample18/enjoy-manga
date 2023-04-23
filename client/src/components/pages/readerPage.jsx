@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useReader } from "../../hooks/useReader";
 
@@ -6,6 +6,20 @@ const ReaderPage = () => {
     const { pageData, imageChangeLeft, imageChangeRight, changeImage, page } =
         useReader();
     const imageRef = useRef();
+    const header = document.querySelector("header");
+    const footer = document.querySelector("footer");
+
+    useEffect(() => {
+        header.style.display = "none";
+        footer.style.display = "none";
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            header.style.display = "flex";
+            footer.style.display = "flex";
+        };
+    }, []);
 
     const handleChange = (e) => {
         changeImage(e, imageRef.current);

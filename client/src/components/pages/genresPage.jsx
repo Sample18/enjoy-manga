@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import ContentContainer from "../common/contentContainer";
 import _ from "lodash";
 import Paginate from "../../utils/paginate";
-import PaginationHOC from "../ui/pagination";
 import SortBar from "../ui/sortBar";
 import { useSelector } from "react-redux";
 import { getGenresList } from "../../store/genres";
+import PaginationHOC from "../hoc/pagination";
 
 const GenresPage = () => {
     const genres = useSelector(getGenresList());
@@ -25,8 +25,8 @@ const GenresPage = () => {
 
     const sortedGenres = _.orderBy(paginateGenres, [sortBy()], ["asc"]);
 
-    const handlePageChange = ({ target }) => {
-        setCurrentPage(Number(target.innerText));
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
     };
 
     const handleChange = ({ target }) => {
@@ -47,17 +47,15 @@ const GenresPage = () => {
                     <ul className="d-flex flex-column flex-wrap m-0 p-0 genresWrap">
                         {sortedGenres &&
                             sortedGenres.map((g) => (
-                                <li
+                                <Link
                                     key={g._id}
-                                    className="text-white m-1 p-0 rounded-3 d-flex align-items-center justify-content-center genres-nameWrap"
+                                    to={`genres/${g.name}`}
+                                    className="page-link fs-3"
                                 >
-                                    <Link
-                                        to={`genres/${g.name}`}
-                                        className="page-link fs-3"
-                                    >
+                                    <li className="text-white m-1 p-0 rounded-3 d-flex align-items-center justify-content-center genres-nameWrap">
                                         {g.nameRu}
-                                    </Link>
-                                </li>
+                                    </li>
+                                </Link>
                             ))}
                     </ul>
                     {pagesCount !== 1 && (

@@ -86,5 +86,17 @@ export const getMangaById = (id) => (state) =>
     state.manga.entities
         ? state.manga.entities.find((m) => m._id === id)
         : null;
+export const getAcceptedMangaList = () => (state) =>
+    state.chapters.entities
+        ? state.manga.entities.filter((m) => m.moderateStatus === "accepted")
+        : null;
+export const getModerateMangaList = () => (state) =>
+    state.chapters.entities
+        ? state.manga.entities.filter((m) => m.moderateStatus === "onCheck")
+        : [];
+export const getMangaUploadByUser = (id) => (state) =>
+    state.manga.entities
+        ? state.manga.entities.filter((m) => m.uploadBy === id)
+        : [];
 
 export default mangaReducer;

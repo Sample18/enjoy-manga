@@ -21,6 +21,35 @@ body {
     cursor: pointer;
 }
 
+/* ========= header */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f1f1f;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* ========= footer */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f1f1f;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* ========= container */
+
+.content-container {
+    background-color: #1f1f1f;
+    border-radius: 5px;
+}
+
 /* ========= pageDescription */
 
 .input-style {
@@ -244,10 +273,18 @@ body {
     background-color: #606060;
 }
 
-.delete-comment {
+/* ========= buttons */
+
+.remove-button,
+.accept-button {
     cursor: pointer;
+    margin: 0 5px;
 }
 
-.delete-comment:hover {
+.remove-button:hover {
     color: red;
+}
+
+.accept-button:hover {
+    color: green;
 }

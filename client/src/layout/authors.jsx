@@ -1,15 +1,12 @@
 import React from "react";
-import NavBar from "../components/ui/navBar";
 import ContentContainer from "../components/common/contentContainer";
+import HeadingWrapper from "../components/common/headingWrapper";
 
 const Authors = () => {
     return (
-        <>
-            <NavBar />
-            <ContentContainer>
-                <h1 className="text-light">В разработке</h1>
-            </ContentContainer>
-        </>
+        <ContentContainer>
+            <HeadingWrapper size={1}>В разработке</HeadingWrapper>
+        </ContentContainer>
     );
 };
 

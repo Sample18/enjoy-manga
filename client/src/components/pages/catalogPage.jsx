@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import MangaCard from "../ui/mangaCard";
 import Paginate from "../../utils/paginate";
 import ContentContainer from "../common/contentContainer";
-import PaginationHOC from "../ui/pagination";
 import SortBar from "../ui/sortBar";
 import _ from "lodash";
 import Loader from "../ui/loader";
-import { getMangaList } from "../../store/product";
+import { getAcceptedMangaList } from "../../store/product";
 import { useSelector } from "react-redux";
+import PaginationHOC from "../hoc/pagination";
 
 const CatalogPage = () => {
-    const manga = useSelector(getMangaList());
+    const manga = useSelector(getAcceptedMangaList());
     const [currentPage, setCurrentPage] = useState(1);
     const sortOn = ["алфавиту", "популярности"];
     const [value, setValue] = useState(sortOn[0]);
@@ -30,8 +30,8 @@ const CatalogPage = () => {
         [sortBy().order]
     );
 
-    const handlePageChange = ({ target }) => {
-        setCurrentPage(Number(target.innerText));
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
     };
 
     const handleChange = ({ target }) => {

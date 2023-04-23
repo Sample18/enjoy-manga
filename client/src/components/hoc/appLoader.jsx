@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { loadMangaList } from "../../../store/product";
-import { loadChaptersList } from "../../../store/chapters";
-import { loadGenresList } from "../../../store/genres";
-import { getIsLoggedIn, loadUsersList } from "../../../store/users";
+import { loadMangaList } from "../../store/product";
+import { loadChaptersList } from "../../store/chapters";
+import { loadGenresList } from "../../store/genres";
+import { getIsLoggedIn, loadUsersList } from "../../store/users";
 
 const AppLoader = ({ children }) => {
     const dispatch = useDispatch();
@@ -19,7 +19,11 @@ const AppLoader = ({ children }) => {
         dispatch(loadUsersList());
     }, [isLoggedIn]);
 
-    return <div className="container">{children}</div>;
+    return (
+        <div className="container d-flex flex-column min-vh-100">
+            {children}
+        </div>
+    );
 };
 
 AppLoader.propTypes = {

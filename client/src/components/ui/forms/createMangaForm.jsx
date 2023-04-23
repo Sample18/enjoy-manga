@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import FileField from "../../common/form/fileField";
 import TextField from "../../common/form/textField";
-import { initializeApp } from "firebase/app";
-import {
-    getStorage,
-    ref,
-    uploadBytesResumable,
-    getDownloadURL
-} from "firebase/storage";
+import { storage } from "../../../services/fireBaseStorage.service";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { validator } from "../../../utils/validator";
 import MultySelectField from "../../common/form/multiSelectField";
 import RadioField from "../../common/form/radioField";
@@ -18,14 +13,15 @@ import { uploadManga } from "../../../store/product";
 import { toast } from "react-toastify";
 import { getGenresList } from "../../../store/genres";
 import { getCurrentUserData } from "../../../store/users";
+import { LinearProgress } from "@mui/material";
 
-const firebaseConfig = {
-    storageBucket: "gs://enjoy-manga.appspot.com"
-};
+// const firebaseConfig = {
+//     storageBucket: "gs://enjoy-manga.appspot.com"
+// };
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
-const storage = getStorage(app);
+// const storage = getStorage(app);
 
 const CreateMangaForm = () => {
     const dispatch = useDispatch();
@@ -42,6 +38,7 @@ const CreateMangaForm = () => {
     const [data, setData] = useState(initialState);
     const genres = useSelector(getGenresList());
     const [errors, setErrors] = useState({});
+    const [progress, setProgress] = useState(0);
     const genresList = genres
         ? genres.map((g) => ({
               label: g.nameRu,
@@ -107,7 +104,11 @@ const CreateMangaForm = () => {
         const uploadData = uploadBytesResumable(imagesRef, data.cover[0]);
         uploadData.on(
             "state_changed",
-            () => {},
+            (snapshot) => {
+                const uploadProgress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setProgress(uploadProgress);
+            },
             (error) => {
                 console.log(error);
             },
@@ -140,10 +141,7 @@ const CreateMangaForm = () => {
         const isValid = validate();
         if (!isValid) return;
         uploadData(data, data.cover[0]);
-        setData(initialState);
     };
-
-    console.log(genresList);
 
     return (
         <>
@@ -207,6 +205,13 @@ const CreateMangaForm = () => {
                 >
                     Создать мангу
                 </button>
+                {progress && (
+                    <LinearProgress
+                        value={progress}
+                        color="success"
+                        variant="determinate"
+                    />
+                )}
             </form>
         </>
     );

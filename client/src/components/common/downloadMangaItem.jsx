@@ -4,8 +4,11 @@ import { ListItem, ListItemText } from "@mui/material";
 import BadgeWrapper from "./badgeWrapper";
 import { useDispatch } from "react-redux";
 import { updateChapter } from "../../store/chapters";
+import { updateManga } from "../../store/product";
+import RemoveButton from "./removeButton";
+import AcceptButton from "./acceptButton";
 
-const DownloadMangaItem = ({ manga, isAdmin }) => {
+const DownloadMangaItem = ({ manga, isAdmin, content }) => {
     const dispatch = useDispatch();
     const moderateConfig = {};
     switch (manga.moderateStatus) {
@@ -29,10 +32,24 @@ const DownloadMangaItem = ({ manga, isAdmin }) => {
     const changeStatus = (status) => {
         switch (status) {
             case "accepted":
-                dispatch(updateChapter({ ...manga, moderateStatus: status }));
+                if (content === "chapters") {
+                    dispatch(
+                        updateChapter({ ...manga, moderateStatus: status })
+                    );
+                }
+                if (content === "manga") {
+                    dispatch(updateManga({ ...manga, moderateStatus: status }));
+                }
                 break;
             case "notAccepted":
-                dispatch(updateChapter({ ...manga, moderateStatus: status }));
+                if (content === "chapters") {
+                    dispatch(
+                        updateChapter({ ...manga, moderateStatus: status })
+                    );
+                }
+                if (content === "manga") {
+                    dispatch(updateManga({ ...manga, moderateStatus: status }));
+                }
                 break;
         }
     };
@@ -43,24 +60,22 @@ const DownloadMangaItem = ({ manga, isAdmin }) => {
                 sx={{
                     border: "1px solid #0f0f0f",
                     borderRadius: ".25rem",
-                    marginBottom: "10px"
+                    marginBottom: "5px"
                 }}
             >
                 <ListItemText>
                     <div className="d-flex justify-content-between">
                         {manga.name}
                         <div className="d-flex">
-                            <i
-                                className="bi bi-check"
+                            <AcceptButton
                                 onClick={() => changeStatus("accepted")}
-                            ></i>
+                            />
                             <BadgeWrapper color={moderateConfig.color}>
                                 {moderateConfig.title}
                             </BadgeWrapper>
-                            <i
-                                className="bi bi-x"
+                            <RemoveButton
                                 onClick={() => changeStatus("notAccepted")}
-                            ></i>
+                            />
                         </div>
                     </div>
                 </ListItemText>
@@ -90,7 +105,8 @@ const DownloadMangaItem = ({ manga, isAdmin }) => {
 
 DownloadMangaItem.propTypes = {
     manga: PropTypes.object,
-    isAdmin: PropTypes.bool
+    isAdmin: PropTypes.bool,
+    content: PropTypes.string
 };
 
 export default DownloadMangaItem;

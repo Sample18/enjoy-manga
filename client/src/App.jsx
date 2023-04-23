@@ -9,16 +9,19 @@ import { ToastContainer } from "react-toastify";
 import Download from "./layout/download";
 import Login from "./layout/login";
 import LogOut from "./layout/logout";
-import AppLoader from "./components/ui/hoc/appLoader";
+import AppLoader from "./components/hoc/appLoader";
 import "react-toastify/dist/ReactToastify.css";
 import ProfilePage from "./components/pages/profilePage";
 import Authors from "./layout/authors";
 import ProtectedRoute from "./components/common/protectedRoute";
+import Footer from "./components/ui/footer";
+import NavBar from "./components/ui/navBar";
 
 function App() {
     return (
         <>
             <AppLoader>
+                <NavBar />
                 <Switch>
                     <Route path="/genres/:genreName?" component={Genres} />
                     <Route path="/catalog/:mangaName?" component={Catalog} />
@@ -41,6 +44,7 @@ function App() {
                     />
                     <Redirect to="/404" />
                 </Switch>
+                <Footer />
             </AppLoader>
             <ToastContainer />
         </>

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import ContentContainer from "../components/common/contentContainer";
 import LoginForm from "../components/ui/forms/loginForm";
-import NavBar from "../components/ui/navBar";
 import RegisterForm from "../components/ui/forms/registerForm";
+import HeadingWrapper from "../components/common/headingWrapper";
 
 const Login = () => {
     const { type } = useParams();
@@ -17,34 +17,35 @@ const Login = () => {
     };
 
     return (
-        <>
-            <NavBar />
-            <ContentContainer>
-                {formType === "register" ? (
-                    <>
-                        <h1 className="text-light text-center">Регистрация</h1>
-                        <RegisterForm />
-                        <p className="text-light text-center">
-                            Alredy have account?
-                            <a role="button" onClick={toggleFormType}>
-                                Sing In
-                            </a>
-                        </p>
-                    </>
-                ) : (
-                    <>
-                        <h1 className="text-light text-center">Вход</h1>
-                        <LoginForm />
-                        <p className="text-light text-center">
-                            Dont have account?
-                            <a role="button" onClick={toggleFormType}>
-                                Sing Up
-                            </a>
-                        </p>
-                    </>
-                )}
-            </ContentContainer>
-        </>
+        <ContentContainer>
+            {formType === "register" ? (
+                <>
+                    <HeadingWrapper size={1} center={true}>
+                        Регистрация
+                    </HeadingWrapper>
+                    <RegisterForm />
+                    <p className="text-light text-center">
+                        Уже есть аккаунт?
+                        <a role="button" onClick={toggleFormType}>
+                            Войти
+                        </a>
+                    </p>
+                </>
+            ) : (
+                <>
+                    <HeadingWrapper size={1} center={true}>
+                        Вход
+                    </HeadingWrapper>
+                    <LoginForm />
+                    <p className="text-light text-center">
+                        Dont have account?
+                        <a role="button" onClick={toggleFormType}>
+                            Sing Up
+                        </a>
+                    </p>
+                </>
+            )}
+        </ContentContainer>
     );
 };
 

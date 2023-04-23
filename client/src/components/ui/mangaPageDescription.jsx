@@ -4,8 +4,8 @@ import SpanWrapper from "../common/spanWrapper";
 import Loader from "./loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenresList } from "../../store/genres";
-import UpdateTextInput from "./hoc/updateTextInput";
 import { updateManga } from "../../store/product";
+import UpdateTextInput from "../hoc/updateTextInput";
 
 const MangaPageDescription = ({ manga, isAdmin }) => {
     const [data, setData] = useState(manga);

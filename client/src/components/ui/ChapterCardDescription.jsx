@@ -24,10 +24,10 @@ const ChapterCardDescription = ({ chapter }) => {
                 Серия: <SpanWrapper>{chapter.mangaName}</SpanWrapper>
             </h4>
             <h4 className="border-bottom border-dark m-2">
-                Категории: <SpanWrapper>{chapter.category}</SpanWrapper>
+                Категория: <SpanWrapper>{chapter.category}</SpanWrapper>
             </h4>
             <h4 className="border-bottom border-dark m-2">
-                Теги:
+                Жанры:
                 {chapter.genres.map((id) => (
                     <BadgeWrapper key={id}>
                         {useSelector(getGenreById(id))

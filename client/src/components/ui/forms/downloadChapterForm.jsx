@@ -3,31 +3,27 @@ import FileField from "../../common/form/fileField";
 import SelectField from "../../common/form/selectField";
 import TextField from "../../common/form/textField";
 import _ from "lodash";
-import { initializeApp } from "firebase/app";
-import {
-    getStorage,
-    ref,
-    uploadBytesResumable,
-    getDownloadURL
-} from "firebase/storage";
+import { storage } from "../../../services/fireBaseStorage.service";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { validator } from "../../../utils/validator";
 import { LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getMangaList } from "../../../store/product";
+import { getAcceptedMangaList } from "../../../store/product";
 import { uploadChapter } from "../../../store/chapters";
 import { getCurrentUserData } from "../../../store/users";
+import { toast } from "react-toastify";
 
-const firebaseConfig = {
-    storageBucket: "gs://enjoy-manga.appspot.com"
-};
+// const firebaseConfig = {
+//     storageBucket: "gs://enjoy-manga.appspot.com"
+// };
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
-const storage = getStorage(app);
+// const storage = getStorage(app);
 
-const metadata = {
-    contentType: "image/jpeg"
-};
+// const metadata = {
+//     contentType: "image/jpeg"
+// };
 
 const DownloadChapterForm = () => {
     const dispatch = useDispatch();
@@ -45,7 +41,7 @@ const DownloadChapterForm = () => {
         content: []
     };
     const [chapter, setChapter] = useState(initialChapter);
-    const manga = useSelector(getMangaList());
+    const manga = useSelector(getAcceptedMangaList());
     const [progress, setProgress] = useState(0);
     const [count, setCount] = useState(0);
     const [errors, setErrors] = useState({});
@@ -110,6 +106,9 @@ const DownloadChapterForm = () => {
                 content
             };
             dispatch(uploadChapter(newChapter));
+            toast.success("Глава загружена!");
+            setData({ name: "", number: "", mangaName: "", images: "" });
+            setChapter(initialChapter);
         }
     };
 
@@ -124,19 +123,10 @@ const DownloadChapterForm = () => {
                 `pageNumber` + (i + 1)
             }`
         );
-        const uploadData = uploadBytesResumable(imagesRef, file, metadata);
+        const uploadData = uploadBytesResumable(imagesRef, file);
         uploadData.on(
             "state_changed",
-            (snapshot) => {
-                switch (snapshot.state) {
-                    case "paused":
-                        console.log("Upload is paused");
-                        break;
-                    case "running":
-                        console.log("Upload is running");
-                        break;
-                }
-            },
+            () => {},
             (error) => {
                 console.log(error);
             },
@@ -198,6 +188,7 @@ const DownloadChapterForm = () => {
                 <TextField
                     label="Задайте номер главы"
                     name="number"
+                    min={0}
                     type="number"
                     value={data.number}
                     onChange={handleChange}

@@ -3,8 +3,7 @@ import _ from "lodash";
 import ChapterCard from "../components/ui/chapterCard";
 import Paginate from "../utils/paginate";
 import ContentContainer from "../components/common/contentContainer";
-import PaginationHOC from "../components/ui/pagination";
-import NavBar from "../components/ui/navBar";
+import PaginationHOC from "../components/hoc/pagination";
 import Loader from "../components/ui/loader";
 import SortBar from "../components/ui/sortBar";
 import { useSelector } from "react-redux";
@@ -25,8 +24,8 @@ const Main = () => {
     );
     const paginateChapters = Paginate(sortedChapters, currentPage, pageSize);
 
-    const handlePageChange = ({ target }) => {
-        setCurrentPage(Number(target.innerText));
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
     };
 
     function updateChapters(manga, chapters) {
@@ -45,33 +44,30 @@ const Main = () => {
     }
 
     return (
-        <>
-            <NavBar />
-            <ContentContainer>
-                <div className="mx-1 my-3">
-                    <SortBar
-                        heading={"Последние добавленные"}
-                        formVisible={false}
+        <ContentContainer>
+            <div className="mx-1 my-3">
+                <SortBar
+                    heading={"Последние добавленные"}
+                    formVisible={false}
+                />
+            </div>
+            <div className="d-flex flex-column">
+                {paginateChapters && paginateChapters.length !== 0 ? (
+                    paginateChapters.map((chapter) => (
+                        <ChapterCard key={chapter._id} chapter={chapter} />
+                    ))
+                ) : (
+                    <Loader />
+                )}
+                <div className="m-auto">
+                    <PaginationHOC
+                        count={pagesCount}
+                        onChange={handlePageChange}
+                        page={currentPage}
                     />
                 </div>
-                <div className="d-flex flex-column">
-                    {paginateChapters && paginateChapters.length !== 0 ? (
-                        paginateChapters.map((chapter) => (
-                            <ChapterCard key={chapter._id} chapter={chapter} />
-                        ))
-                    ) : (
-                        <Loader />
-                    )}
-                    <div className="m-auto">
-                        <PaginationHOC
-                            count={pagesCount}
-                            onChange={handlePageChange}
-                            page={currentPage}
-                        />
-                    </div>
-                </div>
-            </ContentContainer>
-        </>
+            </div>
+        </ContentContainer>
     );
 };
 

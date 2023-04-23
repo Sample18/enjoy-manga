@@ -8,7 +8,9 @@ const TextField = ({
     value,
     onChange,
     error,
-    placeholder
+    placeholder,
+    min,
+    max
 }) => {
     const [showPassword, setShowPassword] = useState(false);
     const getInputClasses = () => {
@@ -34,6 +36,8 @@ const TextField = ({
                     onChange={handleChange}
                     className={getInputClasses()}
                     placeholder={placeholder}
+                    min={min}
+                    max={max}
                 />
                 {type === "password" && (
                     <button
@@ -65,7 +69,9 @@ TextField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
     error: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    min: PropTypes.number,
+    max: PropTypes.number
 };
 
 export default TextField;

@@ -14,12 +14,6 @@ app.use("/api", routes);
 
 const PORT = config.get("port") ?? 8080;
 
-// if (process.env.NODE_ENV === "production") {
-//   console.log("prod");
-// } else {
-//   console.log("dev");
-// }
-
 async function start() {
   try {
     mongoose.connection.once("open", () => {

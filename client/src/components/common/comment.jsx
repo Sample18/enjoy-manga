@@ -7,6 +7,7 @@ import moment from "moment/moment";
 import "moment/locale/ru";
 import SpanWrapper from "./spanWrapper";
 import { deleteComment } from "../../store/comments";
+import RemoveButton from "./removeButton";
 
 const Comment = ({ comment }) => {
     const user = useSelector(getUserById(comment.userId));
@@ -32,12 +33,9 @@ const Comment = ({ comment }) => {
                             {moment(comment.created_at).format("LL LT")}
                         </span>
                         {user._id === currentUser._id && (
-                            <span
-                                className="delete-comment"
+                            <RemoveButton
                                 onClick={() => handleRemoveComment(comment._id)}
-                            >
-                                &#10005;
-                            </span>
+                            />
                         )}
                     </div>
                 </div>

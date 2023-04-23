@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ContentContainer = ({ children }) => {
-    return <main className={"container px-1 py-4 bg-dark"}>{children}</main>;
+    return (
+        <main className="container content-container px-1 py-4 mb-4">
+            {children}
+        </main>
+    );
 };
 
 ContentContainer.propTypes = {

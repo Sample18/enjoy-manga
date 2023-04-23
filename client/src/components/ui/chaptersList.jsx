@@ -46,7 +46,7 @@ const ChaptersList = ({ id, isAdmin }) => {
                     </p>
                 ))
             ) : (
-                <p className="border-bottom border-dark m-0 p-2 text-white pe-auto">
+                <p className="border-bottom border-dark m-0 p-2 text-white">
                     Увы... Загруженных глав пока нет.
                 </p>
             )}
