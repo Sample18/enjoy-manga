@@ -20,7 +20,7 @@ import Favorites from "../ui/favorites";
 const MangaPage = ({ mangaName }) => {
     const mangaCrop = useSelector(getMangaByName(mangaName));
     const isLogin = useSelector(getIsLoggedIn());
-    const isAdmin = useSelector(getAdminRole());
+    const isAdmin = isLogin ? useSelector(getAdminRole()) : false;
     const currentUser = isLogin ? useSelector(getCurrentUserData()) : null;
     const comments = useSelector(getCommentsList());
     const dispatch = useDispatch();
