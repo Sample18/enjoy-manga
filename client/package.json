@@ -16,6 +16,7 @@
         "bootstrap-icons": "^1.10.3",
         "dotenv": "^16.0.3",
         "firebase": "^9.17.2",
+        "history": "^4.9.0",
         "lodash": "^4.17.21",
         "moment": "^2.29.4",
         "nanoid": "^4.0.1",

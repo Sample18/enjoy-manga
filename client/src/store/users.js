@@ -3,6 +3,7 @@ import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
 import userService from "../services/users.service";
 import generateAuthError from "../utils/generateAuthError";
+import history from "../utils/history";
 
 const initialState = localStorageService.getAccessToken()
     ? {
@@ -97,19 +98,21 @@ export const singUp = (payload) => async (dispatch) => {
         const data = await authService.register(payload);
         localStorageService.setTokens(data);
         dispatch(authRequestSuccess({ userId: data.userId }));
+        history.push("/");
     } catch (error) {
         dispatch(authRequestFailed(error.message));
     }
 };
 export const logIn =
-    ({ email, password }) =>
+    ({ payload, redirect }) =>
     async (dispatch) => {
+        const { email, password } = payload;
         dispatch(authRequested());
         try {
             const data = await authService.login({ email, password });
             dispatch(authRequestSuccess({ userId: data.userId }));
             localStorageService.setTokens(data);
-            // history.push(redirect);
+            history.push(redirect);
         } catch (error) {
             const { code, message } = error.response.data.error;
             if (code === 400) {
@@ -123,7 +126,6 @@ export const logIn =
 export const logOut = () => (dispatch) => {
     localStorageService.removeAuthData();
     dispatch(userLoggedOut());
-    // history.push("/");
 };
 export const updateUser = (payload) => async (dispatch) => {
     dispatch(userUpdateRequested());

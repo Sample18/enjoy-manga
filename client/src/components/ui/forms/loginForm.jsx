@@ -40,12 +40,12 @@ const LoginForm = () => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        dispatch(logIn(data));
-        history.push("/");
-        // const redirect = history.location.state
-        //     ? history.location.state.from.pathname
-        //     : "/";
-        // dispatch(logIn({ payload: data, redirect }));
+        const redirect = history.location.state
+            ? history.location.state.from.pathname
+            : "/";
+        dispatch(logIn({ payload: data, redirect }));
+        // dispatch(logIn(data));
+        // history.push("/");
     };
     const validate = () => {
         const errors = validator(data, validatorConfig);

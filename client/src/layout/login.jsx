@@ -26,7 +26,11 @@ const Login = () => {
                     <RegisterForm />
                     <p className="text-light text-center">
                         Уже есть аккаунт?
-                        <a role="button" onClick={toggleFormType}>
+                        <a
+                            role="button"
+                            onClick={toggleFormType}
+                            className="page-link"
+                        >
                             Войти
                         </a>
                     </p>
@@ -38,9 +42,13 @@ const Login = () => {
                     </HeadingWrapper>
                     <LoginForm />
                     <p className="text-light text-center">
-                        Dont have account?
-                        <a role="button" onClick={toggleFormType}>
-                            Sing Up
+                        Нет аккаунта?
+                        <a
+                            role="button"
+                            onClick={toggleFormType}
+                            className="page-link"
+                        >
+                            Регистрация
                         </a>
                     </p>
                 </>

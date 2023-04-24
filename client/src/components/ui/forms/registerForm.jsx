@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import TextField from "../../common/form/textField";
 import { validator } from "../../../utils/validator";
 import RadioField from "../../common/form/radioField";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { singUp } from "../../../store/users";
@@ -17,7 +16,6 @@ const RegisterForm = () => {
     });
     const dispatch = useDispatch();
     const [errors, setErrors] = useState({});
-    const history = useHistory();
     const validatorConfig = {
         name: {
             isRequired: {
@@ -75,7 +73,6 @@ const RegisterForm = () => {
                     avatar: avatar.data.url
                 })
             );
-            history.push("/");
         } catch (error) {
             setErrors(error);
         }

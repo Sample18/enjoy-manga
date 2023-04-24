@@ -67,11 +67,11 @@ const UserDownloadList = ({ userId, isAdmin, content }) => {
                     Загруженное
                 </HeadingWrapper>
                 <List sx={listStyle}>
-                    {uploadByuser.length &&
+                    {uploadByuser.length !== 0 &&
                         uploadByuser.map((m, index) => (
                             <DownloadMangaItem manga={m} key={index} />
                         ))}
-                    {uploadMangaByUser.length &&
+                    {uploadMangaByUser.length !== 0 &&
                         uploadMangaByUser.map((m, index) => (
                             <DownloadMangaItem manga={m} key={index} />
                         ))}
