@@ -32,7 +32,7 @@ const Comment = ({ comment }) => {
                         <span className="m-0 mx-2">
                             {moment(comment.created_at).format("LL LT")}
                         </span>
-                        {user._id === currentUser._id && (
+                        {currentUser && user._id === currentUser._id && (
                             <RemoveButton
                                 onClick={() => handleRemoveComment(comment._id)}
                             />

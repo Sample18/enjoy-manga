@@ -139,7 +139,7 @@ export const getUsersList = () => (state) => state.users.entities;
 export const getUsersListLoadingStatus = () => (state) => state.users.isLoading;
 export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
 export const getCurrentUserData = () => (state) => {
-    return state.users.entities
+    return state.users.entities && state.users.auth
         ? state.users.entities.find((u) => u._id === state.users.auth.userId)
         : null;
 };
