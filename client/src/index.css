@@ -21,6 +21,10 @@ body {
     cursor: pointer;
 }
 
+.hide-content {
+    display: none;
+}
+
 /* ========= header */
 
 .header {
@@ -287,4 +291,11 @@ body {
 
 .accept-button:hover {
     color: green;
+}
+
+/* ========= comments */
+
+.comment-reply {
+    cursor: pointer;
+    display: flex;
 }

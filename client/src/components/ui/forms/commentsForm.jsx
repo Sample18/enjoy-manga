@@ -5,7 +5,7 @@ import TextAreaField from "../../common/form/textAreaField";
 import PropTypes from "prop-types";
 import { createComment } from "../../../store/comments";
 
-const CommentsForm = ({ id: pageId, userId }) => {
+const CommentsForm = ({ id: pageId, userId, answerId, onClick, userName }) => {
     const dispatch = useDispatch();
     const [data, setData] = useState({
         comment: ""
@@ -34,12 +34,14 @@ const CommentsForm = ({ id: pageId, userId }) => {
         const isValid = validate();
         if (!isValid) return;
         const commentData = {
-            content: data.comment,
+            content: !userName ? data.comment : `@${userName} ${data.comment}`,
             pageId,
-            userId
+            userId,
+            answerId
         };
         dispatch(createComment(commentData));
         setData({ comment: "" });
+        answerId && onClick();
     };
     const validate = () => {
         const errors = validator(data, validatorConfig);
@@ -51,7 +53,11 @@ const CommentsForm = ({ id: pageId, userId }) => {
     return (
         <form onSubmit={handleSubmit} className="  mb-4 mx-4">
             <TextAreaField
-                label="Оставьте комментарий"
+                label={
+                    answerId
+                        ? "Оставьте ответ на комментарий"
+                        : "Оставьте комментарий"
+                }
                 name="comment"
                 value={data.comment}
                 onChange={handleChange}
@@ -61,16 +67,28 @@ const CommentsForm = ({ id: pageId, userId }) => {
             <button
                 type="submit"
                 disabled={!isValid}
-                className="btn btn-secondary w-100 mx-auto"
+                className={
+                    !answerId
+                        ? "btn btn-secondary mx-auto w-100"
+                        : "btn btn-secondary w-50"
+                }
             >
                 Отправить
             </button>
+            {answerId && (
+                <button onClick={onClick} className="btn btn-danger w-25 mx-4">
+                    Закрыть
+                </button>
+            )}
         </form>
     );
 };
 
 CommentsForm.propTypes = {
     id: PropTypes.string,
-    userId: PropTypes.string
+    userId: PropTypes.string,
+    answerId: PropTypes.string,
+    onClick: PropTypes.func,
+    userName: PropTypes.string
 };
 export default CommentsForm;
