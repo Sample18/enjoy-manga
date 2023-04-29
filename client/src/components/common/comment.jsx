@@ -18,14 +18,29 @@ const Comment = ({ comment, children, ...rest }) => {
     const handleRemoveComment = (id) => dispatch(deleteComment(id));
     moment.locale("ru");
     const handleOpen = () => setFormOpen(!formOpen);
-    console.log(rest.parent && comment.content);
+    const transformString = (str) => {
+        const regex = /@\S+/;
+
+        const match = str.match(regex);
+
+        if (match) {
+            return (
+                <>
+                    <i className="text-danger">{match[0]}</i>
+                    <SpanWrapper>{str.replace(regex, "")}</SpanWrapper>
+                </>
+            );
+        } else {
+            return <SpanWrapper>{str}</SpanWrapper>;
+        }
+    };
 
     return (
         <div
             className={
                 !rest.parent
-                    ? "d-flex border border-secondary mb-2"
-                    : "d-flex border-start border-secondary mb-2"
+                    ? "d-flex border border-secondary mb-2 comment"
+                    : "d-flex border-start border-secondary pb-2 comment"
             }
         >
             <div className="m-2 ">
@@ -49,9 +64,7 @@ const Comment = ({ comment, children, ...rest }) => {
                         )}
                     </div>
                 </div>
-                <div>
-                    <SpanWrapper>{comment.content}</SpanWrapper>
-                </div>
+                <div>{transformString(comment.content)}</div>
                 {currentUser && (
                     <span
                         className={!formOpen ? "comment-reply" : "hide-content"}

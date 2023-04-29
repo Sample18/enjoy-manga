@@ -10,7 +10,11 @@ const sendDefaultError = (res) =>
 
 router.get("/", async (req, res) => {
   try {
-    const list = await User.find();
+    const list = await User.find().select([
+      "-password",
+      "-createdAt",
+      "-updatedAt",
+    ]);
     res.send(list);
   } catch (e) {
     sendDefaultError(res);
@@ -21,7 +25,11 @@ router.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const currentUser = User.findById(userId);
+    const currentUser = User.findById(userId).select([
+      "-password",
+      "-createdAt",
+      "-updatedAt",
+    ]);
 
     res.send(currentUser);
   } catch (e) {
@@ -36,7 +44,7 @@ router.patch("/:userId", auth, async (req, res) => {
     if (userId === req.user._id) {
       const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
         new: true,
-      });
+      }).select(["-password", "-createdAt", "-updatedAt"]);
       res.send(updatedUser);
     } else {
       res.status(401).json({ message: "Unautorized" });

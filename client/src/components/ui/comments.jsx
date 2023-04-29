@@ -6,10 +6,11 @@ import Comment from "../common/comment";
 import { useSelector } from "react-redux";
 import { getUsersListLoadingStatus } from "../../store/users";
 import PaginationHOC from "../hoc/pagination";
+import { Tooltip } from "@mui/material";
 
 const Comments = ({ comments }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const count = comments ? comments.length : 1;
+    const [hide, setHide] = useState({});
     const filtredComments = comments
         ? comments.filter(
               (c) => !Object.prototype.hasOwnProperty.call(c, "answerId")
@@ -20,6 +21,7 @@ const Comments = ({ comments }) => {
               Object.prototype.hasOwnProperty.call(c, "answerId")
           )
         : null;
+    const count = filtredComments ? filtredComments.length : 1;
     const pageSize = 10;
     const pagesCount = Math.ceil(count / pageSize);
     const sortedComments = _.orderBy(filtredComments, ["created_at"], ["desc"]);
@@ -28,6 +30,66 @@ const Comments = ({ comments }) => {
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
+    };
+
+    const hideComments = (comments, parentIndex) => {
+        if (comments.length < 3) {
+            return comments.map((a) => (
+                <Comment key={a._id} comment={a} parent="last" />
+            ));
+        } else {
+            if (!hide[parentIndex]) {
+                return (
+                    <>
+                        {comments.slice(0, 2).map((a) => (
+                            <Comment key={a._id} comment={a} parent="last" />
+                        ))}
+                        <Tooltip title="Показать ответы">
+                            <span
+                                className={
+                                    !hide[parentIndex]
+                                        ? "comment-reply"
+                                        : "hide-content"
+                                }
+                                onClick={() =>
+                                    setHide((prevState) => ({
+                                        ...prevState,
+                                        [parentIndex]: true
+                                    }))
+                                }
+                            >
+                                <i className="bi bi-arrow-bar-down fs-4 m-auto"></i>
+                            </span>
+                        </Tooltip>
+                    </>
+                );
+            } else {
+                return (
+                    <>
+                        {comments.map((a) => (
+                            <Comment key={a._id} comment={a} parent="last" />
+                        ))}
+                        <Tooltip title="Скрыть">
+                            <span
+                                className={
+                                    hide[parentIndex]
+                                        ? "comment-reply"
+                                        : "hide-content"
+                                }
+                                onClick={() =>
+                                    setHide((prevState) => ({
+                                        ...prevState,
+                                        [parentIndex]: false
+                                    }))
+                                }
+                            >
+                                <i className="bi bi-arrow-bar-up fs-3 m-auto"></i>
+                            </span>
+                        </Tooltip>
+                    </>
+                );
+            }
+        }
     };
 
     return (
@@ -52,16 +114,13 @@ const Comments = ({ comments }) => {
                                             <Comment
                                                 key={a._id}
                                                 comment={a}
-                                                parent="second"
+                                                parent={"second-" + a._id}
                                             >
                                                 {ansFilter &&
-                                                    ansFilter.map((a) => (
-                                                        <Comment
-                                                            key={a._id}
-                                                            comment={a}
-                                                            parent="last"
-                                                        />
-                                                    ))}
+                                                    hideComments(
+                                                        ansFilter,
+                                                        a._id
+                                                    )}
                                             </Comment>
                                         );
                                     })}
