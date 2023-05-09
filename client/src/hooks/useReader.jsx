@@ -2,8 +2,9 @@ import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useHistory, useParams } from "react-router-dom";
 import Loader from "../components/ui/loader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getChaptersList } from "../store/chapters";
+import { getCurrentUserData, updateUser } from "../store/users";
 
 const ReaderContext = React.createContext();
 
@@ -13,9 +14,35 @@ export const useReader = () => {
 
 const ReaderProvider = ({ children }) => {
     const chapters = useSelector(getChaptersList());
+    const currentUser = useSelector(getCurrentUserData());
+    const dispatch = useDispatch();
     const { mangaName, ch, page } = useParams();
     const history = useHistory();
     const pageData = getChapterImage(mangaName, ch, page);
+
+    function addReadingProgress() {
+        const userReading = currentUser.reading;
+
+        if (userReading) {
+            const findedId = userReading.find((id) => id === pageData.id);
+            if (findedId) {
+                return null;
+            }
+            return dispatch(
+                updateUser({
+                    ...currentUser,
+                    reading: [...userReading, pageData.id]
+                })
+            );
+        } else {
+            return dispatch(
+                updateUser({
+                    ...currentUser,
+                    reading: [...userReading, pageData.id]
+                })
+            );
+        }
+    }
 
     function getChapterImage(mangaId, chapter, page) {
         if (chapters) {
@@ -24,7 +51,8 @@ const ReaderProvider = ({ children }) => {
                 .find((c) => c.number === chapter);
             return {
                 img: mangaChapter.content[Number(page) - 1],
-                content: mangaChapter.content
+                content: mangaChapter.content,
+                id: mangaChapter._id
             };
         }
     }
@@ -61,6 +89,10 @@ const ReaderProvider = ({ children }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pageData]);
+
+    useEffect(() => {
+        return () => addReadingProgress();
+    }, []);
 
     return (
         <ReaderContext.Provider

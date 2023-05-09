@@ -27,6 +27,11 @@ const chaptersSlice = createSlice({
             state.entities[
                 state.entities.findIndex((c) => c._id === action.payload._id)
             ] = action.payload;
+        },
+        chapterRemoved: (state, action) => {
+            state.entities = state.entities.filter(
+                (chapter) => chapter._id !== action.payload
+            );
         }
     }
 });
@@ -37,7 +42,8 @@ const {
     chaptersReceved,
     chaptersRequestFailed,
     chapterUpload,
-    chapterUpdated
+    chapterUpdated,
+    chapterRemoved
 } = actions;
 
 const uploadChapterRequested = createAction("chapters/uploadChapterRequested");
@@ -47,6 +53,10 @@ const uploadChapterRequestFailed = createAction(
 const updateChapterRequested = createAction("chapters/updateChapterRequested");
 const updateChapterRequestFailed = createAction(
     "chapters/updateChapterRequestFailed"
+);
+const removeChapterRequested = createAction("chapters/removeChapterRequested");
+const removeChapterRequestFailed = createAction(
+    "chapters/removeChapterRequestFailed"
 );
 
 export const loadChaptersList = () => async (dispatch) => {
@@ -76,6 +86,15 @@ export const updateChapter = (payload) => async (dispatch) => {
         dispatch(updateChapterRequestFailed(error));
     }
 };
+export const removeChapter = (id) => async (dispatch) => {
+    dispatch(removeChapterRequested());
+    try {
+        await chaptersService.remove(id);
+        dispatch(chapterRemoved(id));
+    } catch (error) {
+        dispatch(removeChapterRequestFailed(error));
+    }
+};
 
 export const getChaptersList = () => (state) => state.chapters.entities;
 export const getAcceptedChaptersList = () => (state) =>
@@ -96,5 +115,7 @@ export const getUploadByUser = (id) => (state) =>
     state.chapters.entities
         ? state.chapters.entities.filter((c) => c.uploadBy === id)
         : [];
+export const getChapterByIds = (ids) => (state) =>
+    ids.map((id) => state.chapters.entities.find((c) => c._id === id));
 
 export default chaptersReducer;

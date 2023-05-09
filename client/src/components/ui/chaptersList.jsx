@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ListDropContainer from "../common/listDropContainer";
 import _ from "lodash";
-import { useSelector } from "react-redux";
-import { getChaptersById } from "../../store/chapters";
+import { useDispatch, useSelector } from "react-redux";
+import { getChaptersById, removeChapter } from "../../store/chapters";
+import RemoveButton from "../common/removeButton";
+import { deleteObject, ref } from "firebase/storage";
+import { storage } from "../../services/fireBaseStorage.service";
+// import { toast } from "react-toastify";
 
 const ChaptersList = ({ id, isAdmin }) => {
     const chaptersCrop = _.orderBy(
@@ -15,13 +19,30 @@ const ChaptersList = ({ id, isAdmin }) => {
     const acceptedChapters = () =>
         chaptersCrop.filter((c) => c.moderateStatus === "accepted");
 
+    const dispatch = useDispatch();
+
+    const handleRemoveChapter = async (chapter) => {
+        const deletePromises = chapter.content.map(async (page, i) => {
+            const pageRef = ref(
+                storage,
+                `${chapter.mangaId}/ch${chapter.number}/UID${
+                    chapter.uploadBy
+                }/pageNumber${i + 1}`
+            );
+            await deleteObject(pageRef);
+        });
+
+        await Promise.all(deletePromises);
+        dispatch(removeChapter(chapter._id));
+    };
+
     return chaptersCrop.length !== 0 ? (
         <ListDropContainer>
             {isAdmin ? (
                 chaptersCrop.map((c) => (
                     <p
                         key={c._id}
-                        className="border-bottom border-dark m-0 p-2 text-white pe-auto"
+                        className="border-bottom border-dark m-0 p-2 text-white pe-auto d-flex justify-content-between"
                     >
                         <Link
                             className="page-link"
@@ -29,6 +50,7 @@ const ChaptersList = ({ id, isAdmin }) => {
                         >
                             {c.number} - {c.name}
                         </Link>
+                        <RemoveButton onClick={() => handleRemoveChapter(c)} />
                     </p>
                 ))
             ) : acceptedChapters().length !== 0 ? (

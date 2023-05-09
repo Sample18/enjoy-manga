@@ -17,6 +17,10 @@ const chaptersService = {
             payload
         );
         return data;
+    },
+    remove: async (id) => {
+        const { data } = await httpService.delete(`${chaptersEndpoint}/${id}`);
+        return data;
     }
 };
 

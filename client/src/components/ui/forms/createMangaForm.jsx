@@ -15,14 +15,6 @@ import { getGenresList } from "../../../store/genres";
 import { getCurrentUserData } from "../../../store/users";
 import { LinearProgress } from "@mui/material";
 
-// const firebaseConfig = {
-//     storageBucket: "gs://enjoy-manga.appspot.com"
-// };
-
-// const app = initializeApp(firebaseConfig);
-
-// const storage = getStorage(app);
-
 const CreateMangaForm = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(getCurrentUserData());

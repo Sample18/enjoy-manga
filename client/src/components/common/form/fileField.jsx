@@ -1,7 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const FileField = ({ label, name, onChange, error, isMultiple = true }) => {
+const FileField = ({
+    label,
+    name,
+    onChange,
+    error,
+    isMultiple = true,
+    className
+}) => {
     const getInputClasses = () => {
         return "form-control" + (error ? " is-invalid" : "");
     };
@@ -28,7 +35,7 @@ const FileField = ({ label, name, onChange, error, isMultiple = true }) => {
                     id={name}
                     name={name}
                     onChange={handleChange}
-                    className={getInputClasses()}
+                    className={className || getInputClasses()}
                     multiple={isMultiple}
                 />
                 {error && <div className="invalid-feedback">{error}</div>}
@@ -42,7 +49,8 @@ FileField.propTypes = {
     name: PropTypes.string,
     onChange: PropTypes.func,
     error: PropTypes.string,
-    isMultiple: PropTypes.bool
+    isMultiple: PropTypes.bool,
+    className: PropTypes.string
 };
 
 export default FileField;

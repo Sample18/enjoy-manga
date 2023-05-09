@@ -11,6 +11,7 @@ const sendDefaultError = (res) =>
 router.get("/", async (req, res) => {
   try {
     const list = await User.find().select([
+      "-email",
       "-password",
       "-createdAt",
       "-updatedAt",
@@ -26,6 +27,7 @@ router.get("/:userId", async (req, res) => {
     const { userId } = req.params;
 
     const currentUser = User.findById(userId).select([
+      "-email",
       "-password",
       "-createdAt",
       "-updatedAt",
@@ -44,7 +46,7 @@ router.patch("/:userId", auth, async (req, res) => {
     if (userId === req.user._id) {
       const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
         new: true,
-      }).select(["-password", "-createdAt", "-updatedAt"]);
+      }).select(["-email", "-password", "-createdAt", "-updatedAt"]);
       res.send(updatedUser);
     } else {
       res.status(401).json({ message: "Unautorized" });

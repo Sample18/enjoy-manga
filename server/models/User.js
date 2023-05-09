@@ -7,6 +7,7 @@ const schema = new Schema(
     password: { type: String },
     avatar: String,
     favorites: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    reading: [{ type: Schema.Types.ObjectId, ref: "Chapter" }],
     sex: { type: String, enum: ["male", "female", "other"] },
     role: { type: String, enum: ["admin", "moderator", "user"] },
   },

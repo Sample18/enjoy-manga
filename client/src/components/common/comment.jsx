@@ -9,6 +9,7 @@ import SpanWrapper from "./spanWrapper";
 import { deleteComment } from "../../store/comments";
 import RemoveButton from "./removeButton";
 import CommentsForm from "../ui/forms/commentsForm";
+import { Link } from "react-router-dom";
 
 const Comment = ({ comment, children, ...rest }) => {
     const [formOpen, setFormOpen] = useState(false);
@@ -52,7 +53,11 @@ const Comment = ({ comment, children, ...rest }) => {
             </div>
             <div className="d-flex flex-column w-100">
                 <div className="d-flex w-100 border-bottom border-secondary">
-                    <h5 className="m-0 me-auto ">{user.name}</h5>
+                    <h5 className="m-0 me-auto ">
+                        <Link className="page-link" to={`/profile/${user._id}`}>
+                            {user.name}
+                        </Link>
+                    </h5>
                     <div className="mx-1">
                         <span className="m-0 mx-2">
                             {moment(comment.created_at).format("LL LT")}

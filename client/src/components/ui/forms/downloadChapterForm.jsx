@@ -13,18 +13,6 @@ import { uploadChapter } from "../../../store/chapters";
 import { getCurrentUserData } from "../../../store/users";
 import { toast } from "react-toastify";
 
-// const firebaseConfig = {
-//     storageBucket: "gs://enjoy-manga.appspot.com"
-// };
-
-// const app = initializeApp(firebaseConfig);
-
-// const storage = getStorage(app);
-
-// const metadata = {
-//     contentType: "image/jpeg"
-// };
-
 const DownloadChapterForm = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(getCurrentUserData());
