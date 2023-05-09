@@ -86,10 +86,14 @@ export const getMangaById = (id) => (state) =>
     state.manga.entities
         ? state.manga.entities.find((m) => m._id === id)
         : null;
-export const getAcceptedMangaList = () => (state) =>
-    state.chapters.entities
-        ? state.manga.entities.filter((m) => m.moderateStatus === "accepted")
-        : null;
+export const getAcceptedMangaList = () => (state) => {
+    if (state.chapters.entities) {
+        return state.manga.entities.filter(
+            (m) => m.moderateStatus === "accepted"
+        );
+    }
+    return null;
+};
 export const getModerateMangaList = () => (state) =>
     state.chapters.entities
         ? state.manga.entities.filter((m) => m.moderateStatus === "onCheck")

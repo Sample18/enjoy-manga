@@ -127,57 +127,6 @@ const ProfilePage = () => {
             {user ? (
                 <>
                     <div className="mx-4 text-light mb-4">
-                        {/* <div className="w-25 mx-1">
-                            {currentUser && currentUser._id === userId ? (
-                                <div
-                                    className="avatar-container"
-                                    onClick={handleOpen}
-                                >
-                                    <img
-                                        src={user.avatar}
-                                        alt="avatar"
-                                        className="w-100"
-                                    />
-                                    <span className="avatar-download">
-                                        загрузить аватар
-                                    </span>
-                                </div>
-                            ) : (
-                                <img
-                                    src={user.avatar}
-                                    alt="avatar"
-                                    className="w-100"
-                                />
-                            )}
-                            <ModalBox
-                                open={open}
-                                onClose={handleClose}
-                                title={"Сменить аватар"}
-                            >
-                                <form onSubmit={handleSubmit} className="mb-4">
-                                    <FileField
-                                        isMultiple={false}
-                                        name={"avatar"}
-                                        value={data.avatar}
-                                        onChange={handleChange}
-                                        error={errors.avatar}
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="btn btn-secondary mx-auto w-100"
-                                    >
-                                        Отправить
-                                    </button>
-                                </form>
-                                {isLoading && (
-                                    <div
-                                        className="spinner-border text-success"
-                                        role="status"
-                                    ></div>
-                                )}
-                            </ModalBox>
-                        </div> */}
-
                         <div className="w-100 d-flex text-light bg-dark mb-4 p-4">
                             <div className="mx-2">
                                 <HeadingWrapper size={1}>
@@ -237,35 +186,6 @@ const ProfilePage = () => {
                                     )}
                                 </ModalBox>
                             </div>
-                            {/* {isAdmin ? (
-                                <div className="d-flex w-100">
-                                    <UserDownloadList
-                                        userId={user._id}
-                                        isAdmin={isAdmin}
-                                        content={"manga"}
-                                    />
-                                    <UserDownloadList
-                                        userId={user._id}
-                                        isAdmin={isAdmin}
-                                        content={"chapters"}
-                                    />
-                                </div>
-                            ) : (
-                                <div className="d-flex w-100">
-                                    <UserFavoritesList
-                                        favs={
-                                            user.favorites &&
-                                            user.favorites.length
-                                                ? user.favorites
-                                                : []
-                                        }
-                                    />
-                                    <UserDownloadList
-                                        userId={user._id}
-                                        isAdmin={isAdmin}
-                                    />
-                                </div>
-                            )} */}
                         </div>
                         {isAdmin ? (
                             <div className="d-flex w-100">

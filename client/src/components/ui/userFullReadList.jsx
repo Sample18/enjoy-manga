@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import ReadMangaItem from "../common/readMangaItem";
 import HeadingWrapper from "../common/headingWrapper";
+import FullReadMangaItem from "../common/fullReadMangaItem";
 
 const UserFullReadList = ({ readingContent }) => {
     const alredyRead = readingContent
@@ -25,7 +25,7 @@ const UserFullReadList = ({ readingContent }) => {
                     }}
                 >
                     {alredyRead.map((content, index) => (
-                        <ReadMangaItem content={content} key={index} />
+                        <FullReadMangaItem content={content} key={index} />
                     ))}
                 </List>
             ) : (

@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { getMangaById } from "../../store/product";
 import { useHistory } from "react-router-dom";
 
-const FavMangaItem = ({ id }) => {
-    const manga = useSelector(getMangaById(id));
+const FullReadMangaItem = ({ content }) => {
+    const manga = useSelector(getMangaById(content.mangaId));
     const history = useHistory();
     const handleClick = () =>
         history.push(`/catalog/${manga.name.toLowerCase().replace(/ /g, "")}`);
@@ -28,8 +28,8 @@ const FavMangaItem = ({ id }) => {
     );
 };
 
-FavMangaItem.propTypes = {
-    id: PropTypes.string
+FullReadMangaItem.propTypes = {
+    content: PropTypes.object
 };
 
-export default FavMangaItem;
+export default FullReadMangaItem;
