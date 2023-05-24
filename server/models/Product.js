@@ -9,7 +9,13 @@ const schema = new Schema(
     genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
     name: String,
     nameRu: String,
-    rate: Number,
+    rate: {
+      rating1: Number,
+      rating2: Number,
+      rating3: Number,
+      rating4: Number,
+      rating5: Number,
+    },
     moderateStatus: {
       type: String,
       enum: ["onCheck", "accepted", "notAccepted"],

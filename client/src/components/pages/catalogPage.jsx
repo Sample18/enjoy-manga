@@ -8,6 +8,7 @@ import Loader from "../ui/loader";
 import { getAcceptedMangaList } from "../../store/product";
 import { useSelector } from "react-redux";
 import PaginationHOC from "../hoc/pagination";
+import calculateRating from "../../utils/calculateRating";
 
 const CatalogPage = () => {
     const manga = useSelector(getAcceptedMangaList());
@@ -25,7 +26,12 @@ const CatalogPage = () => {
     };
 
     const sortedManga = _.orderBy(
-        paginateManga,
+        paginateManga
+            ? paginateManga.map((m) => ({
+                  ...m,
+                  rate: calculateRating(m.rate)
+              }))
+            : null,
         [sortBy().field],
         [sortBy().order]
     );

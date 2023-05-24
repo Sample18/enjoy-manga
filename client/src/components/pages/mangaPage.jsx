@@ -16,6 +16,7 @@ import {
 } from "../../store/users";
 import { getCommentsList, loadCommentsList } from "../../store/comments";
 import Favorites from "../ui/favorites";
+import Rate from "../ui/rate";
 
 const MangaPage = ({ mangaName }) => {
     const mangaCrop = useSelector(getMangaByName(mangaName));
@@ -37,11 +38,18 @@ const MangaPage = ({ mangaName }) => {
             {mangaCrop ? (
                 <>
                     <div className="d-flex mb-4">
-                        <img
-                            src={mangaCrop.cover}
-                            className="mx-4 coverImage"
-                            alt={mangaCrop.cover + " cover"}
-                        />
+                        <div className="mx-4">
+                            <img
+                                src={mangaCrop.cover}
+                                className="coverImage mb-4"
+                                alt={mangaCrop.cover + " cover"}
+                            />
+                            <Rate
+                                rating={mangaCrop.rate}
+                                manga={mangaCrop}
+                                isLogin={isLogin}
+                            />
+                        </div>
                         <div className="mx-4">
                             <MangaPageDescription
                                 manga={mangaCrop}

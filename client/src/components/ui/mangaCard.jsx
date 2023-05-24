@@ -16,6 +16,7 @@ const MangaCard = ({ manga }) => {
                     width="250"
                     height="353"
                 />
+                <i className="rating">{manga.rate}/5</i>
                 <div className="caption">
                     {manga.name} / {manga.nameRu}
                 </div>

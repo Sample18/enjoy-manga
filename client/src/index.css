@@ -180,6 +180,15 @@ body {
     max-width: 100%;
 }
 
+.rating {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: yellow;
+    line-height: 15px;
+    background-color: #0f0f0f;
+}
+
 .caption {
     box-sizing: border-box;
     line-height: 15px;

@@ -7,7 +7,6 @@ import { validator } from "../../../utils/validator";
 import MultySelectField from "../../common/form/multiSelectField";
 import RadioField from "../../common/form/radioField";
 import TextAreaField from "../../common/form/textAreaField";
-import { generateRandomNumber } from "../../../utils/random";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadManga } from "../../../store/product";
 import { toast } from "react-toastify";
@@ -107,7 +106,13 @@ const CreateMangaForm = () => {
             () => {
                 getDownloadURL(uploadData.snapshot.ref).then((url) => {
                     const product = {
-                        rate: generateRandomNumber(1, 10),
+                        rate: {
+                            rating1: 0,
+                            rating2: 0,
+                            rating3: 0,
+                            rating4: 0,
+                            rating5: 0
+                        },
                         ...data,
                         genres: data.genres.map((g) => g.value),
                         cover: url,
